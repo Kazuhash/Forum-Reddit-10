@@ -1,14 +1,49 @@
 :root {
-    --bg-primary: #f0f2f5;
-    --bg-card: #ffffff;
-    --text-main: #1c1e21;
-    --text-muted: #65676b;
-    --accent: #1877f2;
-    --accent-soft: #e7f3ff;
-    --danger: #e41e3f;
-    --danger-soft: #ffebe9;
-    --border-color: #e4e6eb;
-    --input-bg: #f0f2f5;
-    --sidebar-width: 240px;
-    --right-sidebar-width: 300px;
+  --bg-primary: #f0f2f5;
+  --bg-card: #fff;
+  --text-main: #1c1e21;
+  --text-muted: #65676b;
+  --accent: #1877f2;
+  --border-color: #e4e6eb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.app-container {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 20px;
+  width: 100%;
+  padding: 0 20px 20px 0;
+}
+
+.sidebar {
+  background-color: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  padding: 16px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.brand {
+  margin-bottom: 20px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent);
+  text-decoration: none;
 }
