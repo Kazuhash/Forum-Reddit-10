@@ -22,7 +22,7 @@ body {
 
 .app-container {
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 240px 1fr 300px;
   gap: 20px;
   width: 100%;
   padding: 0 20px 20px 0;
@@ -73,4 +73,38 @@ body {
 .nav-item.active {
   background-color: #e7f3ff;
   color: var(--accent);
+}
+
+.main-content {
+  padding-top: 16px;
+}
+
+.top-header {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 10px 16px;
+}
+
+.search-form {
+  display: flex;
+  gap: 8px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 9px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  background-color: #f0f2f5;
+  font-size: 14px;
+}
+
+.btn-search {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent);
+  color: white;
+  cursor: pointer;
 }
