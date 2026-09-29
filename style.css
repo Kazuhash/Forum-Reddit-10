@@ -22,7 +22,7 @@ body {
 
 .app-container {
   display: grid;
-  grid-template-columns: 240px 1fr 300px;
+  grid-template-columns: 240px 1fr;
   gap: 20px;
   width: 100%;
   padding: 0 20px 20px 0;
@@ -107,4 +107,62 @@ body {
   background-color: var(--accent);
   color: white;
   cursor: pointer;
+}
+
+.feed-section {
+  margin-top: 20px;
+}
+
+.feed-title {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.post-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.post-header {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.post-author {
+  font-weight: bold;
+}
+
+.post-time {
+  color: var(--text-muted);
+}
+
+.post-title {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.post-excerpt {
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.post-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-action {
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  padding: 7px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-action:hover {
+  background-color: #f0f2f5;
 }
