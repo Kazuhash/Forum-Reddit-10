@@ -4,21 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile - Forum Reddit 10</title>
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/profile.css">
 </head>
 <body>
-
-  <header class="site-header">
-    <a href="../index.html" class="logo">Forum-Reddit-10</a>
-    <div class="user-menu">
-      <button class="user-menu-trigger" onclick="toggleUserMenu()">Gracia</button>
-      <div class="user-menu-dropdown" id="userMenuDropdown">
-        <a href="about.html">About</a>
-        <a href="chat.html">Chat</a>
-        <a href="profile.html">Profile</a>
-      </div>
-    </div>
-  </header>
 
   <main class="profile-page">
     <section class="profile-header">
@@ -30,6 +18,9 @@
           <span><strong>12</strong> Post</span>
           <span><strong>3</strong> Komunitas</span>
         </div>
+        <button type="button" id="uploadBtn" class="avatar-btn">Pilih Foto</button>
+        <button type="button" id="cameraBtn" class="avatar-btn">Ambil Foto</button>
+        <input type="file" id="avatarInput" accept="image/*" hidden>
       </div>
     </section>
 
@@ -43,6 +34,16 @@
     </section>
   </main>
 
-  <script src="../script.js"></script>
+  <div id="cameraModal" class="camera-modal">
+    <div class="camera-box">
+      <video id="cameraVideo" autoplay playsinline></video>
+      <div class="camera-actions">
+        <button type="button" id="snapBtn" class="avatar-btn">Jepret</button>
+        <button type="button" id="closeCameraBtn" class="avatar-btn">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/profile.js"></script>
 </body>
 </html>

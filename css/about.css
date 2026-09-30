@@ -1,0 +1,122 @@
+/* ===== Header (About page) ===== */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-header .logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ff4500;
+  text-decoration: none;
+}
+
+/* ===== User menu dropdown ===== */
+.user-menu {
+  position: relative;
+}
+
+.user-menu-trigger {
+  background-color: #ff4500;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.user-menu-trigger:hover {
+  background-color: #e03d00;
+}
+
+.user-menu-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 160px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.user-menu-dropdown.show {
+  display: block;
+}
+
+.user-menu-dropdown a {
+  display: block;
+  padding: 10px 16px;
+  color: #1c1c1c;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.user-menu-dropdown a:hover {
+  background-color: #f6f7f8;
+}
+
+/* ===== About page ===== */
+.about-page {
+  max-width: 800px;
+  margin: 32px auto;
+  padding: 0 20px;
+  line-height: 1.7;
+  color: #1c1c1c;
+}
+
+.about-page h1 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: #ff4500;
+}
+
+.about-section {
+  margin-top: 24px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.about-section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+/* ===== Team list ===== */
+.team-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.team-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.team-list li:last-child {
+  border-bottom: none;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .site-header {
+    padding: 10px 14px;
+  }
+
+  .about-page h1 {
+    font-size: 1.6rem;
+  }
+}
