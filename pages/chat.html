@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat - Forum Reddit 10</title>
+  <link rel="stylesheet" href="../css/global.css">
+</head>
+<body>
+    <script src="../script.js"></script>
+  <script src="chat.js"></script>
+</body>
+
+  <header class="site-header">
+    <a href="../index.html" class="logo">Forum-Reddit-10</a>
+    <div class="user-menu">
+      <button class="user-menu-trigger" onclick="toggleUserMenu()">Gracia</button>
+      <div class="user-menu-dropdown" id="userMenuDropdown">
+        <a href="about.html">About</a>
+        <a href="chat.html">Chat</a>
+        <a href="profile.html">Profile</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="chat-page">
+    <aside class="chat-list">
+      <h2>Percakapan</h2>
+      <ul id="chatContactList">
+        <li class="chat-contact active">Marchella</li>
+        <li class="chat-contact">Kazuhash</li>
+        <!-- Item kontak lain di-generate lewat JS/backend nantinya -->
+      </ul>
+    </aside>
+
+    <section class="chat-window">
+      <div class="chat-messages" id="chatMessages">
+        <div class="message received">Hai, gimana progress halamannya?</div>
+        <div class="message sent">Lagi aku kerjain, bentar lagi selesai!</div>
+      </div>
+
+      <form class="chat-input-form" id="chatForm">
+        <input type="text" id="chatInput" placeholder="Ketik pesan..." required>
+        <button type="submit">Kirim</button>
+      </form>
+    </section>
+  </main>
+
+ <link rel="stylesheet" href="../css/chat.css">
+</html>

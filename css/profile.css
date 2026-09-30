@@ -1,0 +1,146 @@
+body {
+  margin: 0;
+  background-color: #f6f7f8;
+  font-family: Arial, sans-serif;
+  color: #1c1c1c;
+}
+
+.profile-page {
+  max-width: 800px;
+  margin: 32px auto;
+  padding: 0 20px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ff4500;
+  flex-shrink: 0;
+}
+
+.profile-info h1 {
+  margin: 0 0 6px;
+  font-size: 1.8rem;
+}
+
+.profile-bio {
+  margin: 0 0 12px;
+  color: #555555;
+  line-height: 1.5;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 20px;
+  font-size: 0.95rem;
+  color: #555555;
+}
+
+.profile-stats strong {
+  color: #ff4500;
+}
+
+.profile-posts {
+  margin-top: 24px;
+}
+
+.profile-posts h2 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+.post-card {
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.post-card:hover {
+  border-color: #ff4500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.post-card h3 {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+}
+
+.post-card p {
+  margin: 0;
+  color: #555555;
+  line-height: 1.5;
+}
+
+/* ===== Tombol foto & kamera ===== */
+.avatar-btn {
+  margin-top: 12px;
+  margin-right: 8px;
+  padding: 8px 16px;
+  background-color: #ff4500;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.avatar-btn:hover {
+  background-color: #e03d00;
+}
+
+.camera-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.camera-modal.show {
+  display: flex;
+}
+
+.camera-box {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.camera-box video {
+  width: 320px;
+  max-width: 100%;
+  border-radius: 8px;
+  transform: scaleX(-1);
+}
+
+.camera-actions {
+  margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-stats {
+    justify-content: center;
+  }
+}

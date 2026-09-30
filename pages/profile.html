@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Forum Reddit 10</title>
+  <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+
+  <main class="profile-page">
+    <section class="profile-header">
+      <img src="../assets/images/avatars/default.png" alt="Avatar" class="profile-avatar">
+      <div class="profile-info">
+        <h1>Gracia</h1>
+        <p class="profile-bio">Mahasiswa Teknik Informatika UNTAR.</p>
+        <div class="profile-stats">
+          <span><strong>12</strong> Post</span>
+          <span><strong>3</strong> Komunitas</span>
+        </div>
+        <button type="button" id="uploadBtn" class="avatar-btn">Pilih Foto</button>
+        <button type="button" id="cameraBtn" class="avatar-btn">Ambil Foto</button>
+        <input type="file" id="avatarInput" accept="image/*" hidden>
+      </div>
+    </section>
+
+    <section class="profile-posts">
+      <h2>Postingan Saya</h2>
+      <div class="post-card">
+        <h3>Judul Post Contoh</h3>
+        <p>Ini contoh preview isi post...</p>
+      </div>
+      <!-- Post lain di-generate lewat JS/backend nantinya -->
+    </section>
+  </main>
+
+  <div id="cameraModal" class="camera-modal">
+    <div class="camera-box">
+      <video id="cameraVideo" autoplay playsinline></video>
+      <div class="camera-actions">
+        <button type="button" id="snapBtn" class="avatar-btn">Jepret</button>
+        <button type="button" id="closeCameraBtn" class="avatar-btn">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/profile.js"></script>
+</body>
+</html>
