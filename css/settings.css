@@ -1,0 +1,39 @@
+/* Styling Variabel Warna Reddit */
+:root {
+    --sr-bg: #0e1113;
+    --sr-card-bg: #1a1a1b;
+    --sr-border: #343536;
+    --sr-text: #d7dadc;
+    --sr-text-muted: #818384;
+    --sr-orange: #ff4500;
+}
+
+body {
+    background-color: var(--sr-bg);
+    color: var(--sr-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.sr-navbar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: var(--sr-card-bg);
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--sr-border);
+}
+
+.sr-logo {
+    color: var(--sr-orange);
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.sr-search-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
