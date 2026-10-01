@@ -8,60 +8,60 @@
 </head>
 <body>
 
-<header class="cp-navbar">
-    <div class="cp-logo">reddot</div>
-</header>
+    <header class="cp-navbar">
+        <a href="search-bar-result.html" class="cp-logo">reddot</a>
+    </header>
 
-<main class="cp-container">
-    <h2>Create a post</h2>
+    <main class="cp-container">
+        <h2>Create a post</h2>
 
-    <div class="cp-select-wrapper">
-    <select id="cp-subreddit" required>
-        <option value="" disabled selected>Choose a community</option>
-        <option value="r/luckyme">r/luckyme</option>
-        <option value="r/meme">r/meme</option>
-        <option value="r/larpin">r/larpin</option>
-    </select>
-    </div>
-
-    <div class="cp-card">
-    <div class="cp-tabs">
-        <button class="cp-tab-btn active" data-tab="text"> Post</button>
-        <button class="cp-tab-btn" data-tab="media">Images & Video</button>
-        <button class="cp-tab-btn" data-tab="link">Link</button>
-    </div>
-
-    <form id="cp-main-form">
-        <div class="cp-form-group">
-        <input type="text" id="cp-title-input" placeholder="Title" maxlength="300" required>
-        <span class="cp-char-count"><span id="cp-count">0</span>/300</span>
+        <div class="cp-select-wrapper">
+            <select id="cp-subreddit" required>
+                <option value="" disabled selected>Choose a community</option>
+                <option value="r/luckyme">r/luckyme</option>
+                <option value="r/meme">r/meme</option>
+                <option value="r/larpin">r/larpin</option>
+            </select>
         </div>
 
-        <div class="cp-tab-content active" id="cp-tab-text">
-        <textarea id="cp-body-input" placeholder="Text" rows="8"></textarea>
-        </div>
+        <div class="cp-card">
+            <div class="cp-tabs">
+                <button type="button" class="cp-tab-btn active" data-tab="text">Post</button>
+                <button type="button" class="cp-tab-btn" data-tab="media">Images &amp; Video</button>
+                <button type="button" class="cp-tab-btn" data-tab="link">Link</button>
+            </div>
 
-        <div class="cp-tab-content" id="cp-tab-media">
-        <div class="cp-upload-area">
-            <input type="file" id="cp-file-input" accept="image/*">
-            <p>Drag and drop images or <span>Upload</span></p>
-            <div id="cp-image-preview"></div>
-        </div>
-        </div>
+            <form id="cp-main-form">
+                <div class="cp-form-group">
+                    <input type="text" id="cp-title-input" placeholder="Title" maxlength="300" required>
+                    <span class="cp-char-count"><span id="cp-count">0</span>/300</span>
+                </div>
 
-        <div class="cp-tab-content" id="cp-tab-link">
-        <input type="url" id="cp-link-input" placeholder="URL (https://...)">
-        </div>
+                <div class="cp-tab-content active" id="cp-tab-text">
+                    <textarea id="cp-body-input" placeholder="Text" rows="8"></textarea>
+                </div>
 
-        <div class="cp-form-footer">
-        <button type="button" class="cp-cancel-btn">Cancel</button>
-        <button type="submit" class="cp-submit-btn">Post</button>
-        </div>
-    </form>
-    </div>
-</main>
+                <div class="cp-tab-content" id="cp-tab-media">
+                    <div class="cp-upload-box">
+                        <input type="file" id="cp-file-input" accept="image/*">
+                        <p>Drag and drop images or <span>Upload</span></p>
+                        <div id="cp-image-preview"></div>
+                    </div>
+                </div>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="../js/create-post.js"></script>
+                <div class="cp-tab-content" id="cp-tab-link">
+                    <input type="url" id="cp-link-input" placeholder="URL (https://...)">
+                </div>
+
+                <div class="cp-form-footer">
+                    <button type="button" class="cp-cancel-btn">Cancel</button>
+                    <button type="submit" class="cp-submit-btn">Post</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/create-post.js"></script>
 </body>
 </html>
