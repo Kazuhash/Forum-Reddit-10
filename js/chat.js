@@ -6,14 +6,21 @@ document.addEventListener('DOMContentLoaded', function () {
   const contactItems = document.querySelectorAll('#chatContactList .chat-contact');
 
   const chatHistory = {
-    Marchella: [
+    MarchellaYonansya: [
       { type: 'received', text: 'Hai, gimana progress halamannya?' },
       { type: 'sent', text: 'Lagi aku kerjain, bentar lagi selesai!' }
     ],
-    Kazuhash: []
+    JerichoStiveAngdev: [],
+    JhosuaEbenezer: [],
+    BrendonWesley: []
+
   };
 
-  let activeContact = 'Marchella';
+  let activeContact = 'MarchellaYonansya';
+
+  function toggleUserMenu() {
+  document.getElementById('userMenuDropdown').classList.toggle('show');
+}
 
   function scrollToBottom() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
