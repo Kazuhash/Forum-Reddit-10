@@ -1,73 +1,89 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Search Bar & Results</title>
-<link rel="stylesheet" href="../css/search-bar-result.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bar &amp; Results</title>
+    <link rel="stylesheet" href="../css/search-bar-result.css">
 </head>
 <body>
 
     <header class="sr-navbar">
-    <div class="sr-logo">reddot</div>
-    <div class="sr-search-container">
-    <input type="text" id="sr-search-input" placeholder="Search Reddot..." value="javascript">
-    <button id="sr-clear-btn">&times;</button>
-    </div>
-</header>
+        <a href="search-bar-result.html" class="sr-logo">reddot</a>
+        <div class="sr-search-container">
+            <input type="text" id="sr-search-input" placeholder="Search Reddot...">
+            <button type="button" id="sr-clear-btn">&times;</button>
+        </div>
+        <a href="create-post.html" class="sr-create-btn">+ Create Post</a>
+    </header>
 
     <main class="sr-container">
-    
-    <div class="sr-filter">
-    <button class="sr-tab-btn active" data-tab="all">Posts</button>
-    <button class="sr-tab-btn" data-tab="community">Communities</button>
-    <button class="sr-tab-btn" data-tab="comments">Comments</button>
-    </div>
 
-    <div class="sr-results">
-    
-        <div class="sr-card" data-category="all">
-        <div class="sr-card-header">
-        <span class="sr-subreddit">r/vitaminme</span>
-        <span class="sr-author">• Posted by wowonheean 12 hours ago</span>
+        <div class="sr-filter-tabs">
+            <button type="button" class="sr-tab active" data-tab="posts">Posts</button>
+            <button type="button" class="sr-tab" data-tab="community">Communities</button>
+            <button type="button" class="sr-tab" data-tab="comments">Comments</button>
         </div>
-        <h3 class="sr-title">Kenawhy idol itu cape?</h3>
-        <p class="sr-snippet">I see mereka have fun aja tapi kenapa keliatanya kaya tekanan bagong?</p>
-        <div class="sr-card-footer">
-        <span>⬆ 888 Upvotes</span>
-        <span>💬 123 Comments</span>
-        </div>
-    </div>
 
-    <div class="sr-card" data-category="community">
-        <div class="sr-card-header">
-        <span class="sr-subreddit">r/Gllitz</span>
-        <span class="sr-author">• 55M Members</span>
-        </div>
-        <h3 class="sr-title">Komunitas Pecinta Illit</h3>
-        <p class="sr-snippet">Subreddit taht used to membantu orang have</p>
-        <div class="sr-card-footer">
-        <button class="sr-join-btn">Join</button>
-        </div>
-    </div>
+        <div class="sr-results">
 
-    <div class="sr-card" data-category="all">
-        <div class="sr-card-header">
-        <span class="sr-subreddit">r/indonesia</span>
-        <span class="sr-author">• Posted by Mymintz 10 hours ago</span>
-        </div>
-        <h3 class="sr-title">Tutorial kena ban laptop</h3>
-        <p class="sr-snippet">Step 1 buka file explorer dan search windows lalu delete and done.</p>
-        <div class="sr-card-footer">
-        <span>⬆ 10000 Upvotes</span>
-        <span>💬 365 Comments</span>
-        </div>
-    </div>
+            <div class="sr-card" data-category="posts">
+                <div class="sr-card-header">
+                    <span class="sr-subreddit">r/vitaminme</span>
+                    <span class="sr-author">• Posted by wowonheean 12 hours ago</span>
+                </div>
+                <h3 class="sr-title">Kenawhy idol itu cape?</h3>
+                <p class="sr-snippet">I see mereka have fun aja tapi kenapa keliatanya kaya tekanan bagong?</p>
+                <div class="sr-card-footer">
+                    <span>⬆ 888 Upvotes</span>
+                    <span>💬 123 Comments</span>
+                </div>
+            </div>
 
-    </div>
-</main>
+            <div class="sr-card" data-category="posts">
+                <div class="sr-card-header">
+                    <span class="sr-subreddit">r/indonesia</span>
+                    <span class="sr-author">• Posted by Mymintz 10 hours ago</span>
+                </div>
+                <h3 class="sr-title">Tutorial kena ban laptop</h3>
+                <p class="sr-snippet">Step 1 buka file explorer dan search windows lalu delete and done.</p>
+                <div class="sr-card-footer">
+                    <span>⬆ 10000 Upvotes</span>
+                    <span>💬 365 Comments</span>
+                </div>
+            </div>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="../js/search-bar-result.js"></script>
+            <div class="sr-card" data-category="community">
+                <div class="sr-card-header">
+                    <span class="sr-subreddit">r/Gllitz</span>
+                    <span class="sr-author">• 55M Members</span>
+                </div>
+                <h3 class="sr-title">Komunitas Pecinta Illit</h3>
+                <p class="sr-snippet">Subreddit untuk para penggemar Illit berbagi dan berdiskusi.</p>
+                <div class="sr-card-footer">
+                    <button type="button" class="sr-join-btn">Join</button>
+                </div>
+            </div>
+
+            <div class="sr-card" data-category="comments">
+                <div class="sr-card-header">
+                    <span class="sr-subreddit">r/indonesia</span>
+                    <span class="sr-author">• Comment by Mymintz 9 hours ago</span>
+                </div>
+                <h3 class="sr-title">Re: Tutorial kena ban laptop</h3>
+                <p class="sr-snippet">Jangan dicoba di laptop kantor ya, nanti beneran kena ban.</p>
+                <div class="sr-card-footer">
+                    <span>⬆ 420 Upvotes</span>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="sr-no-results" id="sr-no-results">Tidak ada hasil yang cocok.</p>
+
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../js/search-bar-result.js"></script>
 </body>
 </html>
