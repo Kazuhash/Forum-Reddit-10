@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Forum - Beranda Diskusi</title>
+  <title>Forumly - Beranda Diskusi</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,17 +15,24 @@
     <aside class="sidebar">
       <div class="sidebar-top">
         <div class="brand">
-          <a href="index.html" class="logo">Forum</a>
+          <a href="index.html" class="logo">Forumly</a>
         </div>
 
-<nav class="nav-group">
-  <span class="nav-title">NAVIGASI UTAMA</span>
+        <nav class="nav-group">
+          <span class="nav-title">NAVIGASI UTAMA</span>
+          <a href="index.html" class="nav-item active">Beranda</a>
+          <a href="explore/explore.html" class="nav-item">Explore Topik</a>
+          <a href="community/community.html" class="nav-item">Komunitas</a>
 
-  <a href="index.html" class="nav-item active">Beranda</a>
-  <a href="explore/explore.html" class="nav-item">Explore Topik</a>
-  <a href="community/community.html" class="nav-item">Komunitas</a>
-</nav>    
-
+          <span class="nav-title">HALAMAN UTAMA</span>
+          <a href="popular.html" class="nav-item">Popular</a>
+          <a href="chat.html" class="nav-item">Chat</a>
+          <a href="inbox.html" class="nav-item">Inbox</a>
+          <a href="whats-new.html" class="nav-item">What's New</a>
+          <a href="about.html" class="nav-item">About</a>
+          <a href="settings.html" class="nav-item">Settings</a>
+          <a href="contact.html" class="nav-item">Contact Us</a>
+        </nav>
       </div>
 
       <div class="sidebar-bottom">
@@ -39,10 +46,9 @@
           </div>
         </a>
       </div>
-
     </aside>
 
-      <div class="main-content">
+    <main class="main-content">
       
       <header class="top-header">
         <form action="search.html" method="GET" class="search-form">
@@ -77,69 +83,112 @@
           </div>
         </article>
 
-  </section>
+        <article class="post-card" data-post-id="2">
+          <div class="post-header">
+            <span class="post-author">Rian Pratama</span>
+            <span class="post-time">• 4 jam lalu dalam <a href="#">Anime</a></span>
+          </div>
+          <h3 class="post-title">Anime Spring Season 2026 mana yang paling worth it buat diikuti?</h3>
+          <p class="post-excerpt">Musim ini lumayan banyak rilis sekuel dan adaptasi baru. Mau minta rekomendasi anime genre misteri atau slice of life yang alurnya rapi.</p>
 
-    </div>
+          <div class="post-actions">
+            <button class="btn-action btn-like" data-count="28">♥ Suka (<span class="count-label">28</span>)</button>
+            <button class="btn-action btn-dislike" data-count="0">Tidak Suka (<span class="count-label">0</span>)</button>
+            <button class="btn-action btn-open-thread" 
+                    data-id="2"
+                    data-author="Rian Pratama"
+                    data-title="Anime Spring Season 2026 mana yang paling worth it buat diikuti?"
+                    data-content="Musim ini lumayan banyak rilis sekuel dan adaptasi baru. Mau minta rekomendasi anime genre misteri atau slice of life yang alurnya rapi.">
+               Komentar (<span class="comment-count-label">2</span>)
+            </button>
+            <button class="btn-action btn-report-post" data-target="Post Rian Pratama"> Laporkan</button>
+          </div>
+        </article>
+      </section>
+
+    </main>
 
     <aside class="right-sidebar">
-
-      <div class="sidebar-card">
-        <h3>Topik Populer</h3>
-
-        <a href="#" class="topic-item">
-          <span>Teknologi</span>
-          <span>24 diskusi</span>
-        </a>
-
-        <a href="#" class="topic-item">
-          <span>Anime</span>
-          <span>18 diskusi</span>
-        </a>
-
-        <a href="#" class="topic-item">
-          <span>Gaming</span>
-          <span>15 diskusi</span>
-        </a>
-
-        <a href="#" class="topic-item">
-          <span>Finance</span>
-          <span>12 diskusi</span>
-        </a>
+      <div class="widget-card">
+        <h4 class="widget-title"> Topik Hangat</h4>
+        <ul class="widget-list">
+          <li><a href="#">#SpringAnime2026</a><br><small class="widget-sub">142 diskusi aktif</small></li>
+          <li><a href="#">#InvestasiMahasiswa</a><br><small class="widget-sub">89 diskusi aktif</small></li>
+          <li><a href="#">#CalonWinterAnime2026</a><br><small class="widget-sub">67 diskusi aktif</small></li>
+        </ul>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Komunitas Aktif</h3>
-
-        <div class="community-item">
-          <div class="community-avatar">T</div>
-          <div>
-            <strong>TechTalk</strong>
-            <span>1.2K anggota</span>
-          </div>
-        </div>
-
-        <div class="community-item">
-          <div class="community-avatar">A</div>
-          <div>
-            <strong>Anime Corner</strong>
-            <span>890 anggota</span>
-          </div>
-        </div>
-
-        <div class="community-item">
-          <div class="community-avatar">G</div>
-          <div>
-            <strong>GameHub</strong>
-            <span>756 anggota</span>
-          </div>
-        </div>
+      <div class="widget-card">
+        <h4 class="widget-title"> Aturan Forum</h4>
+        <p class="widget-text">1. Jaga kesopanan antar anggota.<br>2. Gunakan fitur report jika melihat spam.<br>3. Gunakan kategori sesuai topik.</p>
       </div>
-
     </aside>
 
   </div>
 
+  <div class="modal-overlay" id="threadModal">
+    <div class="modal-card modal-full-page">
+      <div class="modal-header">
+        <h3>Detail Diskusi</h3>
+        <button class="btn-close" id="btnCloseThreadModal">&times;</button>
+      </div>
+      
+      <div class="modal-body-scroll">
+        <div class="thread-main-post">
+          <span class="post-author" id="modalPostAuthor"></span>
+          <h2 class="post-title" id="modalPostTitle"></h2>
+          <p class="post-excerpt" id="modalPostContent"></p>
+        </div>
 
-    <script src="script.js"></script>
-    </body>
-    </html>
+        <div class="comments-section-header">
+          <h4>Komentar (<span id="modalCommentCount">0</span>)</h4>
+        </div>
+
+        <div class="comment-input-box">
+          <input type="text" id="inputMainComment" placeholder="Tulis komentar sebagai Guest..." class="input-field">
+          <button class="btn btn-primary" id="btnSendMainComment">Kirim</button>
+        </div>
+
+        <div class="comment-tree" id="commentTree"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="reportModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Laporkan Konten</h3>
+        <button class="btn-close" id="btnCloseReportModal">&times;</button>
+      </div>
+      <p class="modal-description" id="reportTargetText">Pilih alasan melaporkan:</p>
+      <select class="input-field select-field" id="selectReportReason">
+        <option value="spam">Spam / Penipuan</option>
+        <option value="hate">Ujaran Kebencian / SARA</option>
+        <option value="inappropriate">Konten Tidak Layak</option>
+      </select>
+      <button class="btn btn-primary btn-full" id="btnSubmitReport">Kirim Laporan</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="communityModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Buat Komunitas Baru</h3>
+        <button class="btn-close" id="btnCloseCommunityModal">&times;</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nama Komunitas</label>
+        <input type="text" id="inputCommName" placeholder="Contoh: Anime & Manga Indonesia" class="input-field">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Deskripsi</label>
+        <textarea id="inputCommDesc" placeholder="Jelaskan topik komunitas ini..." class="input-field textarea-field"></textarea>
+      </div>
+      <button class="btn btn-primary btn-full" id="btnSubmitCommunity">Buat Sekarang</button>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
