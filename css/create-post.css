@@ -51,7 +51,6 @@ body {
     padding: 15px;
 }
 
-/* Tabs */
 .cp-tabs {
     display: flex;
     border-bottom: 1px solid var(--cp-border);
@@ -166,4 +165,35 @@ textarea {
     border-radius: 20px;
     font-weight: bold;
     cursor: pointer;
+}
+
+a.cp-logo {
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .cp-container {
+        margin: 12px auto;
+    }
+
+    .cp-select-wrapper select {
+        width: 100%;
+    }
+
+    .cp-tab-btn {
+        padding: 10px 6px;
+        font-size: 13px;
+    }
+
+    .cp-upload-box {
+        padding: 20px 10px;
+    }
+
+    .cp-form-footer {
+        flex-direction: column-reverse;
+    }
+
+    .cp-form-footer button {
+        width: 100%;
+    }
 }
