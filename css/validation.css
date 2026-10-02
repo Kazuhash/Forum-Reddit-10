@@ -1,0 +1,145 @@
+:root {
+    --v-bg: #0e1113;
+    --v-card-bg: #1a1a1b;
+    --v-border: #343536;
+    --v-text: #d7dadc;
+    --v-text-muted: #818384;
+    --v-orange: #ff4500;
+    --v-input-bg: #272729;
+    --v-error: #ff585b;
+}
+ 
+* {
+    box-sizing: border-box;
+}
+ 
+body {
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--v-bg);
+    color: var(--v-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+ 
+/* Card (same look as .cp-card / .sr-settings-layout) */
+.wrapper {
+    width: 100%;
+    max-width: 420px;
+    padding: 30px 25px;
+    background-color: var(--v-card-bg);
+    border: 1px solid var(--v-border);
+    border-radius: 8px;
+    text-align: center;
+}
+ 
+h1 {
+    margin: 0 0 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--v-border);
+    font-size: 16px;
+    color: var(--v-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+ 
+/* Error text shown by validation.js */
+#error-message {
+    min-height: 18px;
+    margin: 0 0 12px;
+    font-size: 13px;
+    color: var(--v-error);
+}
+ 
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0 0 20px;
+}
+ 
+form > div {
+    width: 100%;
+}
+ 
+form input {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: var(--v-input-bg);
+    border: 1px solid var(--v-border);
+    border-radius: 4px;
+    color: var(--v-text);
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+ 
+form input::placeholder {
+    color: var(--v-text-muted);
+}
+ 
+form input:hover {
+    border-color: var(--v-text-muted);
+}
+ 
+form input:focus {
+    outline: none;
+    border-color: var(--v-text);
+}
+ 
+/* Pill button (same as .sr-join-btn / .cp-submit-btn) */
+form button {
+    margin-top: 8px;
+    padding: 8px 24px;
+    background-color: var(--v-orange);
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+ 
+form button:hover,
+form button:focus {
+    outline: none;
+    opacity: 0.9;
+}
+ 
+/* Links under the form */
+.wrapper p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--v-text-muted);
+}
+ 
+a {
+    color: var(--v-orange);
+    font-weight: 600;
+    text-decoration: none;
+}
+ 
+a:hover {
+    text-decoration: underline;
+}
+ 
+/* Classes toggled by validation.js — keep these names */
+form div.incorrect input {
+    border-color: var(--v-error);
+}
+ 
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+ 
+    .wrapper {
+        padding: 24px 16px;
+    }
+}
+ 
