@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forumly - Beranda Diskusi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="app-container">
+
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <a href="index.html" class="logo">Forumly</a>
+        </div>
+
+        <nav class="nav-group">
+          <span class="nav-title">NAVIGASI UTAMA</span>
+          <a href="index.html" class="nav-item active">Beranda</a>
+          <a href="explore/explore.html" class="nav-item">Explore Topik</a>
+          <a href="community/community.html" class="nav-item">Komunitas</a>
+
+          <span class="nav-title">HALAMAN UTAMA</span>
+          <a href="popular.html" class="nav-item">Popular</a>
+          <a href="chat.html" class="nav-item">Chat</a>
+          <a href="inbox.html" class="nav-item">Inbox</a>
+          <a href="whats-new.html" class="nav-item">What's New</a>
+          <a href="about.html" class="nav-item">About</a>
+          <a href="settings.html" class="nav-item">Settings</a>
+          <a href="contact.html" class="nav-item">Contact Us</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button class="btn-sidebar-theme" id="btnThemeToggle">🌙 Mode Gelap</button>
+
+        <a href="login.html" class="user-profile-card">
+          <div class="avatar">G</div>
+          <div class="user-info">
+            <span class="user-name">Guest</span>
+            <span class="user-status">Belum Login</span>
+          </div>
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      
+      <header class="top-header">
+        <form action="search.html" method="GET" class="search-form">
+          <input type="text" name="q" placeholder="Cari diskusi, pertanyaan, atau topik..." class="search-input">
+          <button type="submit" class="btn btn-search">Cari</button>
+        </form>
+        
+      </header>
+
+      <section class="feed-section">
+        <h2 class="feed-title">Diskusi Terbaru</h2>
+
+        <article class="post-card" data-post-id="1">
+          <div class="post-header">
+            <span class="post-author">Budi Setiwan</span>
+            <span class="post-time">• 2 jam lalu dalam <a href="#">Teknologi</a></span>
+          </div>
+          <h3 class="post-title">Tips belajar struktur data dan algoritma untuk persiapan praktikum minggu depan?</h3>
+          <p class="post-excerpt">Lagi persiapan ujian modul pohon (tree) dan graf. Ada saran visualisasi algoritma atau metode latihan yang efektif?</p>
+
+          <div class="post-actions">
+            <button class="btn-action btn-like" data-count="14">♥ Suka (<span class="count-label">14</span>)</button>
+            <button class="btn-action btn-dislike" data-count="1">Tidak Suka (<span class="count-label">1</span>)</button>
+            <button class="btn-action btn-open-thread" 
+                    data-id="1"
+                    data-author="Budi Setiwan"
+                    data-title="Tips belajar struktur data dan algoritma untuk persiapan praktikum minggu depan?"
+                    data-content="Lagi persiapan ujian modul pohon (tree) dan graf. Ada saran visualisasi algoritma atau metode latihan yang efektif buat mahasiswa Informatik?">
+               Komentar (<span class="comment-count-label">0</span>)
+            </button>
+            <button class="btn-action btn-report-post" data-target="Post Budi Setiwan"> Laporkan</button>
+          </div>
+        </article>
+
+        <article class="post-card" data-post-id="2">
+          <div class="post-header">
+            <span class="post-author">Rian Pratama</span>
+            <span class="post-time">• 4 jam lalu dalam <a href="#">Anime</a></span>
+          </div>
+          <h3 class="post-title">Anime Spring Season 2026 mana yang paling worth it buat diikuti?</h3>
+          <p class="post-excerpt">Musim ini lumayan banyak rilis sekuel dan adaptasi baru. Mau minta rekomendasi anime genre misteri atau slice of life yang alurnya rapi.</p>
+
+          <div class="post-actions">
+            <button class="btn-action btn-like" data-count="28">♥ Suka (<span class="count-label">28</span>)</button>
+            <button class="btn-action btn-dislike" data-count="0">Tidak Suka (<span class="count-label">0</span>)</button>
+            <button class="btn-action btn-open-thread" 
+                    data-id="2"
+                    data-author="Rian Pratama"
+                    data-title="Anime Spring Season 2026 mana yang paling worth it buat diikuti?"
+                    data-content="Musim ini lumayan banyak rilis sekuel dan adaptasi baru. Mau minta rekomendasi anime genre misteri atau slice of life yang alurnya rapi.">
+               Komentar (<span class="comment-count-label">2</span>)
+            </button>
+            <button class="btn-action btn-report-post" data-target="Post Rian Pratama"> Laporkan</button>
+          </div>
+        </article>
+      </section>
+
+    </main>
+
+    <aside class="right-sidebar">
+      <div class="widget-card">
+        <h4 class="widget-title"> Topik Hangat</h4>
+        <ul class="widget-list">
+          <li><a href="#">#SpringAnime2026</a><br><small class="widget-sub">142 diskusi aktif</small></li>
+          <li><a href="#">#InvestasiMahasiswa</a><br><small class="widget-sub">89 diskusi aktif</small></li>
+          <li><a href="#">#CalonWinterAnime2026</a><br><small class="widget-sub">67 diskusi aktif</small></li>
+        </ul>
+      </div>
+
+      <div class="widget-card">
+        <h4 class="widget-title"> Aturan Forum</h4>
+        <p class="widget-text">1. Jaga kesopanan antar anggota.<br>2. Gunakan fitur report jika melihat spam.<br>3. Gunakan kategori sesuai topik.</p>
+      </div>
+    </aside>
+
+  </div>
+
+  <div class="modal-overlay" id="threadModal">
+    <div class="modal-card modal-full-page">
+      <div class="modal-header">
+        <h3>Detail Diskusi</h3>
+        <button class="btn-close" id="btnCloseThreadModal">&times;</button>
+      </div>
+      
+      <div class="modal-body-scroll">
+        <div class="thread-main-post">
+          <span class="post-author" id="modalPostAuthor"></span>
+          <h2 class="post-title" id="modalPostTitle"></h2>
+          <p class="post-excerpt" id="modalPostContent"></p>
+        </div>
+
+        <div class="comments-section-header">
+          <h4>Komentar (<span id="modalCommentCount">0</span>)</h4>
+        </div>
+
+        <div class="comment-input-box">
+          <input type="text" id="inputMainComment" placeholder="Tulis komentar sebagai Guest..." class="input-field">
+          <button class="btn btn-primary" id="btnSendMainComment">Kirim</button>
+        </div>
+
+        <div class="comment-tree" id="commentTree"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="reportModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Laporkan Konten</h3>
+        <button class="btn-close" id="btnCloseReportModal">&times;</button>
+      </div>
+      <p class="modal-description" id="reportTargetText">Pilih alasan melaporkan:</p>
+      <select class="input-field select-field" id="selectReportReason">
+        <option value="spam">Spam / Penipuan</option>
+        <option value="hate">Ujaran Kebencian / SARA</option>
+        <option value="inappropriate">Konten Tidak Layak</option>
+      </select>
+      <button class="btn btn-primary btn-full" id="btnSubmitReport">Kirim Laporan</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="communityModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Buat Komunitas Baru</h3>
+        <button class="btn-close" id="btnCloseCommunityModal">&times;</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nama Komunitas</label>
+        <input type="text" id="inputCommName" placeholder="Contoh: Anime & Manga Indonesia" class="input-field">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Deskripsi</label>
+        <textarea id="inputCommDesc" placeholder="Jelaskan topik komunitas ini..." class="input-field textarea-field"></textarea>
+      </div>
+      <button class="btn btn-primary btn-full" id="btnSubmitCommunity">Buat Sekarang</button>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

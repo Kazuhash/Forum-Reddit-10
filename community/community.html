@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forumly - Komunitas</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="community_style.css">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- SIDEBAR KIRI -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <a href="../index.html" class="logo">Forumly</a>
+        </div>
+
+        <nav class="nav-group">
+          <span class="nav-title">NAVIGASI UTAMA</span>
+          <a href="../index.html" class="nav-item">Beranda</a>
+          <a href="../explore/explore.html" class="nav-item">Explore Topik</a>
+          <a href="community.html" class="nav-item active">Komunitas</a>
+
+          <span class="nav-title">HALAMAN UTAMA</span>
+          <a href="../popular.html" class="nav-item">Popular</a>
+          <a href="../chat.html" class="nav-item">Chat</a>
+          <a href="../inbox.html" class="nav-item">Inbox</a>
+          <a href="../whats-new.html" class="nav-item">What's New</a>
+          <a href="../about.html" class="nav-item">About</a>
+          <a href="../settings.html" class="nav-item">Settings</a>
+          <a href="../contact.html" class="nav-item">Contact Us</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <!-- Tombol Toggle Mode Gelap / Terang (Di Sidebar Kiri) -->
+        <button class="btn-sidebar-theme" id="btnThemeToggle">🌙 Mode Gelap</button>
+
+        <a href="../login.html" class="user-profile-card">
+          <div class="avatar">G</div>
+          <div class="user-info">
+            <span class="user-name">Guest</span>
+            <span class="user-status">Belum Login</span>
+          </div>
+        </a>
+      </div>
+    </aside>
+
+    <!-- KONTEN UTAMA -->
+    <main class="main-content">
+      <header class="top-header">
+        <form action="../search.html" method="GET" class="search-form">
+          <input type="text" name="q" placeholder="Cari diskusi, pertanyaan, atau topik..." class="search-input">
+          <button type="submit" class="btn btn-search">Cari</button>
+        </form>
+      </header>
+
+      <h2 class="feed-title">Komunitas Populer</h2>
+
+      <div class="community-list" id="communityList">
+        <div class="community-card">
+          <div>
+            <h4>Anime Lovers Indonesia</h4>
+            <p class="comm-desc">Wadah diskusi rutin wibu dan pecinta budaya pop Jepang.</p>
+            <small>12.4k Anggota</small>
+          </div>
+          <button class="btn-join">Gabung</button>
+        </div>
+
+        <div class="community-card">
+          <div>
+            <h4>Komunitas Sepakbola Kampus</h4>
+            <p class="comm-desc">Tempat kumpul fans liga lokal & Eropa, mabar game bola, dan nonton bareng.</p>
+            <small>8.1k Anggota</small>
+          </div>
+          <button class="btn-join">Gabung</button>
+        </div>
+
+        <div class="community-card">
+          <div>
+            <h4>Melek Finansial Student</h4>
+            <p class="comm-desc">Belajar manajemen keuangan, investasi, dan persiapan karir.</p>
+            <small>5.9k Anggota</small>
+          </div>
+          <button class="btn-join">Gabung</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- SIDEBAR KANAN -->
+    <aside class="right-sidebar">
+      <div class="widget-card">
+        <h4 class="widget-title">Komunitas</h4>
+        <p class="widget-text">Buat ruang diskusi baru untuk topik yang belum ada.</p>
+        <br>
+        <button class="btn btn-primary btn-full" id="btnOpenModalWidget">+ Buat Komunitas</button>
+      </div>
+    </aside>
+
+  </div>
+
+  <div class="modal-overlay" id="modalCreate">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Buat Komunitas</h3>
+        <button class="btn-close" id="btnCloseModal">&times;</button>
+      </div>
+      <form id="formCreate">
+        <div class="form-group" style="margin-top: 10px;">
+          <label class="form-label">Nama Komunitas</label>
+          <input type="text" id="inputName" placeholder="Contoh: Pemrograman Web" class="input-field" required>
+        </div>
+        <div class="form-group" style="margin-top: 10px; margin-bottom: 16px;">
+          <label class="form-label">Deskripsi</label>
+          <textarea id="inputDesc" placeholder="Jelaskan tujuan komunitas..." class="input-field textarea-field" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Simpan</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../script.js"></script>
+  <script src="community_script.js"></script>
+</body>
+</html>
