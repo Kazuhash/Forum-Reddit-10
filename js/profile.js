@@ -133,3 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   closeBtn.addEventListener('click', closeCamera);
 });
+
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.setAttribute('data-theme', 'dark');
+}
