@@ -5,18 +5,17 @@ document.addEventListener('DOMContentLoaded', function () {
   const chatMessages = document.getElementById('chatMessages');
   const contactItems = document.querySelectorAll('#chatContactList .chat-contact');
 
-  const chatHistory = {
-    MarchellaYonansyah: [
+    const chatHistory = {
+    'Marchella Yonansya': [
       { type: 'received', text: 'Hai, gimana progress halamannya?' },
       { type: 'sent', text: 'Lagi aku kerjain, bentar lagi selesai!' }
     ],
-    JerichoSteveAngdev: [],
-    JoshuaEbenHaezer: [],
-    BrandonWesley: []
-
+    'Jericho Stive Angdev': [],
+    'Jhosua Ebenezer': [],
+    'Brendon Wesley': []
   };
 
-  let activeContact = 'MarchellaYonansyah';
+  let activeContact = 'Marchella Yonansya';
 
   function toggleUserMenu() {
   document.getElementById('userMenuDropdown').classList.toggle('show');
