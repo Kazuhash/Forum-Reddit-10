@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forumly - Topik Anime</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="explore_style.css">
+</head>
+<body>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="app-container">
+
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <a href="../index.html" class="logo">Forumly</a>
+        </div>
+        <nav class="nav-group">
+          <span class="nav-title">NAVIGASI UTAMA</span>
+          <a href="../index.html" class="nav-item">Beranda</a>
+          <a href="explore.html" class="nav-item active">Explore Topik</a>
+          <a href="../community/community.html" class="nav-item">Komunitas</a>
+          <span class="nav-title">HALAMAN UTAMA</span>
+          <a href="../popular.html" class="nav-item">Popular</a>
+          <a href="../chat.html" class="nav-item">Chat</a>
+          <a href="../inbox.html" class="nav-item">Inbox</a>
+          <a href="../whats-new.html" class="nav-item">What's New</a>
+          <a href="../about.html" class="nav-item">About</a>
+          <a href="../settings.html" class="nav-item">Settings</a>
+          <a href="../contact.html" class="nav-item">Contact Us</a>
+        </nav>
+      </div>
+      <div class="sidebar-bottom">
+        <button class="btn-sidebar-theme" id="btnThemeToggle">🌙 Mode Gelap</button>
+        <a href="../login.html" class="user-profile-card">
+          <div class="avatar">G</div>
+          <div class="user-info">
+            <span class="user-name">Guest</span>
+            <span class="user-status">Belum Login</span>
+          </div>
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <a href="explore.html" class="btn-link" style="color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600;">&larr; Kembali ke Explore</a>
+      <h2 class="feed-title" style="margin-top: 12px; margin-bottom: 20px;">Kategori: Anime & Manga</h2>
+
+      <article class="post-card" data-post-id="3">
+        <div class="post-header">
+          <span class="post-author">Brandon</span>
+          <span class="post-time">• 2 jam lalu</span>
+        </div>
+        <h3 class="post-title">Anime apa yang sedang kalian tonton minggu ini?</h3>
+        <p class="post-excerpt">Saya baru mulai beberapa serial adaptasi webtoon dan anime slice of life. Ada saran judul lain yang wajib masuk watchlist?</p>
+        <div class="post-actions">
+          <button class="btn-action btn-like" data-count="125">♥ Suka (<span class="count-label">125</span>)</button>
+          <button class="btn-action btn-dislike" data-count="2">Tidak Suka (<span class="count-label">2</span>)</button>
+          <button class="btn-action btn-open-thread" 
+                  data-id="3"
+                  data-author="Brandon"
+                  data-title="Anime apa yang sedang kalian tonton minggu ini?"
+                  data-content="Saya baru mulai beberapa serial adaptasi webtoon dan anime slice of life. Ada saran judul lain yang wajib masuk watchlist?">
+            Komentar (<span class="comment-count-label">0</span>)
+          </button>
+          <button class="btn-action btn-report-post" data-target="Post Brandon"> Laporkan</button>
+        </div>
+      </article>
+
+      <article class="post-card" data-post-id="4">
+        <div class="post-header">
+          <span class="post-author">Joshua</span>
+          <span class="post-time">• 5 jam lalu</span>
+        </div>
+        <h3 class="post-title">Anime dengan plot twist dan cerita terbaik menurut kalian?</h3>
+        <p class="post-excerpt">Lagi nyari anime yang ceritanya bikin mikir keras kayak Steins;Gate atau Attack on Titan.</p>
+        <div class="post-actions">
+          <button class="btn-action btn-like" data-count="89">♥ Suka (<span class="count-label">89</span>)</button>
+          <button class="btn-action btn-dislike" data-count="0">Tidak Suka (<span class="count-label">0</span>)</button>
+          <button class="btn-action btn-open-thread" 
+                  data-id="4"
+                  data-author="Joshua"
+                  data-title="Anime dengan plot twist dan cerita terbaik menurut kalian?"
+                  data-content="Lagi nyari anime yang ceritanya bikin mikir keras kayak Steins;Gate atau Attack on Titan.">
+            Komentar (<span class="comment-count-label">0</span>)
+          </button>
+          <button class="btn-action btn-report-post" data-target="Post Joshua"> Laporkan</button>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="threadModal">
+    <div class="modal-card modal-full-page">
+      <div class="modal-header">
+        <h3>Detail Diskusi</h3>
+        <button class="btn-close" id="btnCloseThreadModal">&times;</button>
+      </div>
+      
+      <div class="modal-body-scroll">
+        <div class="thread-main-post">
+          <span class="post-author" id="modalPostAuthor"></span>
+          <h2 class="post-title" id="modalPostTitle"></h2>
+          <p class="post-excerpt" id="modalPostContent"></p>
+        </div>
+
+        <div class="comments-section-header">
+          <h4>Komentar (<span id="modalCommentCount">0</span>)</h4>
+        </div>
+
+        <div class="comment-input-box">
+          <input type="text" id="inputMainComment" placeholder="Tulis komentar sebagai Guest..." class="input-field">
+          <button class="btn btn-primary" id="btnSendMainComment">Kirim</button>
+        </div>
+
+        <div class="comment-tree" id="commentTree"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="reportModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Laporkan Konten</h3>
+        <button class="btn-close" id="btnCloseReportModal">&times;</button>
+      </div>
+      <p class="modal-description" id="reportTargetText">Pilih alasan melaporkan:</p>
+      <select class="input-field select-field" id="selectReportReason">
+        <option value="spam">Spam / Penipuan</option>
+        <option value="hate">Ujaran Kebencian / SARA</option>
+        <option value="inappropriate">Konten Tidak Layak</option>
+      </select>
+      <button class="btn btn-primary btn-full" id="btnSubmitReport">Kirim Laporan</button>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../script.js"></script>
+</body>
+</html>
+
