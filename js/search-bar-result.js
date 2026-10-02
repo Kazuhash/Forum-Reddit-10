@@ -1,35 +1,38 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-$('#sr-search-input').on('keyup', function() {
-    var keyword = $(this).val().toLowerCase();
-    
-        $('.sr-card').each(function() {
-        var cardText = $(this).text().toLowerCase();
-        
-        if (cardText.indexOf(keyword) > -1) {
-            $(this).show();
-        } else {
-            $(this).hide();
-        }
+    // Gabungkan filter search + tab dalam satu fungsi
+    function applyFilters() {
+        var keyword = $('#sr-search-input').val().toLowerCase();
+        var selectedTab = $('.sr-tab.active').data('tab');
+        var visibleCount = 0;
+
+        $('.sr-card').each(function () {
+            var matchText = $(this).text().toLowerCase().indexOf(keyword) > -1;
+            var matchTab = $(this).data('category') === selectedTab;
+            var show = matchText && matchTab;
+
+            $(this).toggle(show);
+            if (show) {
+                visibleCount++;
+            }
         });
+
+        $('#sr-no-results').toggleClass('show', visibleCount === 0);
+    }
+
+    $('#sr-search-input').on('input', applyFilters);
+
+    $('#sr-clear-btn').on('click', function () {
+        $('#sr-search-input').val('').focus();
+        applyFilters();
     });
 
-    $('#sr-clear-btn').on('click', function() {
-        $('#sr-search-input').val('').trigger('keyup').focus();
-    });
-
-    $('.sr-tab').on('click', function() {
+    $('.sr-tab').on('click', function () {
         $('.sr-tab').removeClass('active');
         $(this).addClass('active');
-
-        var selectedTab = $(this).data('tab');
-
-        if (selectedTab === 'all') {
-        $('.sr-card').show();
-        } else {
-        $('.sr-card').hide();
-        $('.sr-card[data-category="' + selectedTab + '"]').show();
-        }
+        applyFilters();
     });
+
+    applyFilters();
 
 });
