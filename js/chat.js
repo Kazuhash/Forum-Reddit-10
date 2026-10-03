@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const defaultAvatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">' +
-    '<rect width="200" height="200" fill="#ff4500"/>' +
+    '<rect width="200" height="200" fill="#09b5fe"/>' +
     '<circle cx="100" cy="78" r="38" fill="#ffffff"/>' +
     '<path d="M25 200c0-42 33-72 75-72s75 30 75 72z" fill="#ffffff"/>' +
     '</svg>'
@@ -124,4 +124,38 @@ document.addEventListener('DOMContentLoaded', function () {
   el.title = name;
   el.style.cssText = 'padding:0;background:transparent;border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;';
   el.appendChild(img);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const ref = document.referrer;
+  const halamanChat = ['chat.html', 'search-user.html'];
+  const dariLuarChat = ref
+    && ref.indexOf(window.location.origin) === 0
+    && !halamanChat.some(function (p) { return ref.indexOf(p) !== -1; });
+
+  if (dariLuarChat) {
+    sessionStorage.setItem('chatOrigin', ref);
+  }
+
+  const logo = Array.from(document.querySelectorAll('a, h1, h2, div, span')).find(function (x) {
+    return x.children.length === 0 && x.textContent.trim() === 'Forum-Reddit-10';
+  });
+  if (!logo || !logo.parentNode) return;
+
+  const back = document.createElement('button');
+  back.type = 'button';
+  back.textContent = '<';
+  back.title = 'Kembali';
+  back.setAttribute('aria-label', 'Kembali');
+  back.style.cssText = 'width:36px;height:36px;border:none;border-radius:50%;background:#ff4500;color:#fff;font-size:1.3rem;font-weight:bold;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;';
+  back.addEventListener('click', function () {
+    const origin = sessionStorage.getItem('chatOrigin');
+    window.location.href = origin || '../index.html';
+  });
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;align-items:center;gap:12px;';
+  logo.parentNode.insertBefore(wrap, logo);
+  wrap.appendChild(back);
+  wrap.appendChild(logo);
 });
