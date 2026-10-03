@@ -520,3 +520,131 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.replace('login.html');
   });
 });
+
+(function () {
+  const DATA_KEYS = ['postReactions', 'userPosts', 'avatarGracia', 'userCommunities'];
+  const PREFIX = 'akunBackup:';
+  const AKUN_LAMA = ['graciacs.14052008@gmail.com'];
+  const CONTOH = ['Judul Post Contoh', 'Belajar HTML, CSS, dan JavaScript', 'Tips Ngoding di VS Code'];
+
+  function bacaPengguna() {
+    const kunci = ['currentUser', 'loggedInUser', 'user', 'userAccount', 'account'];
+    for (let i = 0; i < kunci.length; i++) {
+      const raw = localStorage.getItem(kunci[i]);
+      if (!raw) continue;
+      try {
+        const obj = JSON.parse(raw);
+        if (obj && typeof obj === 'object') return obj;
+      } catch (err) {}
+    }
+    return null;
+  }
+
+  function idAktif() {
+    const obj = bacaPengguna();
+    const email = localStorage.getItem('userEmail') ||
+      (obj && obj.email) ||
+      localStorage.getItem('email');
+    return email ? String(email).toLowerCase() : null;
+  }
+
+  function cadangkan(id) {
+    const data = {};
+    DATA_KEYS.forEach(function (k) {
+      const v = localStorage.getItem(k);
+      if (v !== null) data[k] = v;
+    });
+    localStorage.setItem(PREFIX + id, JSON.stringify(data));
+  }
+
+  function pulihkan(id) {
+    const raw = localStorage.getItem(PREFIX + id);
+    if (!raw) return;
+    let data = {};
+    try { data = JSON.parse(raw); } catch (err) { return; }
+    DATA_KEYS.forEach(function (k) {
+      if (localStorage.getItem(k) === null && data[k] !== undefined) {
+        localStorage.setItem(k, data[k]);
+      }
+    });
+  }
+
+  const asliSet = Storage.prototype.setItem;
+  Storage.prototype.setItem = function (k, v) {
+    asliSet.call(this, k, v);
+    if (this === window.localStorage && DATA_KEYS.indexOf(k) !== -1) {
+      const id = idAktif();
+      if (id) cadangkan(id);
+    }
+  };
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('#signoutYes, #soYes')) return;
+    const id = idAktif();
+    if (id) cadangkan(id);
+    DATA_KEYS.forEach(function (k) { localStorage.removeItem(k); });
+  }, true);
+
+  const id = idAktif();
+  if (id) {
+    const terakhir = localStorage.getItem(PREFIX + '__terakhir');
+    if (terakhir && terakhir !== id) {
+      DATA_KEYS.forEach(function (k) { localStorage.removeItem(k); });
+    }
+    pulihkan(id);
+    localStorage.setItem(PREFIX + '__terakhir', id);
+    cadangkan(id);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const aktif = idAktif();
+    if (!aktif || AKUN_LAMA.indexOf(aktif) !== -1) return;
+    const section = document.querySelector('.profile-posts');
+    if (!section) return;
+    Array.from(section.querySelectorAll('.post-card')).slice(0, 3).forEach(function (card) {
+      const h3 = card.querySelector('h3');
+      if (h3 && CONTOH.indexOf(h3.textContent) !== -1) card.remove();
+    });
+    const postStat = document.querySelector('.profile-stats span strong');
+    if (postStat) postStat.textContent = section.querySelectorAll('.post-card').length;
+  });
+})();
+
+(function () {
+  const ref = document.referrer;
+  const keluarga = ['profile.html', 'likes.html', 'tidaksuka.html', 'laporan.html'];
+  const gerbang = ['login.html', 'signin.html'];
+  const dalam = !!ref && ref.indexOf(window.location.origin) === 0;
+  const dariKeluarga = dalam && keluarga.some(function (p) { return ref.indexOf(p) !== -1; });
+  const dariGerbang = dalam && gerbang.some(function (p) { return ref.indexOf(p) !== -1; });
+
+  if (!dalam || dariGerbang) {
+    sessionStorage.removeItem('profileAsal');
+  } else if (!dariKeluarga) {
+    sessionStorage.setItem('profileAsal', ref);
+  }
+
+  document.addEventListener('click', function (e) {
+    const back = e.target.closest('.back-btn');
+    if (!back) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    const asal = sessionStorage.getItem('profileAsal');
+    if (asal) {
+      window.location.href = asal;
+    } else if (window.history.length > 1 && !dariGerbang && !dariKeluarga) {
+      window.history.back();
+    } else {
+      window.location.href = '../index.html';
+    }
+  }, true);
+})();
+
+document.addEventListener('DOMContentLoaded', function () {
+  const nama = localStorage.getItem('username');
+  const email = localStorage.getItem('userEmail');
+  const heading = document.querySelector('.profile-info h1');
+  const bio = document.querySelector('.profile-bio');
+  if (nama && heading) heading.textContent = nama;
+  if (email && bio) bio.textContent = email;
+});
