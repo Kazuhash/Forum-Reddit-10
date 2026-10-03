@@ -74,6 +74,49 @@
       }, true);
     });
   </script>
+  <script>
+(function () {
+  var css =
+    '.glow-kotak{background-color:#000 !important;border-color:#16202a !important;}' +
+    '.glow-input{background-color:#05080b !important;color:#e8f4ff !important;border:1px solid #1d6fa5 !important;outline:none !important;transition:border-color .2s,box-shadow .2s;}' +
+    '.glow-input::placeholder{color:#6b7a86 !important;}' +
+    '.glow-input:focus{border-color:#38bdf8 !important;box-shadow:0 0 6px rgba(56,189,248,.8),0 0 18px rgba(56,189,248,.45),inset 0 0 8px rgba(56,189,248,.15) !important;}' +
+    '.glow-tombol{background-color:#000 !important;color:#38bdf8 !important;border:1px solid #38bdf8 !important;text-shadow:0 0 6px rgba(56,189,248,.8);box-shadow:0 0 8px rgba(56,189,248,.55) !important;transition:box-shadow .2s,color .2s;}' +
+    '.glow-tombol:hover{color:#fff !important;box-shadow:0 0 14px rgba(56,189,248,.9) !important;}';
+
+  var gaya = document.createElement('style');
+  gaya.textContent = css;
+  document.head.appendChild(gaya);
+
+  function punyaLatar(c) {
+    var m = c.match(/[\d.]+/g);
+    if (!m || m.length < 3) return false;
+    if (m.length > 3 && parseFloat(m[3]) === 0) return false;
+    return true;
+  }
+
+  function pasang() {
+    var input = document.querySelector('input[placeholder*="Cari"]');
+    if (!input || input.classList.contains('glow-input')) return !!input;
+    input.classList.add('glow-input');
+    var el = input.parentElement;
+    for (var i = 0; i < 3 && el && el !== document.body; i++) {
+      if (el.offsetHeight > 140) break;
+      if (punyaLatar(getComputedStyle(el).backgroundColor)) el.classList.add('glow-kotak');
+      el.querySelectorAll('button').forEach(function (b) { b.classList.add('glow-tombol'); });
+      el = el.parentElement;
+    }
+    return true;
+  }
+
+  if (!pasang()) {
+    var obs = new MutationObserver(function () {
+      if (pasang()) obs.disconnect();
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+  }
+})();
+</script>
 <body>
 
   <div class="toast-container" id="toastContainer"></div>

@@ -365,7 +365,6 @@ body[data-theme="dark"] .btn-report.active {
   color: #ffc857;
 }
 
-/* ===== TAMBAHAN: kotak konfirmasi Sign Out ===== */
 .signout-modal {
   display: none;
   position: fixed;

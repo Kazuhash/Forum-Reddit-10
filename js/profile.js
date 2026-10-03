@@ -429,7 +429,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var heading = document.querySelector('.profile-info h1');
   var bio = document.querySelector('.profile-bio');
   if (heading) heading.textContent = name || 'Guest';
-  if (bio) bio.textContent = name ? (email || 'Anggota Forum-Reddit-10') : 'Belum login.';
+  if (bio) bio.textContent = name ? (email || 'Anggota Forumly') : 'Belum login.';
 });
 document.addEventListener('DOMContentLoaded', function () {
   const back = document.querySelector('.back-btn');
@@ -648,3 +648,23 @@ document.addEventListener('DOMContentLoaded', function () {
   if (nama && heading) heading.textContent = nama;
   if (email && bio) bio.textContent = email;
 });
+document.addEventListener('DOMContentLoaded', function () {
+  var backButton = document.querySelector('.back-btn');
+
+  if (!backButton) return;
+
+  backButton.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    window.location.href = '../index.html';
+  }, true);
+});
+window.addEventListener('click', function (e) {
+  var backButton = e.target.closest('.back-btn');
+
+  if (!backButton) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+  window.location.href = '../index.html';
+}, true);

@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   const logo = Array.from(document.querySelectorAll('a, h1, h2, div, span')).find(function (x) {
-    return x.children.length === 0 && x.textContent.trim() === 'Forum-Reddit-10';
+    return x.children.length === 0 && x.textContent.trim() === 'Forumly';
   });
   if (!logo || !logo.parentNode) return;
 
@@ -446,13 +446,9 @@ document.addEventListener('DOMContentLoaded', function () {
     } catch (e) {
       target = null;
     }
-
     if (!target || !target.username) return;
-
     var namaUser = target.username.trim();
-
     if (!namaUser) return;
-
     var sudahAda = Array.from(list.querySelectorAll('.chat-contact'))
       .some(function (item) {
         return item.textContent.trim() === namaUser;
@@ -601,4 +597,191 @@ document.addEventListener('DOMContentLoaded', function () {
   list.style.overflowX = 'hidden';
   list.style.paddingBottom = '60px';
   list.style.boxSizing = 'border-box';
+});
+
+(function () {
+  const ref = document.referrer;
+  const putaran = ['about.html', 'chat.html', 'search-user.html', 'login.html', 'signin.html'];
+  const dalam = !!ref && ref.indexOf(window.location.origin) === 0;
+  const dariPutaran = dalam && putaran.some(function (p) { return ref.indexOf(p) !== -1; });
+  const beranda = window.location.pathname.indexOf('/pages/') !== -1 ? '../index.html' : 'index.html';
+
+  document.addEventListener('click', function (e) {
+    const el = e.target.closest('a, button');
+    if (!el) return;
+    const tombolKembali = el.matches('.back-btn, .about-back-btn, [title="Kembali"], [aria-label="Kembali"]') ||
+      el.textContent.trim() === '<';
+    if (!tombolKembali) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    window.location.href = dalam && !dariPutaran ? ref : beranda;
+  }, true);
+})();
+document.addEventListener('DOMContentLoaded', function () {
+  var list = document.getElementById('chatContactList');
+
+  if (!list) return;
+
+  function readContacts() {
+    try {
+      return JSON.parse(localStorage.getItem('chatContacts') || '[]');
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveContacts(contacts) {
+    localStorage.setItem('chatContacts', JSON.stringify(contacts));
+  }
+
+  function readChatData() {
+    try {
+      return JSON.parse(localStorage.getItem('chatData') || '{}');
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function enhanceContact(li) {
+    if (!li || li.dataset.enhanced === '1') return;
+
+    var name = li.textContent.trim();
+
+    if (!name) return;
+
+    li.dataset.enhanced = '1';
+    li.dataset.contactName = name;
+
+    li.textContent = '';
+
+    var nameSpan = document.createElement('span');
+    nameSpan.className = 'chat-contact-name';
+    nameSpan.textContent = name;
+
+    var actions = document.createElement('span');
+    actions.className = 'chat-contact-actions';
+
+    var star = document.createElement('button');
+    star.type = 'button';
+    star.className = 'chat-star-btn';
+    star.textContent = '☆';
+    star.title = 'Opsi';
+
+    var deleteBtn = document.createElement('button');
+    deleteBtn.type = 'button';
+    deleteBtn.className = 'chat-action-btn chat-action-delete';
+    deleteBtn.textContent = '🗑️';
+    deleteBtn.title = 'Hapus percakapan';
+
+    var loveBtn = document.createElement('button');
+    loveBtn.type = 'button';
+    loveBtn.className = 'chat-action-btn chat-action-love';
+    loveBtn.textContent = '❤️';
+    loveBtn.title = 'Love';
+
+    var moneyBtn = document.createElement('button');
+    moneyBtn.type = 'button';
+    moneyBtn.className = 'chat-action-btn chat-action-money';
+    moneyBtn.textContent = '💲';
+    moneyBtn.title = 'Dollar';
+
+    actions.appendChild(star);
+    actions.appendChild(deleteBtn);
+    actions.appendChild(loveBtn);
+    actions.appendChild(moneyBtn);
+
+    li.appendChild(nameSpan);
+    li.appendChild(actions);
+
+    star.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      document.querySelectorAll('.chat-contact-actions.open').forEach(function (other) {
+        if (other !== actions) other.classList.remove('open');
+      });
+
+      actions.classList.toggle('open');
+      star.textContent = actions.classList.contains('open') ? '★' : '☆';
+    });
+
+    deleteBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      var contactName = li.dataset.contactName;
+      var contacts = readContacts();
+
+      contacts = contacts.filter(function (item) {
+        return item !== contactName;
+      });
+
+      saveContacts(contacts);
+
+      var chatData = readChatData();
+      delete chatData[contactName];
+      localStorage.setItem('chatData', JSON.stringify(chatData));
+
+      var wasActive = li.classList.contains('active');
+
+      li.remove();
+
+      if (wasActive) {
+        var remaining = list.querySelectorAll('.chat-contact');
+
+        if (remaining.length > 0) {
+          remaining[0].click();
+        } else {
+          var headerName = document.querySelector('.chat-header-name');
+          var headerAvatar = document.querySelector('.chat-header-avatar');
+          var messages = document.getElementById('chatMessages');
+
+          if (headerName) headerName.textContent = '';
+          if (headerAvatar) headerAvatar.textContent = '';
+          if (messages) messages.innerHTML = '';
+        }
+      }
+    });
+
+    loveBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      loveBtn.textContent = loveBtn.textContent === '❤️' ? '💗' : '❤️';
+    });
+
+    moneyBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      moneyBtn.textContent = moneyBtn.textContent === '💲' ? '💰' : '💲';
+    });
+  }
+
+  function enhanceAll() {
+    list.querySelectorAll('li').forEach(function (li) {
+      enhanceContact(li);
+    });
+  }
+
+  enhanceAll();
+
+  new MutationObserver(function () {
+    enhanceAll();
+  }).observe(list, {
+    childList: true
+  });
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.chat-contact-actions')) return;
+    if (e.target.closest('.chat-star-btn')) return;
+
+    document.querySelectorAll('.chat-contact-actions.open').forEach(function (actions) {
+      actions.classList.remove('open');
+
+      var star = actions.querySelector('.chat-star-btn');
+
+      if (star) star.textContent = '☆';
+    });
+  });
 });
