@@ -290,3 +290,32 @@ body[data-theme="dark"] .chat-contact.active {
 .chat-list button:hover {
   background-color: #0894d1 !important;
 }
+
+body {
+  background: linear-gradient(-45deg, #09b5fe, #0a84e0, #0a4fb0, #052a6e, #09b5fe);
+  background-size: 400% 400%;
+  background-attachment: fixed;
+  animation: chatGradientMove 4s ease infinite;
+}
+
+@keyframes chatGradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.chat-page {
+  border-radius: 0;
+}
+body {
+  background: linear-gradient(-45deg, #d6f0ff, #a8dcf5, #89cff0, #b9e4fa, #d6f0ff);
+  background-size: 400% 400%;
+  background-attachment: fixed;
+  animation: chatGradientMove 4s ease infinite;
+}
