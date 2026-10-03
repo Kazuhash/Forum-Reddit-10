@@ -151,3 +151,146 @@ document.addEventListener('DOMContentLoaded', function () {
     avatar.addEventListener('error', function () { avatar.src = defaultAvatar; });
   }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.profile-posts .post-card').forEach(function (card) {
+    if (card.querySelector('.post-actions')) return;
+
+    let likes = 0;
+    let dislikes = 0;
+    let comments = 0;
+    let state = null; // null | 'like' | 'dislike'
+
+    const actions = document.createElement('div');
+    actions.className = 'post-actions';
+
+    function makeBtn(cls) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn-action ' + cls;
+      actions.appendChild(b);
+      return b;
+    }
+
+    const likeBtn = makeBtn('btn-like');
+    const dislikeBtn = makeBtn('btn-dislike');
+    const commentBtn = makeBtn('btn-comment');
+    const reportBtn = makeBtn('btn-report');
+    reportBtn.textContent = 'Laporkan';
+
+    function update() {
+      likeBtn.textContent = '♥ Suka (' + likes + ')';
+      dislikeBtn.textContent = 'Tidak Suka (' + dislikes + ')';
+      commentBtn.textContent = 'Komentar (' + comments + ')';
+      likeBtn.classList.toggle('active', state === 'like');
+      dislikeBtn.classList.toggle('active', state === 'dislike');
+    }
+
+    likeBtn.addEventListener('click', function () {
+      if (state === 'like') {
+        likes--;
+        state = null;
+      } else {
+        if (state === 'dislike') dislikes--;
+        likes++;
+        state = 'like';
+      }
+      update();
+    });
+
+    dislikeBtn.addEventListener('click', function () {
+      if (state === 'dislike') {
+        dislikes--;
+        state = null;
+      } else {
+        if (state === 'like') likes--;
+        dislikes++;
+        state = 'dislike';
+      }
+      update();
+    });
+
+    commentBtn.addEventListener('click', function () {
+      alert('Buka komentar');
+    });
+
+    reportBtn.addEventListener('click', function () {
+      if (confirm('Laporkan postingan ini?')) alert('Postingan dilaporkan');
+    });
+
+    update();
+    card.appendChild(actions);
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const section = document.querySelector('.profile-posts');
+  const saved = JSON.parse(localStorage.getItem('userPosts') || '[]');
+
+  saved.forEach(function (p) {
+    const card = document.createElement('div');
+    card.className = 'post-card';
+
+    const h3 = document.createElement('h3');
+    h3.textContent = p.title;
+    const para = document.createElement('p');
+    para.textContent = p.content;
+
+    const actions = document.createElement('div');
+    actions.className = 'post-actions';
+    let likes = 0, dislikes = 0, state = null;
+
+    function btn(cls, text) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn-action ' + cls;
+      b.textContent = text || '';
+      actions.appendChild(b);
+      return b;
+    }
+    const likeBtn = btn('btn-like');
+    const dislikeBtn = btn('btn-dislike');
+    const commentBtn = btn('btn-comment');
+    const reportBtn = btn('btn-report', 'Laporkan');
+
+    function update() {
+      likeBtn.textContent = '♥ Suka (' + likes + ')';
+      dislikeBtn.textContent = 'Tidak Suka (' + dislikes + ')';
+      commentBtn.textContent = 'Komentar (0)';
+      likeBtn.classList.toggle('active', state === 'like');
+      dislikeBtn.classList.toggle('active', state === 'dislike');
+    }
+    likeBtn.addEventListener('click', function () {
+      if (state === 'like') { likes--; state = null; }
+      else { if (state === 'dislike') dislikes--; likes++; state = 'like'; }
+      update();
+    });
+    dislikeBtn.addEventListener('click', function () {
+      if (state === 'dislike') { dislikes--; state = null; }
+      else { if (state === 'like') likes--; dislikes++; state = 'dislike'; }
+      update();
+    });
+    commentBtn.addEventListener('click', function () { alert('Buka komentar'); });
+    reportBtn.addEventListener('click', function () {
+      if (confirm('Laporkan postingan ini?')) alert('Postingan dilaporkan');
+    });
+    update();
+
+    card.appendChild(h3);
+    card.appendChild(para);
+    card.appendChild(actions);
+    section.appendChild(card);
+  });
+
+  const postStat = document.querySelector('.profile-stats span strong');
+  if (postStat) postStat.textContent = section.querySelectorAll('.post-card').length;
+});
+const joined = JSON.parse(localStorage.getItem('userCommunities') || '[]');
+if (!joined.includes(namaKomunitas)) joined.push(namaKomunitas);
+localStorage.setItem('userCommunities', JSON.stringify(joined));
+
+document.addEventListener('DOMContentLoaded', function () {
+  const joined = JSON.parse(localStorage.getItem('userCommunities') || '[]');
+  const stats = document.querySelectorAll('.profile-stats span strong');
+  if (stats[1]) stats[1].textContent = joined.length;
+});
