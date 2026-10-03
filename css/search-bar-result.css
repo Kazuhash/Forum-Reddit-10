@@ -198,3 +198,15 @@ a.sr-logo {
         flex-wrap: wrap;
     }
 }
+
+
+.sr-nav-link {
+    color: var(--sr-text);
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.sr-nav-link:hover {
+    color: var(--sr-orange);
+}
