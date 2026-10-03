@@ -11,7 +11,7 @@
     { id: 'u5', username: 'Brendon Wesley', bio: 'Sistem Informasi UNTAR', avatar: '' }
   ];
 
-  const colors = ['#ff4500', '#0aa5f0', '#2e9e5b', '#8e44ad', '#e67e22', '#c0392b'];
+  const colors = ['#09b5fe', '#0aa5f0', '#2e9e5b', '#8e44ad', '#e67e22', '#c0392b'];
 
   function avatarFor(user) {
     if (user.avatar) return user.avatar;

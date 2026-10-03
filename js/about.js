@@ -6,7 +6,6 @@ if (localStorage.getItem('theme') === 'dark') {
   document.body.setAttribute('data-theme', 'dark');
 }
 document.addEventListener('DOMContentLoaded', function () {
-  // --- Tombol "Gracia" diganti foto profil (foto yang diambil/dipilih di halaman Profile) ---
   const trigger = document.querySelector('.user-menu-trigger');
   if (trigger) {
     const defaultAvatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(

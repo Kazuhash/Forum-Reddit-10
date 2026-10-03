@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!avatar) return;
   const defaultAvatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">' +
-    '<rect width="200" height="200" fill="#ff4500"/>' +
+    '<rect width="200" height="200" fill="#09b5fe"/>' +
     '<circle cx="100" cy="78" r="38" fill="#ffffff"/>' +
     '<path d="M25 200c0-42 33-72 75-72s75 30 75 72z" fill="#ffffff"/>' +
     '</svg>'
@@ -415,4 +415,35 @@ document.addEventListener('DOMContentLoaded', function () {
       window.location.href = origin;
     }
   });
+});
+
+// ===== TAMBAHAN: tampilkan data user yang login, bukan data tetap =====
+document.addEventListener('DOMContentLoaded', function () {
+  function readUserObject() {
+    var keys = ['currentUser', 'loggedInUser', 'user', 'userAccount', 'account'];
+    for (var i = 0; i < keys.length; i++) {
+      var raw = localStorage.getItem(keys[i]);
+      if (!raw) continue;
+      try {
+        var obj = JSON.parse(raw);
+        if (obj && typeof obj === 'object') return obj;
+      } catch (err) {}
+    }
+    return null;
+  }
+
+  var obj = readUserObject();
+  var name = (obj && (obj.username || obj.name || obj.firstname || obj.firstName)) ||
+    localStorage.getItem('username') ||
+    localStorage.getItem('name') ||
+    localStorage.getItem('firstname');
+  var email = (obj && obj.email) ||
+    localStorage.getItem('userEmail') ||
+    localStorage.getItem('email');
+
+  var heading = document.querySelector('.profile-info h1');
+  var bio = document.querySelector('.profile-bio');
+
+  if (heading) heading.textContent = name || 'Guest';
+  if (bio) bio.textContent = name ? (email || 'Anggota Forum-Reddit-10') : 'Belum login.';
 });

@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.type = 'button';
     btn.textContent = '🔍';
     btn.title = 'Cari user';
-    btn.style.cssText = 'border:none;background:#ff4500;color:#fff;border-radius:50%;width:30px;height:30px;cursor:pointer;';
+    btn.style.cssText = 'border:none;background:##09b5fe;color:#fff;border-radius:50%;width:30px;height:30px;cursor:pointer;';
     btn.addEventListener('click', function () { window.location.href = 'search-user.html'; });
     heading.style.display = 'flex';
     heading.style.justifyContent = 'space-between';
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const img = document.createElement('img');
   img.src = saved || defaultAvatar;
   img.alt = name;
-  img.style.cssText = 'width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #ff4500;display:block;';
+  img.style.cssText = 'width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #09b5fe;display:block;';
   img.addEventListener('error', function () { img.src = defaultAvatar; });
 
   el.textContent = '';
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
   back.textContent = '<';
   back.title = 'Kembali';
   back.setAttribute('aria-label', 'Kembali');
-  back.style.cssText = 'width:36px;height:36px;border:none;border-radius:50%;background:#ff4500;color:#fff;font-size:1.3rem;font-weight:bold;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;';
+  back.style.cssText = 'width:36px;height:36px;border:none;border-radius:50%;background:#09b5fe;color:#fff;font-size:1.3rem;font-weight:bold;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;';
   back.addEventListener('click', function () {
     const origin = sessionStorage.getItem('chatOrigin');
     window.location.href = origin || '../index.html';

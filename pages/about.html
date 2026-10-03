@@ -1,12 +1,72 @@
 <!DOCTYPE html>
 <html lang="id">
+    <style>
+    .site-header .logo,
+    .about-page h1 { color: #09b5fe; }
+
+    .user-menu-trigger {
+      width: 44px; height: 44px; padding: 0; overflow: hidden;
+      background-color: #ffffff; border: 2px solid #09b5fe; border-radius: 50%;
+    }
+    .user-menu-trigger:hover { background-color: #ffffff; border-color: #0894d1; }
+    .user-menu-trigger img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    .about-back-btn {
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      width: 36px; height: 36px; margin-right: 14px;
+      background-color: #09b5fe; color: #ffffff; border-radius: 50%;
+      font-size: 1.3rem; font-weight: bold; line-height: 1; text-decoration: none;
+    }
+    .about-back-btn:hover { background-color: #0894d1; }
+    .site-header .logo { margin-right: auto; }
+  </style>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About - Forum Reddit 10</title>
   <link rel="stylesheet" href="../css/global.css">
 <body>
+  <script>
+    window.toggleUserMenu = window.toggleUserMenu || function () {
+      document.getElementById('userMenuDropdown').classList.toggle('show');
+    };
 
+    document.addEventListener('DOMContentLoaded', function () {
+      // Foto profil menggantikan tulisan "Gracia"
+      var trigger = document.querySelector('.user-menu-trigger');
+      if (trigger) {
+        var fallback = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">' +
+          '<rect width="200" height="200" fill="#09b5fe"/>' +
+          '<circle cx="100" cy="78" r="38" fill="#ffffff"/>' +
+          '<path d="M25 200c0-42 33-72 75-72s75 30 75 72z" fill="#ffffff"/>' +
+          '</svg>'
+        );
+        var img = document.createElement('img');
+        img.alt = 'Profil';
+        img.src = localStorage.getItem('avatarGracia') || fallback;
+        trigger.textContent = '';
+        trigger.appendChild(img);
+      }
+
+      // Panah kembali ke halaman sebelum About
+      var header = document.querySelector('.site-header');
+      if (header && !document.querySelector('.about-back-btn')) {
+        var back = document.createElement('a');
+        back.href = '../index.html';
+        back.className = 'about-back-btn';
+        back.title = 'Kembali';
+        back.textContent = '<';
+        back.addEventListener('click', function (e) {
+          if (window.history.length > 1) {
+            e.preventDefault();
+            window.history.back();
+          }
+        });
+        header.insertBefore(back, header.firstChild);
+      }
+    });
+  </script>
   <header class="site-header">
     <a href="../index.html" class="logo">Forum-Reddit-10</a>
     <div class="user-menu">
