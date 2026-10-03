@@ -1,6 +1,9 @@
 $(document).ready(function () {
 
-    // Gabungkan filter search + tab dalam satu fungsi
+    if (localStorage.getItem('theme') === 'dark') {
+        $('body').attr('data-theme', 'dark');
+    }
+
     function applyFilters() {
         var keyword = $('#sr-search-input').val().toLowerCase();
         var selectedTab = $('.sr-tab.active').data('tab');
@@ -32,6 +35,11 @@ $(document).ready(function () {
         $(this).addClass('active');
         applyFilters();
     });
+
+    var query = new URLSearchParams(window.location.search).get('q');
+    if (query) {
+        $('#sr-search-input').val(query);
+    }
 
     applyFilters();
 
