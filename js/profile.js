@@ -285,12 +285,137 @@ document.addEventListener('DOMContentLoaded', function () {
   const postStat = document.querySelector('.profile-stats span strong');
   if (postStat) postStat.textContent = section.querySelectorAll('.post-card').length;
 });
-const joined = JSON.parse(localStorage.getItem('userCommunities') || '[]');
-if (!joined.includes(namaKomunitas)) joined.push(namaKomunitas);
-localStorage.setItem('userCommunities', JSON.stringify(joined));
-
 document.addEventListener('DOMContentLoaded', function () {
   const joined = JSON.parse(localStorage.getItem('userCommunities') || '[]');
   const stats = document.querySelectorAll('.profile-stats span strong');
   if (stats[1]) stats[1].textContent = joined.length;
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const KEY = 'postReactions';
+  const PAGES = { like: 'likes.html',};
+  const me = localStorage.getItem('username') || 'Gracia';
+
+  function setReaction(title, type, on) {
+    const data = JSON.parse(localStorage.getItem(KEY) || '{}');
+    data[title] = data[title] || { like: [], dislike: [], report: [] };
+    const list = data[title][type];
+    const i = list.indexOf(me);
+    if (on && i === -1) list.push(me);
+    if (!on && i !== -1) list.splice(i, 1);
+    localStorage.setItem(KEY, JSON.stringify(data));
+  }
+
+  document.querySelectorAll('.profile-posts .post-card').forEach(function (card) {
+    const title = card.querySelector('h3').textContent;
+    const buttons = {
+      like: card.querySelector('.btn-like'),
+      dislike: card.querySelector('.btn-dislike'),
+      report: card.querySelector('.btn-report')
+    };
+    if (!buttons.like) return;
+
+    function sync() {
+      setReaction(title, 'like', buttons.like.classList.contains('active'));
+      setReaction(title, 'dislike', buttons.dislike.classList.contains('active'));
+    }
+    buttons.like.addEventListener('click', sync);
+    buttons.dislike.addEventListener('click', sync);
+
+    card.addEventListener('click', function (e) {
+      if (e.target === buttons.report) {
+        e.stopPropagation();
+        if (confirm('Laporkan postingan ini?')) {
+          setReaction(title, 'report', true);
+          alert('Postingan dilaporkan');
+        }
+      }
+    }, true);
+
+  buttons.like.addEventListener('dblclick', function () {
+      window.location.href = PAGES.like + '?post=' + encodeURIComponent(title);
+      });
+      btn.addEventListener('pointerup', cancel);
+      btn.addEventListener('pointerleave', cancel);
+      btn.addEventListener('pointercancel', cancel);
+      btn.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    });
+  });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const me = localStorage.getItem('username') || 'Gracia';
+  const data = JSON.parse(localStorage.getItem('postReactions') || '{}');
+
+  document.querySelectorAll('.profile-posts .post-card').forEach(function (card) {
+    const title = card.querySelector('h3').textContent;
+    const r = data[title];
+    if (!r) return;
+
+    if (r.like && r.like.indexOf(me) !== -1) {
+      card.querySelector('.btn-like').click();
+    } else if (r.dislike && r.dislike.indexOf(me) !== -1) {
+      card.querySelector('.btn-dislike').click();
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.profile-posts .post-card').forEach(function (card) {
+    const likeBtn = card.querySelector('.btn-like');
+    if (!likeBtn) return;
+    const title = card.querySelector('h3').textContent;
+    let last = 0;
+    let bypass = false;
+
+    card.addEventListener('click', function (e) {
+      if (e.target !== likeBtn || bypass) return;
+      const now = Date.now();
+      if (now - last < 400) {
+        e.stopPropagation();   
+        last = 0;
+        bypass = true;
+        likeBtn.click();       
+        bypass = false;
+        window.location.href = 'likes.html?post=' + encodeURIComponent(title);
+      } else {
+        last = now;
+      }
+    }, true);
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const me = localStorage.getItem('username') || 'Gracia';
+
+  document.querySelectorAll('.profile-posts .post-card').forEach(function (card) {
+    const likeBtn = card.querySelector('.btn-like');
+    const h3 = card.querySelector('h3');
+    if (!likeBtn || !h3) return;
+    const title = h3.textContent;
+    let last = 0;
+    let before = false;
+    card.addEventListener('click', function (e) {
+      if (e.target !== likeBtn) return;
+      const now = Date.now();
+
+      if (now - last < 500) {
+        e.stopPropagation();
+        last = 0;
+
+        const data = JSON.parse(localStorage.getItem('postReactions') || '{}');
+        data[title] = data[title] || { like: [], dislike: [], report: [] };
+        const list = data[title].like;
+        const i = list.indexOf(me);
+        if (before && i === -1) list.push(me);
+        if (!before && i !== -1) list.splice(i, 1);
+        localStorage.setItem('postReactions', JSON.stringify(data));
+
+        console.log('buka likes.html', title, list);
+        window.location.href = 'likes.html?post=' + encodeURIComponent(title);
+      } else {
+        last = now;
+        before = likeBtn.classList.contains('active');
+      }
+    }, true);
+  });
 });

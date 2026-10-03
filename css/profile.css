@@ -307,3 +307,49 @@ body[data-theme="dark"] .btn-dislike.active {
   background-color: #4a1f1f;
   color: #ff8a80;
 }
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #09b5fe;
+  flex-shrink: 0;
+}
+
+.user-empty {
+  color: #555555;
+}
+
+.post-subtitle {
+  margin: 0 0 12px;
+  color: #555555;
+}
+
+body[data-theme="dark"] .user-item {
+  background-color: #1e1e1f;
+  border-color: #3a3a3c;
+}
+
+body[data-theme="dark"] .user-empty,
+body[data-theme="dark"] .post-subtitle {
+  color: #b5b5b5;
+}
+.btn-action {
+  touch-action: manipulation;
+}
