@@ -6,6 +6,8 @@ const repeat_password_input = document.getElementById('repeat-password-input')
 const error_message = document.getElementById('error-message')
 
 form.addEventListener('submit', (e) => {
+    e.preventDefault()
+
   let errors = []
 
   if(firstname_input){
@@ -21,6 +23,14 @@ form.addEventListener('submit', (e) => {
     // If there are any errors
     e.preventDefault()
     error_message.innerText  = errors.join(". ")
+  }
+  else if(firstname_input){
+    // Signup OK -> go to the login page
+    window.location.href = 'login.html'
+  }
+  else{
+    // Valid -> go to the home page
+    window.location.href = '../index.html'
   }
 })
 
