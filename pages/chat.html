@@ -4,9 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat - Forum Reddit 10</title>
-  <link rel="stylesheet" href="../css/chat.css">
+  <link rel="stylesheet" href="../css/chat.css?v=2">
 </head>
 <body>
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.setAttribute('data-theme', 'dark');
+    }
+    function toggleUserMenu() {
+      document.getElementById('userMenuDropdown').classList.toggle('show');
+    }
+  </script>
 
   <header class="site-header">
     <a href="../index.html" class="logo">Forum-Reddit-10</a>
