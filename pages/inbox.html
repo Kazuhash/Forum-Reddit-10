@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inbox</title>
+    <link rel="stylesheet" href="../css/inbox.css">
+</head>
+<body>
+
+<header class="ib-navbar">
+    <a href="search-bar-result.html" class="ib-logo">Forumly</a>
+
+    <div class="ib-nav-right">
+    <a href="create-post.html" class="ib-nav-link">+ Create Post</a>
+
+    <div class="ib-dropdown-wrapper">
+        <button type="button" id="ib-bell-btn" class="ib-bell-btn" aria-label="Notifications">
+        🔔 <span class="ib-badge" id="ib-badge">2</span>
+        </button>
+
+        <div id="ib-dropdown-menu" class="ib-dropdown-content">
+        <div class="ib-dropdown-header">
+            <span>Notifications</span>
+            <a href="#" id="ib-mark-all">Mark read</a>
+        </div>
+            <ul class="ib-preview-list">
+            <li class="ib-preview-item unread" data-id="1">
+                <p><strong>u/kang_kung</strong> replied to your post</p>
+                <span class="time">5m ago</span>
+            </li>
+            <li class="ib-preview-item unread" data-id="2">
+                <p><strong>u/AutoModerator</strong> welcome to r/webdev!</p>
+                <span class="time">1h ago</span>
+            </li>
+            </ul>
+        </div>
+        </div>
+    </div>
+    </header>
+
+<main class="ib-container">
+    <h2>Inbox</h2>
+
+    <div class="ib-tabs">
+        <button type="button" class="ib-tab active" data-tab="all">All</button>
+        <button type="button" class="ib-tab" data-tab="unread">Unread</button>
+        <button type="button" class="ib-tab" data-tab="messages">Messages</button>
+    </div>
+
+    <div class="ib-content-list">
+
+    <div class="ib-card unread" data-id="1" data-type="notification">
+        <div class="ib-avatar">👤</div>
+        <div class="ib-details">
+            <p><strong>u/kang_kung</strong> replied to your post in <em>r/indonesia</em></p>
+            <blockquote class="ib-snippet">"Mantap bro, tutorialnya gacor banget!"</blockquote>
+            <span class="ib-time">5 minutes ago</span>
+        </div>
+        <button type="button" class="ib-read-btn" title="Mark as read">✓</button>
+    </div>
+
+    <div class="ib-card unread" data-id="2" data-type="notification">
+        <div class="ib-avatar">🤖</div>
+        <div class="ib-details">
+            <p><strong>u/AutoModerator</strong> welcome to <em>r/webdev</em>!</p>
+            <blockquote class="ib-snippet">"Please read the rules before posting."</blockquote>
+            <span class="ib-time">1 hour ago</span>
+        </div>
+        <button type="button" class="ib-read-btn" title="Mark as read">✓</button>
+    </div>
+
+    <div class="ib-card" data-id="3" data-type="messages">
+        <div class="ib-avatar">💬</div>
+        <div class="ib-details">
+            <p><strong>u/kang_kung</strong> sent you a direct message</p>
+            <blockquote class="ib-snippet">"Bro, boleh minta tips bikin dropdown pakai jQuery?"</blockquote>
+            <span class="ib-time">1 day ago</span>
+        </div>
+    </div>
+
+    </div>
+
+    <p class="ib-empty" id="ib-empty">Tidak ada notifikasi.</p>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="../js/inbox.js"></script>
+</body>
+</html>
