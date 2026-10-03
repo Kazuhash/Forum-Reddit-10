@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    if (localStorage.getItem('theme') === 'dark') {
+        $('body').attr('data-theme', 'dark');
+    }
+
     $('#cp-title-input').on('input', function () {
         $('#cp-count').text($(this).val().length);
     });
@@ -36,12 +40,12 @@ $(document).ready(function () {
         }
 
         alert('Post berhasil dibuat di ' + community + ':\n"' + title + '"');
-        window.location.href = 'search-bar-result.html';
+        window.location.href = '../index.html';
     });
 
     // Cancel
     $('.cp-cancel-btn').on('click', function () {
-        window.location.href = 'search-bar-result.html';
+        window.location.href = '../index.html';
     });
 
 });
