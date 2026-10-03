@@ -394,3 +394,25 @@ document.addEventListener('DOMContentLoaded', function () {
     render();
   });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const back = document.querySelector('.back-btn');
+  if (!back) return;
+
+  const ref = document.referrer;
+  const halamanProfil = ['profile.html', 'likes.html', 'tidaksuka.html', 'laporan.html'];
+  const dariLuarProfil = ref
+    && ref.indexOf(window.location.origin) === 0
+    && !halamanProfil.some(function (p) { return ref.indexOf(p) !== -1; });
+
+  if (dariLuarProfil) {
+    sessionStorage.setItem('profileOrigin', ref);
+  }
+  back.addEventListener('click', function (e) {
+    const origin = sessionStorage.getItem('profileOrigin');
+    if (origin) {
+      e.preventDefault();
+      window.location.href = origin;
+    }
+  });
+});

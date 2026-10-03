@@ -96,3 +96,32 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   if (item) item.click();
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const name = localStorage.getItem('username') || 'Gracia';
+  const saved = localStorage.getItem('avatarGracia');
+
+  const el = Array.from(document.querySelectorAll('a, button, div, span')).find(function (x) {
+    return x.children.length === 0 && x.textContent.trim() === name;
+  });
+  if (!el) return;
+
+  const defaultAvatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">' +
+    '<rect width="200" height="200" fill="#ff4500"/>' +
+    '<circle cx="100" cy="78" r="38" fill="#ffffff"/>' +
+    '<path d="M25 200c0-42 33-72 75-72s75 30 75 72z" fill="#ffffff"/>' +
+    '</svg>'
+  );
+
+  const img = document.createElement('img');
+  img.src = saved || defaultAvatar;
+  img.alt = name;
+  img.style.cssText = 'width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #ff4500;display:block;';
+  img.addEventListener('error', function () { img.src = defaultAvatar; });
+
+  el.textContent = '';
+  el.title = name;
+  el.style.cssText = 'padding:0;background:transparent;border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;';
+  el.appendChild(img);
+});
