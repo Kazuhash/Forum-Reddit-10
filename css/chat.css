@@ -803,4 +803,77 @@ body[data-theme="dark"] .chat-action-btn:hover {
 
 .chat-action-money {
   display: none !important;
+
+}
+.chat-contact-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chat-star-btn,
+.chat-action-btn {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #09b5fe;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  border-radius: 50%;
+}
+
+.chat-action-btn {
+  display: none;
+}
+
+.chat-contact-actions.open .chat-action-btn {
+  display: inline-flex;
+}
+
+.chat-star-btn:hover,
+.chat-action-btn:hover {
+  background: rgba(9, 181, 254, 0.12);
+  box-shadow: 0 0 8px rgba(9, 181, 254, 0.45);
+  text-shadow: 0 0 7px #09b5fe;
+}
+
+.chat-action-delete {
+  font-size: 0;
+}
+
+.chat-action-delete::before {
+  content: "⌫";
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.chat-action-love {
+  font-size: 0;
+}
+
+.chat-action-love::before {
+  content: "♡";
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.chat-action-delete:hover {
+  color: #ff4d6d !important;
+  box-shadow: 0 0 8px rgba(255, 77, 109, 0.5);
+  text-shadow: 0 0 7px #ff4d6d;
+}
+
+.chat-action-love:hover {
+  color: #ff4f91 !important;
+  box-shadow: 0 0 8px rgba(255, 79, 145, 0.5);
+  text-shadow: 0 0 7px #ff4f91;
+}
+
+.chat-action-money {
+  display: none !important;
 }

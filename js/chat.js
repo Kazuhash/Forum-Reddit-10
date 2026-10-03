@@ -785,3 +785,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.chat-action-money').forEach(function (button) {
+    button.remove();
+  });
+
+  document.querySelectorAll('.chat-contact-actions').forEach(function (actions) {
+    var money = actions.querySelector('.chat-action-money');
+
+    if (money) {
+      money.remove();
+    }
+  });
+});
