@@ -1,216 +1,275 @@
 :root {
-    --cp-bg: #0e1113;
-    --cp-card-bg: #1a1a1b;
-    --cp-border: #343536;
-    --cp-text: #d7dadc;
-    --cp-text-muted: #818384;
-    --cp-orange: #ff4500;
+  --bg-primary: #f0f2f5;
+  --bg-card: #ffffff;
+  --text-main: #1c1e21;
+  --text-muted: #65676b;
+  --accent: #1877f2;
+  --accent-soft: #e7f3ff;
+  --danger: #e41e3f;
+  --border-color: #e4e6eb;
+  --input-bg: #f0f2f5;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #18191a;
+  --bg-card: #242526;
+  --text-main: #e4e6eb;
+  --text-muted: #b0b3b8;
+  --accent: #2d88ff;
+  --accent-soft: #263951;
+  --danger: #f3425f;
+  --border-color: #3e4042;
+  --input-bg: #3a3b3c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
-    background-color: var(--cp-bg);
-    color: var(--cp-text);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
 }
 
+/* Navbar */
 .cp-navbar {
-    background-color: var(--cp-card-bg);
-    padding: 12px 20px;
-    border-bottom: 1px solid var(--cp-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-card);
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.cp-logo {
-    color: var(--cp-orange);
-    font-weight: bold;
-    font-size: 22px;
+a.cp-logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent);
+  text-decoration: none;
 }
 
+.cp-nav-link {
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--text-main);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.cp-nav-link:hover {
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Layout */
 .cp-container {
-    max-width: 740px;
-    margin: 20px auto;
-    padding: 0 15px;
+  max-width: 740px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.cp-container h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 14px;
 }
 
 .cp-select-wrapper select {
-    background-color: var(--cp-card-bg);
-    color: var(--cp-text);
-    border: 1px solid var(--cp-border);
-    padding: 10px 15px;
-    border-radius: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    outline: none;
+  background-color: var(--input-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
 }
 
 .cp-card {
-    background-color: var(--cp-card-bg);
-    border: 1px solid var(--cp-border);
-    border-radius: 8px;
-    padding: 15px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
 }
 
 /* Tabs */
 .cp-tabs {
-    display: flex;
-    border-bottom: 1px solid var(--cp-border);
-    margin-bottom: 15px;
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 16px;
 }
 
 .cp-tab-btn {
-    flex: 1;
-    background: none;
-    border: none;
-    color: var(--cp-text-muted);
-    padding: 12px;
-    cursor: pointer;
-    font-weight: bold;
-    border-bottom: 2px solid transparent;
+  flex: 1;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cp-tab-btn:hover {
+  color: var(--text-main);
 }
 
 .cp-tab-btn.active {
-    color: var(--cp-orange);
-    border-bottom: 2px solid var(--cp-orange);
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
+/* Form */
 .cp-form-group {
-    position: relative;
-    margin-bottom: 15px;
+  position: relative;
+  margin-bottom: 16px;
 }
 
 .cp-form-group input[type="text"],
-#cp-link-input {
-    width: 100%;
-    padding: 12px;
-    background-color: #272729;
-    border: 1px solid var(--cp-border);
-    border-radius: 4px;
-    color: var(--cp-text);
-    box-sizing: border-box;
+#cp-link-input,
+textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-main);
+  font-size: 14px;
+  outline: none;
 }
 
-.cp-char-count {
-    position: absolute;
-    right: 10px;
-    top: 12px;
-    font-size: 11px;
-    color: var(--cp-text-muted);
+.cp-form-group input[type="text"] {
+  padding-right: 60px;
+}
+
+.cp-form-group input[type="text"]:focus,
+#cp-link-input:focus,
+textarea:focus {
+  border-color: var(--accent);
 }
 
 textarea {
-    width: 100%;
-    padding: 12px;
-    background-color: #272729;
-    border: 1px solid var(--cp-border);
-    border-radius: 4px;
-    color: var(--cp-text);
-    box-sizing: border-box;
-    resize: vertical;
+  resize: vertical;
+}
+
+.cp-char-count {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  font-size: 11px;
+  color: var(--text-muted);
 }
 
 .cp-tab-content {
-    display: none;
-    margin-bottom: 15px;
+  display: none;
+  margin-bottom: 16px;
 }
 
 .cp-tab-content.active {
-    display: block;
+  display: block;
 }
 
-
 .cp-upload-box {
-    border: 2px dashed var(--cp-border);
-    padding: 30px;
-    text-align: center;
-    border-radius: 6px;
-    position: relative;
+  position: relative;
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.cp-upload-box:hover {
+  border-color: var(--accent);
+}
+
+.cp-upload-box span {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .cp-upload-box input[type="file"] {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    opacity: 0;
-    cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }
 
 #cp-image-preview img {
-    max-width: 100%;
-    max-height: 200px;
-    margin-top: 10px;
-    border-radius: 6px;
+  max-width: 100%;
+  max-height: 200px;
+  margin-top: 10px;
+  border-radius: 8px;
 }
 
 .cp-form-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    border-top: 1px solid var(--cp-border);
-    padding-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 14px;
+}
+
+.cp-cancel-btn,
+.cp-submit-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .cp-cancel-btn {
-    background: none;
-    border: 1px solid var(--cp-border);
-    color: var(--cp-text);
-    padding: 8px 20px;
-    border-radius: 20px;
-    cursor: pointer;
+  background-color: var(--input-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
 }
 
 .cp-submit-btn {
-    background-color: var(--cp-orange);
-    color: white;
-    border: none;
-    padding: 8px 24px;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
+  background-color: var(--accent);
+  color: #ffffff;
+  border: none;
 }
 
-a.cp-logo {
-    text-decoration: none;
-}
-
+/* Responsif */
 @media (max-width: 600px) {
-    .cp-container {
-        margin: 12px auto;
-    }
+  .cp-navbar {
+    padding: 10px 12px;
+  }
 
-    .cp-select-wrapper select {
-        width: 100%;
-    }
+  .cp-container {
+    margin: 12px auto;
+  }
 
-    .cp-tab-btn {
-        padding: 10px 6px;
-        font-size: 13px;
-    }
+  .cp-select-wrapper select {
+    width: 100%;
+  }
 
-    .cp-upload-box {
-        padding: 20px 10px;
-    }
+  .cp-tab-btn {
+    padding: 10px 6px;
+    font-size: 13px;
+  }
 
-    .cp-form-footer {
-        flex-direction: column-reverse;
-    }
+  .cp-upload-box {
+    padding: 20px 10px;
+  }
 
-    .cp-form-footer button {
-        width: 100%;
-    }
-}
+  .cp-form-footer {
+    flex-direction: column-reverse;
+  }
 
-.cp-navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cp-nav-link {
-    color: var(--cp-text);
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.cp-nav-link:hover {
-    color: var(--cp-orange);
+  .cp-form-footer button {
+    width: 100%;
+  }
 }
