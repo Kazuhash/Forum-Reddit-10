@@ -40,3 +40,27 @@
     list.appendChild(item);
   });
 })();
+
+document.addEventListener('error', function (e) {
+  const img = e.target;
+  if (!img.classList || !img.classList.contains('user-avatar')) return;
+  img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">' +
+    '<rect width="200" height="200" fill="#ff4500"/>' +
+    '<circle cx="100" cy="78" r="38" fill="#ffffff"/>' +
+    '<path d="M25 200c0-42 33-72 75-72s75 30 75 72z" fill="#ffffff"/>' +
+    '</svg>'
+  );
+}, true);
+
+document.addEventListener('error', function (e) {
+  const img = e.target;
+  if (!img.classList || !img.classList.contains('user-avatar')) return;
+  img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">' +
+    '<rect width="200" height="200" fill="#ff4500"/>' +
+    '<circle cx="100" cy="78" r="38" fill="#ffffff"/>' +
+    '<path d="M25 200c0-42 33-72 75-72s75 30 75 72z" fill="#ffffff"/>' +
+    '</svg>'
+  );
+}, true);

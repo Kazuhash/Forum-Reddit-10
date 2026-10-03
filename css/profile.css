@@ -353,3 +353,14 @@ body[data-theme="dark"] .post-subtitle {
 .btn-action {
   touch-action: manipulation;
 }
+
+.btn-report.active {
+  background-color: #fff3cd;
+  color: #b26a00;
+  font-weight: bold;
+}
+
+body[data-theme="dark"] .btn-report.active {
+  background-color: #4a3a12;
+  color: #ffc857;
+}
