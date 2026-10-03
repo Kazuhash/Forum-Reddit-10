@@ -86,7 +86,6 @@ body {
   line-height: 1.5;
 }
 
-/* ===== Tombol foto & kamera ===== */
 .avatar-btn {
   margin-top: 12px;
   margin-right: 8px;
@@ -134,7 +133,6 @@ body {
   margin-top: 8px;
 }
 
-/* ===== TAMBAHAN: MODE GELAP (dari pengaturan beranda) ===== */
 body[data-theme="dark"] {
   background-color: #121212;
   color: #e4e4e4;
@@ -165,4 +163,54 @@ body[data-theme="dark"] .camera-box {
   .profile-stats {
     justify-content: center;
   }
+}
+.posts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.posts-header h2 {
+  margin: 0;
+}
+
+.add-post-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: #ff4500;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.add-post-btn:hover {
+  background-color: #e03d00;
+}
+
+body[data-theme="dark"] {
+  background-color: #121212;
+  color: #e4e4e4;
+}
+
+body[data-theme="dark"] .profile-header,
+body[data-theme="dark"] .post-card {
+  background-color: #1e1e1f;
+  border-color: #3a3a3c;
+}
+
+body[data-theme="dark"] .profile-bio,
+body[data-theme="dark"] .profile-stats,
+body[data-theme="dark"] .post-card p {
+  color: #b5b5b5;
+}
+
+body[data-theme="dark"] .camera-box {
+  background-color: #1e1e1f;
 }

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile - Forum Reddit 10</title>
-  <link rel="stylesheet" href="../css/profile.css?v=2">
+  <link rel="stylesheet" href="../css/profile.css?v=4">
 </head>
 <body>
   <script>
@@ -12,12 +12,6 @@
     if (localStorage.getItem('theme') === 'dark') {
       document.body.setAttribute('data-theme', 'dark');
     }
-    // Nama dari Signup/Login (kalau ada), ditampilkan setelah halaman selesai dimuat
-    document.addEventListener('DOMContentLoaded', function () {
-      var name = localStorage.getItem('username');
-      var heading = document.querySelector('.profile-info h1');
-      if (name && heading) heading.textContent = name;
-    });
   </script>
 
   <main class="profile-page">
@@ -37,7 +31,11 @@
     </section>
 
     <section class="profile-posts">
-      <h2>Postingan Saya</h2>
+      <div class="posts-header">
+        <h2>Postingan Saya</h2>
+        <a href="create-post.html" class="add-post-btn" title="Buat postingan">+</a>
+      </div>
+
       <div class="post-card">
         <h3>Judul Post Contoh</h3>
         <p>Ini contoh preview isi post...</p>
@@ -56,6 +54,6 @@
     </div>
   </div>
 
-  <script src="../js/profile.js"></script>
+  <script src="../js/profile.js?v=4"></script>
 </body>
 </html>

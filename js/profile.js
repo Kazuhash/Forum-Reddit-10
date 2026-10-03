@@ -1,14 +1,11 @@
-// Fungsi dropdown (harus di luar DOMContentLoaded supaya onclick di HTML bisa memanggilnya)
 function toggleUserMenu() {
   document.getElementById('userMenuDropdown').classList.toggle('show');
 }
 
-// profile.js - khusus halaman profile.html
 document.addEventListener('DOMContentLoaded', function () {
   const postsSection = document.querySelector('.profile-posts');
   const avatar = document.querySelector('.profile-avatar');
 
-  // Data post sementara (nanti bisa diganti dari backend)
   const posts = [
     {
       title: 'Judul Post Contoh',
@@ -24,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   ];
 
-  // Kalau gambar avatar tidak ketemu, pakai placeholder
   if (avatar) {
     avatar.addEventListener('error', function () {
       avatar.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
@@ -37,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function renderPosts() {
-    // hapus card contoh dari HTML, lalu tampilkan dari array
+  
     postsSection.querySelectorAll('.post-card').forEach(function (card) {
       card.remove();
     });
@@ -61,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function () {
   renderPosts();
 });
 
-// ===== TAMBAHAN: foto profil (pilih file / ambil dari kamera) =====
 document.addEventListener('DOMContentLoaded', function () {
   const avatar = document.querySelector('.profile-avatar');
   const uploadBtn = document.getElementById('uploadBtn');
@@ -73,11 +68,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const closeBtn = document.getElementById('closeCameraBtn');
   let stream = null;
 
-  // Tampilkan foto yang pernah disimpan
   const saved = localStorage.getItem('avatarGracia');
   if (saved) avatar.src = saved;
 
-  // Potong jadi persegi 300x300 supaya ringan disimpan
   function toSquareDataURL(source, w, h) {
     const size = Math.min(w, h);
     const canvas = document.createElement('canvas');
@@ -94,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem('avatarGracia', dataUrl);
   }
 
-  // --- Pilih dari file ---
   uploadBtn.addEventListener('click', function () { fileInput.click(); });
 
   fileInput.addEventListener('change', function () {
@@ -107,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
     img.src = URL.createObjectURL(file);
   });
 
-  // --- Ambil foto pakai kamera ---
   function closeCamera() {
     modal.classList.remove('show');
     if (stream) {
@@ -138,9 +129,25 @@ if (localStorage.getItem('theme') === 'dark') {
   document.body.setAttribute('data-theme', 'dark');
 }
 
-// ===== TAMBAHAN: tampilkan nama dari Signup/Login =====
 document.addEventListener('DOMContentLoaded', function () {
   const name = localStorage.getItem('username');
   const heading = document.querySelector('.profile-info h1');
   if (name && heading) heading.textContent = name;
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const avatar = document.querySelector('.profile-avatar');
+  if (!avatar) return;
+
+  const defaultAvatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">' +
+    '<rect width="200" height="200" fill="#ff4500"/>' +
+    '<circle cx="100" cy="78" r="38" fill="#ffffff"/>' +
+    '<path d="M25 200c0-42 33-72 75-72s75 30 75 72z" fill="#ffffff"/>' +
+    '</svg>'
+  );
+  if (!localStorage.getItem('avatarGracia')) {
+    if (avatar.complete && avatar.naturalWidth === 0) avatar.src = defaultAvatar;
+    avatar.addEventListener('error', function () { avatar.src = defaultAvatar; });
+  }
 });
