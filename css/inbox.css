@@ -1,0 +1,268 @@
+:root {
+    --ib-bg: #0e1113;
+    --ib-card-bg: #1a1a1b;
+    --ib-border: #343536;
+    --ib-text: #d7dadc;
+    --ib-text-muted: #818384;
+    --ib-orange: #ff4500;
+    --ib-unread-bg: #272729;
+}
+
+body {
+    background-color: var(--ib-bg);
+    color: var(--ib-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.ib-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--ib-card-bg);
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--ib-border);
+}
+
+.ib-logo {
+    color: var(--ib-orange);
+    font-weight: bold;
+    font-size: 22px;
+    text-decoration: none;
+}
+
+.ib-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.ib-nav-link {
+    padding: 6px 16px;
+    border: 1px solid var(--ib-orange);
+    border-radius: 20px;
+    color: var(--ib-orange);
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.ib-nav-link:hover {
+    background-color: var(--ib-orange);
+    color: white;
+}
+
+.ib-dropdown-wrapper {
+    position: relative;
+}
+
+.ib-bell-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    position: relative;
+    color: var(--ib-text);
+}
+
+.ib-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--ib-orange);
+    color: white;
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 50%;
+}
+
+.ib-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 35px;
+    width: 280px;
+    max-width: 90vw;
+    background-color: var(--ib-card-bg);
+    border: 1px solid var(--ib-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    z-index: 100;
+}
+
+.ib-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid var(--ib-border);
+    font-size: 12px;
+}
+
+.ib-dropdown-header a {
+    color: var(--ib-orange);
+    text-decoration: none;
+}
+
+.ib-preview-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ib-preview-item {
+    padding: 10px;
+    border-bottom: 1px solid var(--ib-border);
+    font-size: 12px;
+}
+
+.ib-preview-item.unread {
+    background-color: var(--ib-unread-bg);
+}
+
+.ib-preview-item p {
+    margin: 0 0 4px 0;
+}
+
+.ib-preview-item .time {
+    color: var(--ib-text-muted);
+    font-size: 10px;
+}
+
+.ib-container {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.ib-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--ib-border);
+    padding-bottom: 10px;
+}
+
+.ib-tab {
+    background: none;
+    border: none;
+    color: var(--ib-text-muted);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.ib-tab.active {
+    background-color: var(--ib-unread-bg);
+    color: var(--ib-text);
+}
+
+.ib-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    background-color: var(--ib-card-bg);
+    border: 1px solid var(--ib-border);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.ib-card.unread {
+    border-left: 4px solid var(--ib-orange);
+    background-color: var(--ib-unread-bg);
+}
+
+.ib-avatar {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.ib-details {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.ib-details p {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+}
+
+.ib-snippet {
+    margin: 5px 0;
+    padding-left: 10px;
+    border-left: 2px solid var(--ib-border);
+    color: var(--ib-text-muted);
+    font-size: 13px;
+}
+
+.ib-time {
+    font-size: 11px;
+    color: var(--ib-text-muted);
+}
+
+.ib-read-btn {
+    background: none;
+    border: 1px solid var(--ib-border);
+    color: var(--ib-text-muted);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.ib-read-btn:hover {
+    color: var(--ib-orange);
+    border-color: var(--ib-orange);
+}
+
+.ib-card:not(.unread) .ib-read-btn {
+    display: none;
+}
+
+.ib-empty {
+    display: none;
+    text-align: center;
+    color: var(--ib-text-muted);
+    padding: 30px 0;
+}
+
+.ib-empty.show {
+    display: block;
+}
+
+@media (max-width: 600px) {
+.ib-navbar {
+    padding: 10px 12px;
+    }
+
+.ib-nav-right {
+    gap: 12px;
+}
+
+.ib-nav-link {
+    padding: 5px 12px;
+    font-size: 13px;
+}
+
+.ib-container {
+    margin: 12px auto;
+}
+
+.ib-tabs {
+    overflow-x: auto;
+}
+
+.ib-tab {
+    white-space: nowrap;
+    padding: 6px 12px;
+}
+
+.ib-card {
+    gap: 10px;
+    padding: 12px;
+}
+}
