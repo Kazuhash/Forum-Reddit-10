@@ -51,6 +51,7 @@ body {
     padding: 15px;
 }
 
+/* Tabs */
 .cp-tabs {
     display: flex;
     border-bottom: 1px solid var(--cp-border);
@@ -196,4 +197,20 @@ a.cp-logo {
     .cp-form-footer button {
         width: 100%;
     }
+}
+
+.cp-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cp-nav-link {
+    color: var(--cp-text);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.cp-nav-link:hover {
+    color: var(--cp-orange);
 }
