@@ -1,4 +1,3 @@
-// chat.js - khusus halaman chat.html
 document.addEventListener('DOMContentLoaded', function () {
   const chatForm = document.getElementById('chatForm');
   const chatInput = document.getElementById('chatInput');
@@ -6,16 +5,16 @@ document.addEventListener('DOMContentLoaded', function () {
   const contactItems = document.querySelectorAll('#chatContactList .chat-contact');
 
   const chatHistory = {
-    'Marchella Yonansya': [
+    'Marchella Yonansyah': [
       { type: 'received', text: 'Hai, gimana progress halamannya?' },
       { type: 'sent', text: 'Lagi aku kerjain, bentar lagi selesai!' }
     ],
     'Jericho Stive Angdev': [],
-    'Jhosua Ebenezer': [],
+    'Jhosua Eben Haezer': [],
     'Brendon Wesley': []
   };
 
-  let activeContact = 'Marchella Yonansya';
+  let activeContact = 'Marchella Yonansyah';
 
   function toggleUserMenu() {
     document.getElementById('userMenuDropdown').classList.toggle('show');
@@ -158,4 +157,448 @@ document.addEventListener('DOMContentLoaded', function () {
   logo.parentNode.insertBefore(wrap, logo);
   wrap.appendChild(back);
   wrap.appendChild(logo);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var trigger = document.querySelector('.user-menu-trigger');
+  if (trigger) {
+    var fallback = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">' +
+      '<rect width="200" height="200" fill="#09b5fe"/>' +
+      '<circle cx="100" cy="78" r="38" fill="#ffffff"/>' +
+      '<path d="M25 200c0-42 33-72 75-72s75 30 75 72z" fill="#ffffff"/>' +
+      '</svg>'
+    );
+    var img = document.createElement('img');
+    img.alt = 'Profil';
+    img.src = localStorage.getItem('avatarGracia') || fallback;
+    trigger.textContent = '';
+    trigger.appendChild(img);
+  }
+
+  if (localStorage.getItem('freshAccount') !== '1') return;
+
+  var box = document.getElementById('chatMessages');
+  if (!box) return;
+
+  var samples = [
+    'Hai, gimana progress halamannya?',
+    'Lagi aku kerjain, bentar lagi selesai!'
+  ];
+
+  function clearSamples() {
+    box.querySelectorAll('.message').forEach(function (m) {
+      if (samples.indexOf(m.textContent.trim()) !== -1) m.remove();
+    });
+  }
+
+  clearSamples();
+  new MutationObserver(clearSamples).observe(box, { childList: true });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var windowEl = document.querySelector('.chat-window');
+  var list = document.getElementById('chatContactList');
+  if (!windowEl || !list) return;
+
+  var header = windowEl.querySelector('.chat-header');
+  if (!header) {
+    header = document.createElement('div');
+    header.className = 'chat-header';
+    header.innerHTML = '<span class="chat-header-avatar"></span><span class="chat-header-name"></span>';
+    windowEl.insertBefore(header, windowEl.firstChild);
+  }
+
+  var avatar = header.querySelector('.chat-header-avatar');
+  var nameEl = header.querySelector('.chat-header-name');
+
+  function setName(name) {
+    name = (name || '').trim();
+    if (!name) return;
+    nameEl.textContent = name;
+    avatar.textContent = name.charAt(0).toUpperCase();
+  }
+
+  function fromActive() {
+    var active = list.querySelector('.chat-contact.active, li.active');
+    if (active) setName(active.textContent);
+  }
+
+  document.addEventListener('click', function (e) {
+    var item = e.target.closest('#chatContactList li');
+    if (!item) return;
+
+    document.querySelectorAll('#chatContactList li').forEach(function (li) {
+      li.classList.remove('active');
+    });
+    item.classList.add('active');
+    setName(item.textContent);
+  });
+
+  new MutationObserver(fromActive).observe(list, {
+    attributes: true,
+    subtree: true,
+    attributeFilter: ['class']
+  });
+
+  fromActive();
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var list = document.getElementById('chatContactList');
+  var box = document.getElementById('chatMessages');
+  var form = document.getElementById('chatForm');
+  var aside = document.querySelector('.chat-list');
+  if (!list || !box || !form || !aside) return;
+
+  var defaults = ['Marchella Yonansyah', 'Jericho Stive Angdev', 'Jhosua Eben Haezer', 'Brendon Wesley'];
+  var sampleChat = [
+    { type: 'received', text: 'Hai, gimana progress halamannya?' },
+    { type: 'sent', text: 'Lagi aku kerjain, bentar lagi selesai!' }
+  ];
+  var fresh = localStorage.getItem('freshAccount') === '1';
+
+  function read(key, fallback) {
+    try {
+      var value = JSON.parse(localStorage.getItem(key));
+      return value === null || value === undefined ? fallback : value;
+    } catch (err) {
+      return fallback;
+    }
+  }
+
+  function activeName() {
+    var a = list.querySelector('li.active');
+    return a ? a.textContent.trim() : '';
+  }
+
+  var previous = activeName();
+  var contacts = read('chatContacts', null);
+
+  if (!contacts) {
+    contacts = fresh ? [] : defaults.slice();
+    localStorage.setItem('chatContacts', JSON.stringify(contacts));
+  }
+
+  var empty = document.createElement('p');
+  empty.textContent = 'Belum ada percakapan. Klik ikon pencarian untuk mencari user.';
+  empty.style.cssText = 'padding:16px;margin:0;color:#777777;font-size:0.9rem;line-height:1.5;';
+  list.after(empty);
+
+  function messagesFor(name) {
+    var saved = read('chatData', {})[name];
+    if (saved) return saved;
+    if (!fresh && name === defaults[0]) return sampleChat;
+    return [];
+  }
+
+  function paint(name) {
+    box.innerHTML = '';
+    if (!name) return;
+    messagesFor(name).forEach(function (m) {
+      var div = document.createElement('div');
+      div.className = 'message ' + m.type;
+      div.textContent = m.text;
+      box.appendChild(div);
+    });
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function persistMessages() {
+    var name = activeName();
+    if (!name) return;
+    var current = read('chatData', {});
+    current[name] = Array.from(box.querySelectorAll('.message')).map(function (m) {
+      return { type: m.classList.contains('sent') ? 'sent' : 'received', text: m.textContent };
+    });
+    localStorage.setItem('chatData', JSON.stringify(current));
+  }
+
+  function select(name) {
+    list.querySelectorAll('li').forEach(function (li) {
+      li.classList.toggle('active', li.textContent.trim() === name);
+    });
+    paint(name);
+    var headerName = document.querySelector('.chat-header-name');
+    var headerAvatar = document.querySelector('.chat-header-avatar');
+    if (headerName) headerName.textContent = name;
+    if (headerAvatar) headerAvatar.textContent = name ? name.charAt(0).toUpperCase() : '';
+  }
+
+  function buildList() {
+    list.innerHTML = '';
+    contacts.forEach(function (name) {
+      var li = document.createElement('li');
+      li.className = 'chat-contact';
+      li.textContent = name;
+      list.appendChild(li);
+    });
+    var hasContacts = contacts.length > 0;
+    empty.style.display = hasContacts ? 'none' : 'block';
+    form.style.display = hasContacts ? '' : 'none';
+    var header = document.querySelector('.chat-header');
+    if (header) header.style.display = hasContacts ? '' : 'none';
+  }
+
+  var wanted = new URLSearchParams(window.location.search).get('user');
+  var target = read('chatTarget', null);
+  var targetName = '';
+
+  if (wanted && target && String(target.id) === wanted && target.username) {
+    targetName = target.username;
+    if (contacts.indexOf(targetName) === -1) {
+      contacts.push(targetName);
+      localStorage.setItem('chatContacts', JSON.stringify(contacts));
+    }
+  }
+
+  buildList();
+  select(targetName || (contacts.indexOf(previous) !== -1 ? previous : contacts[0] || ''));
+
+  list.addEventListener('click', function (e) {
+    var li = e.target.closest('li');
+    if (li) select(li.textContent.trim());
+  });
+
+  form.addEventListener('submit', function () {
+    setTimeout(persistMessages, 0);
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var btn = document.querySelector('.chat-list h2 button');
+  if (!btn) return;
+
+  btn.style.cssText = '';
+  btn.className = 'chat-marquee';
+  btn.title = 'Cari user';
+  btn.setAttribute('aria-label', 'Cari user');
+  btn.textContent = '';
+
+  var text = document.createElement('span');
+  text.textContent = 'Mulai percakapan mu dengan orang baru';
+  btn.appendChild(text);
+
+  var list = document.getElementById('chatContactList');
+  var note = list ? list.nextElementSibling : null;
+  if (note && note.tagName === 'P') {
+    note.textContent = 'Belum ada percakapan. Klik tulisan berjalan di atas untuk mencari user.';
+  }
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var title = document.querySelector('.chat-list h2');
+  if (!title || title.querySelector('.chat-search-icon')) return;
+
+  var icon = document.createElement('button');
+  icon.type = 'button';
+  icon.className = 'chat-search-icon';
+  icon.textContent = '🔍';
+  icon.title = 'Cari user';
+  icon.setAttribute('aria-label', 'Cari user');
+  icon.addEventListener('click', function () {
+    window.location.href = 'search-user.html';
+  });
+
+  title.appendChild(icon);
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var aside = document.querySelector('.chat-list');
+  var list = document.getElementById('chatContactList');
+  if (!aside || !list || aside.querySelector('.chat-search-row')) return;
+
+  var marquee = aside.querySelector('.chat-marquee');
+  var icon = aside.querySelector('.chat-search-icon');
+  if (!marquee || !icon) return;
+
+  var row = document.createElement('div');
+  row.className = 'chat-search-row';
+  row.appendChild(icon);
+  row.appendChild(marquee);
+
+  var note = list.nextElementSibling;
+  if (note && note.tagName === 'P') {
+    note.textContent = 'Belum ada percakapan. Klik ikon atau tulisan berjalan di bawah untuk mencari user.';
+    note.after(row);
+  } else {
+    list.after(row);
+  }
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var windowEl = document.querySelector('.chat-window');
+  var aside = document.querySelector('.chat-list');
+  if (!windowEl || !aside || windowEl.querySelector('.chat-empty-note')) return;
+
+  var note = aside.querySelector('p');
+  if (!note) return;
+
+  note.className = 'chat-empty-note';
+  note.textContent = 'Belum ada percakapan. Klik ikon atau tulisan berjalan di kolom kiri untuk mencari user.';
+  windowEl.appendChild(note);
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var list = document.getElementById('chatContactList');
+
+  if (!list) return;
+
+  function tambahUserKePercakapan() {
+    var target = null;
+
+    try {
+      target = JSON.parse(localStorage.getItem('chatTarget') || 'null');
+    } catch (e) {
+      target = null;
+    }
+
+    if (!target || !target.username) return;
+
+    var namaUser = target.username.trim();
+
+    if (!namaUser) return;
+
+    var sudahAda = Array.from(list.querySelectorAll('.chat-contact'))
+      .some(function (item) {
+        return item.textContent.trim() === namaUser;
+      });
+
+    if (sudahAda) return;
+
+    var itemBaru = document.createElement('li');
+
+    itemBaru.className = 'chat-contact';
+
+    itemBaru.textContent = namaUser;
+
+    list.appendChild(itemBaru);
+
+    itemBaru.addEventListener('click', function () {
+      list.querySelectorAll('.chat-contact').forEach(function (item) {
+        item.classList.remove('active');
+      });
+
+      itemBaru.classList.add('active');
+
+      var headerName = document.querySelector('.chat-header-name');
+      var headerAvatar = document.querySelector('.chat-header-avatar');
+
+      if (headerName) {
+        headerName.textContent = namaUser;
+      }
+
+      if (headerAvatar) {
+        headerAvatar.textContent = namaUser.charAt(0).toUpperCase();
+      }
+    });
+  }
+
+  tambahUserKePercakapan();
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var list = document.getElementById('chatContactList');
+
+  if (!list) return;
+
+  var target = null;
+
+  try {
+    target = JSON.parse(localStorage.getItem('chatTarget') || 'null');
+  } catch (e) {
+    target = null;
+  }
+
+  if (!target || !target.username) return;
+
+  var namaUser = String(target.username).trim();
+
+  if (!namaUser) return;
+
+  var sudahAda = Array.from(list.querySelectorAll('.chat-contact'))
+    .some(function (item) {
+      return item.textContent.trim() === namaUser;
+    });
+
+  if (!sudahAda) {
+    var itemBaru = document.createElement('li');
+
+    itemBaru.className = 'chat-contact';
+    itemBaru.textContent = namaUser;
+
+    list.appendChild(itemBaru);
+
+    itemBaru.addEventListener('click', function () {
+      list.querySelectorAll('.chat-contact').forEach(function (item) {
+        item.classList.remove('active');
+      });
+
+      itemBaru.classList.add('active');
+
+      var headerName = document.querySelector('.chat-header-name');
+      var headerAvatar = document.querySelector('.chat-header-avatar');
+
+      if (headerName) {
+        headerName.textContent = namaUser;
+      }
+
+      if (headerAvatar) {
+        headerAvatar.textContent = namaUser.charAt(0).toUpperCase();
+      }
+    });
+  }
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var aside = document.querySelector('.chat-list');
+  var list = document.getElementById('chatContactList');
+
+  if (!aside || !list) return;
+
+  var searchRow = aside.querySelector('.chat-search-row');
+
+  if (!searchRow) return;
+
+  list.style.maxHeight = 'calc(100% - 100px)';
+  list.style.overflowY = 'auto';
+
+  searchRow.style.position = 'absolute';
+  searchRow.style.left = '0';
+  searchRow.style.right = '0';
+  searchRow.style.bottom = '0';
+  searchRow.style.backgroundColor = '#fafafa';
+  searchRow.style.zIndex = '20';
+  searchRow.style.border-top ; '1px solid #e0e0e0';
+
+  aside.style.position = 'relative';
+  var marquee = searchRow.querySelector('.chat-marquee');
+
+  if (marquee) {
+    marquee.style.flex = '1';
+    marquee.style.minWidth = '0';
+  }
+  var observer = new MutationObserver(function () {
+    list.style.maxHeight = 'calc(100% - 100px)';
+    list.style.overflowY = 'auto';
+
+    searchRow.style.position = 'absolute';
+    searchRow.style.left = '0';
+    searchRow.style.right = '0';
+    searchRow.style.bottom = '0';
+    searchRow.style.zIndex = '20';
+  });
+
+  observer.observe(list, {
+    childList: true
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var aside = document.querySelector('.chat-list');
+  var list = document.getElementById('chatContactList');
+
+  if (!aside || !list) return;
+
+  aside.style.position = 'relative';
+  aside.style.height = '100%';
+  aside.style.overflow = 'hidden';
+
+  list.style.height = 'calc(100% - 70px)';
+  list.style.maxHeight = 'calc(100% - 70px)';
+  list.style.overflowY = 'auto';
+  list.style.overflowX = 'hidden';
+  list.style.paddingBottom = '60px';
+  list.style.boxSizing = 'border-box';
 });
