@@ -137,3 +137,10 @@ document.addEventListener('DOMContentLoaded', function () {
 if (localStorage.getItem('theme') === 'dark') {
   document.body.setAttribute('data-theme', 'dark');
 }
+
+// ===== TAMBAHAN: tampilkan nama dari Signup/Login =====
+document.addEventListener('DOMContentLoaded', function () {
+  const name = localStorage.getItem('username');
+  const heading = document.querySelector('.profile-info h1');
+  if (name && heading) heading.textContent = name;
+});

@@ -134,6 +134,28 @@ body {
   margin-top: 8px;
 }
 
+/* ===== TAMBAHAN: MODE GELAP (dari pengaturan beranda) ===== */
+body[data-theme="dark"] {
+  background-color: #121212;
+  color: #e4e4e4;
+}
+
+body[data-theme="dark"] .profile-header,
+body[data-theme="dark"] .post-card {
+  background-color: #1e1e1f;
+  border-color: #3a3a3c;
+}
+
+body[data-theme="dark"] .profile-bio,
+body[data-theme="dark"] .profile-stats,
+body[data-theme="dark"] .post-card p {
+  color: #b5b5b5;
+}
+
+body[data-theme="dark"] .camera-box {
+  background-color: #1e1e1f;
+}
+
 @media (max-width: 600px) {
   .profile-header {
     flex-direction: column;
