@@ -26,7 +26,7 @@ body {
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #ff4500;
+  border: 3px solid #09b5fe;
   flex-shrink: 0;
 }
 
@@ -49,7 +49,7 @@ body {
 }
 
 .profile-stats strong {
-  color: #ff4500;
+  color: #09b5fe;
 }
 
 .profile-posts {
@@ -71,7 +71,7 @@ body {
 }
 
 .post-card:hover {
-  border-color: #ff4500;
+  border-color: #09b5fe;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -90,7 +90,7 @@ body {
   margin-top: 12px;
   margin-right: 8px;
   padding: 8px 16px;
-  background-color: #ff4500;
+  background-color: #09b5fe;
   color: #ffffff;
   border: none;
   border-radius: 20px;
@@ -98,7 +98,7 @@ body {
 }
 
 .avatar-btn:hover {
-  background-color: #e03d00;
+  background-color: #09b5fe;
 }
 
 .camera-modal {
@@ -181,7 +181,7 @@ body[data-theme="dark"] .camera-box {
   justify-content: center;
   width: 36px;
   height: 36px;
-  background-color: #ff4500;
+  background-color: #09b5fe;
   color: #ffffff;
   border-radius: 50%;
   font-size: 1.6rem;
@@ -191,7 +191,7 @@ body[data-theme="dark"] .camera-box {
 }
 
 .add-post-btn:hover {
-  background-color: #e03d00;
+  background-color: #09b5fe;
 }
 
 body[data-theme="dark"] {
@@ -213,4 +213,39 @@ body[data-theme="dark"] .post-card p {
 
 body[data-theme="dark"] .camera-box {
   background-color: #1e1e1f;
+}
+
+.profile-header,
+.post-card,
+.camera-box {
+  border-radius: 0;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 16px;
+  background-color: #09b5fe;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  font-weight: bold;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.back-btn:hover {
+  background-color: #09b5fe;
+}
+
+.back-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  margin-bottom: 0;
+  z-index: 100;
 }
