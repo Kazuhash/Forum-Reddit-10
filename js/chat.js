@@ -68,3 +68,31 @@ document.addEventListener('DOMContentLoaded', function () {
 if (localStorage.getItem('theme') === 'dark') {
   document.body.setAttribute('data-theme', 'dark');
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const heading = Array.from(document.querySelectorAll('h1, h2, h3, h4, div, span, p')).find(function (el) {
+    return el.children.length === 0 && el.textContent.trim() === 'Percakapan';
+  });
+
+  if (heading) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = '🔍';
+    btn.title = 'Cari user';
+    btn.style.cssText = 'border:none;background:#ff4500;color:#fff;border-radius:50%;width:30px;height:30px;cursor:pointer;';
+    btn.addEventListener('click', function () { window.location.href = 'search-user.html'; });
+    heading.style.display = 'flex';
+    heading.style.justifyContent = 'space-between';
+    heading.style.alignItems = 'center';
+    heading.appendChild(btn);
+  }
+
+  const wanted = new URLSearchParams(window.location.search).get('user');
+  const target = JSON.parse(localStorage.getItem('chatTarget') || 'null');
+  if (!wanted || !target || target.id !== wanted) return;
+
+  const item = Array.from(document.querySelectorAll('li, div, a, button, span')).find(function (el) {
+    return el.children.length === 0 && el.textContent.trim() === target.username;
+  });
+  if (item) item.click();
+});

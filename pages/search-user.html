@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cari User - Forum Reddit 10</title>
+  <style>
+    body { margin: 0; background: #f6f7f8; font-family: Arial, sans-serif; color: #1c1c1c; }
+    .search-page { max-width: 640px; margin: 32px auto; padding: 0 20px; }
+    .back-link { display: inline-block; margin-bottom: 16px; color: #ff4500; text-decoration: none; font-weight: bold; }
+    .search-input { width: 100%; box-sizing: border-box; padding: 12px 18px; font-size: 1rem; border: 1px solid #ddd; border-radius: 24px; outline: none; background: #fff; color: inherit; }
+    .search-input:focus { border-color: #ff4500; }
+    .search-results { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .result { display: flex; align-items: center; gap: 14px; width: 100%; padding: 12px 16px; background: #fff; border: 1px solid #e0e0e0; text-align: left; font: inherit; color: inherit; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; }
+    .result:hover { border-color: #ff4500; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }
+    .result img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #ff4500; flex-shrink: 0; }
+    .result .name { font-weight: bold; }
+    .result .bio { font-size: 0.85rem; color: #666; margin-top: 2px; }
+    .search-hint { color: #666; text-align: center; margin-top: 24px; }
+    body[data-theme="dark"] { background: #121212; color: #e4e4e4; }
+    body[data-theme="dark"] .search-input, body[data-theme="dark"] .result { background: #1e1e1f; border-color: #3a3a3c; }
+    body[data-theme="dark"] .result .bio, body[data-theme="dark"] .search-hint { color: #b5b5b5; }
+  </style>
+</head>
+<body>
+  <main class="search-page">
+    <a href="chat.html" class="back-link">&lt; Kembali</a>
+    <input type="text" id="searchInput" class="search-input" placeholder="Cari username..." autocomplete="off" autofocus>
+    <div id="searchResults" class="search-results"></div>
+  </main>
+  <script src="../js/search-user.js"></script>
+</body>
+</html>
