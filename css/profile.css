@@ -364,3 +364,55 @@ body[data-theme="dark"] .btn-report.active {
   background-color: #4a3a12;
   color: #ffc857;
 }
+
+/* ===== TAMBAHAN: kotak konfirmasi Sign Out ===== */
+.signout-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+}
+
+.signout-modal.show {
+  display: flex;
+}
+
+.signout-box {
+  width: 320px;
+  max-width: 90%;
+  padding: 24px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.signout-box p {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: bold;
+}
+
+.signout-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.signout-actions .avatar-btn {
+  min-width: 90px;
+  margin-right: 0;
+}
+
+.signout-no {
+  background-color: #777777;
+}
+
+.signout-no:hover {
+  background-color: #5c5c5c;
+}
+
+body[data-theme="dark"] .signout-box {
+  background-color: #1e1e1f;
+}

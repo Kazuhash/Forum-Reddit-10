@@ -331,18 +331,14 @@ document.addEventListener('DOMContentLoaded', function () {
       window.location.href = 'tidaksuka.html?post=' + encodeURIComponent(title);
     }, true);
   });
-
   console.log('tidak suka siap');
 });
-
 document.addEventListener('DOMContentLoaded', function () {
   const KEY = 'postReactions';
   const me = localStorage.getItem('username') || 'Gracia';
-
   function load() {
     return JSON.parse(localStorage.getItem(KEY) || '{}');
   }
-
   function setList(title, type, on) {
     const data = load();
     data[title] = data[title] || { like: [], dislike: [], report: [] };
@@ -352,16 +348,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!on && i !== -1) list.splice(i, 1);
     localStorage.setItem(KEY, JSON.stringify(data));
   }
-
   document.querySelectorAll('.profile-posts .post-card').forEach(function (card) {
     const h3 = card.querySelector('h3');
     const oldReport = card.querySelector('.btn-report');
     if (!h3 || !oldReport) return;
     const title = h3.textContent;
-
     const reportBtn = oldReport.cloneNode(true);
     oldReport.parentNode.replaceChild(reportBtn, oldReport);
-
     function reportedNow() {
       const d = load()[title];
       return !!(d && d.report && d.report.indexOf(me) !== -1);
@@ -374,7 +367,6 @@ document.addEventListener('DOMContentLoaded', function () {
       reportBtn.textContent = 'Laporkan (' + countNow() + ')';
       reportBtn.classList.toggle('active', reportedNow());
     }
-
     reportBtn.addEventListener('click', function () {
       setList(title, 'report', !reportedNow());
       render();
@@ -394,17 +386,14 @@ document.addEventListener('DOMContentLoaded', function () {
     render();
   });
 });
-
 document.addEventListener('DOMContentLoaded', function () {
   const back = document.querySelector('.back-btn');
   if (!back) return;
-
   const ref = document.referrer;
   const halamanProfil = ['profile.html', 'likes.html', 'tidaksuka.html', 'laporan.html'];
   const dariLuarProfil = ref
     && ref.indexOf(window.location.origin) === 0
     && !halamanProfil.some(function (p) { return ref.indexOf(p) !== -1; });
-
   if (dariLuarProfil) {
     sessionStorage.setItem('profileOrigin', ref);
   }
@@ -416,8 +405,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-
-// ===== TAMBAHAN: tampilkan data user yang login, bukan data tetap =====
 document.addEventListener('DOMContentLoaded', function () {
   function readUserObject() {
     var keys = ['currentUser', 'loggedInUser', 'user', 'userAccount', 'account'];
@@ -431,7 +418,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     return null;
   }
-
   var obj = readUserObject();
   var name = (obj && (obj.username || obj.name || obj.firstname || obj.firstName)) ||
     localStorage.getItem('username') ||
@@ -440,10 +426,97 @@ document.addEventListener('DOMContentLoaded', function () {
   var email = (obj && obj.email) ||
     localStorage.getItem('userEmail') ||
     localStorage.getItem('email');
-
   var heading = document.querySelector('.profile-info h1');
   var bio = document.querySelector('.profile-bio');
-
   if (heading) heading.textContent = name || 'Guest';
   if (bio) bio.textContent = name ? (email || 'Anggota Forum-Reddit-10') : 'Belum login.';
+});
+document.addEventListener('DOMContentLoaded', function () {
+  const back = document.querySelector('.back-btn');
+  if (!back) return;
+  back.setAttribute('href', '../index.html');
+  back.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.location.href = '../index.html';
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  const modal = document.getElementById('signoutModal');
+  const yesBtn = document.getElementById('signoutYes');
+  const noBtn = document.getElementById('signoutNo');
+  if (!modal || !yesBtn || !noBtn) return;
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('#signoutBtn')) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      modal.classList.add('show');
+    }
+  }, true);
+  noBtn.addEventListener('click', function () {
+    modal.classList.remove('show');
+  });
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) modal.classList.remove('show');
+  });
+  yesBtn.addEventListener('click', function () {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userEmail');
+    window.location.replace('login.html');
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var btn = document.getElementById('signoutBtn');
+  if (!btn) {
+    btn = document.createElement('a');
+    btn.id = 'signoutBtn';
+    btn.href = 'login.html';
+    btn.title = 'Sign Out';
+    btn.innerHTML =
+      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" ' +
+      'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>' +
+      '<polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>' +
+      '<span>Sign Out</span>';
+    btn.style.cssText =
+      'position:fixed;top:16px;right:24px;z-index:100;display:flex;align-items:center;gap:8px;' +
+      'padding:9px 16px;background:#09b5fe;color:#fff;border-radius:20px;font-size:0.9rem;' +
+      'font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;';
+    document.body.appendChild(btn);
+  }
+  if (document.getElementById('signoutModal')) return;
+  var modal = document.createElement('div');
+  modal.id = 'signoutModal';
+  modal.style.cssText =
+    'display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;' +
+    'justify-content:center;z-index:300;';
+  modal.innerHTML =
+    '<div style="width:320px;max-width:90%;padding:24px;background:#fff;text-align:center;' +
+    'font-family:Arial,sans-serif;color:#1c1c1c;">' +
+    '<p style="margin:0 0 16px;font-size:1.05rem;font-weight:bold;">Apakah kamu yakin ingin Sign Out?</p>' +
+    '<button type="button" id="soYes" style="min-width:90px;padding:8px 16px;margin-right:8px;' +
+    'background:#09b5fe;color:#fff;border:none;border-radius:20px;cursor:pointer;">Ya</button>' +
+    '<button type="button" id="soNo" style="min-width:90px;padding:8px 16px;background:#777;' +
+    'color:#fff;border:none;border-radius:20px;cursor:pointer;">Tidak</button></div>';
+  document.body.appendChild(modal);
+
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    modal.style.display = 'flex';
+  });
+
+  document.getElementById('soNo').addEventListener('click', function () {
+    modal.style.display = 'none';
+  });
+
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) modal.style.display = 'none';
+  });
+
+  document.getElementById('soYes').addEventListener('click', function () {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userEmail');
+    window.location.replace('login.html');
+  });
 });

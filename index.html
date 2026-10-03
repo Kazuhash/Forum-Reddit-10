@@ -6,6 +6,74 @@
   <title>Forumly - Beranda Diskusi</title>
   <link rel="stylesheet" href="style.css">
 </head>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (localStorage.getItem('isLoggedIn') !== 'true') return;
+      var name = localStorage.getItem('username');
+      var email = localStorage.getItem('userEmail');
+      if (!name) return;
+      var nameEl = null, statusEl = null;
+      document.querySelectorAll('body *').forEach(function (el) {
+        if (el.children.length !== 0) return;
+        var t = el.textContent.trim();
+        if (t === 'Guest') nameEl = el;
+        if (t === 'Belum Login') statusEl = el;
+      });
+      if (!nameEl || !statusEl) return;
+      function findAvatar(root) {
+        var found = null;
+        root.querySelectorAll('*').forEach(function (el) {
+          if (el.children.length === 0 && el.textContent.trim() === 'G') found = el;
+        });
+        return found;
+      }
+      var card = nameEl.parentElement;
+      var avatarEl = null;
+      while (card && card !== document.body) {
+        avatarEl = findAvatar(card);
+        if (avatarEl) break;
+        card = card.parentElement;
+      }
+      if (!card || card === document.body) card = nameEl.parentElement;
+      nameEl.textContent = name;
+      statusEl.textContent = email || 'Sudah login';
+      var photo = localStorage.getItem('avatarGracia');
+      if (avatarEl && photo) {
+        avatarEl.textContent = '';
+        var img = document.createElement('img');
+        img.src = photo;
+        img.alt = 'Profil';
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;';
+        avatarEl.style.overflow = 'hidden';
+        avatarEl.appendChild(img);
+      }
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', function () {
+        window.location.href = 'pages/profile.html';
+      });
+    });
+  </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (localStorage.getItem('isLoggedIn') !== 'true') return;
+      var nameEl = null;
+      document.querySelectorAll('body *').forEach(function (el) {
+        if (el.children.length === 0 && el.textContent.trim() === localStorage.getItem('username')) nameEl = el;
+      });
+      if (!nameEl) return;
+      var card = nameEl.parentElement.parentElement || nameEl.parentElement;
+      card.querySelectorAll('a').forEach(function (a) {
+        a.setAttribute('href', 'pages/profile.html');
+      });
+      document.addEventListener('click', function (e) {
+        if (card.contains(e.target)) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          window.location.href = 'pages/profile.html';
+        }
+      }, true);
+    });
+  </script>
 <body>
 
   <div class="toast-container" id="toastContainer"></div>
