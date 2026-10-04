@@ -1,5 +1,3 @@
-/* Tambahan homepage: kotak tulis post, catatan modal, dan inbox kecil.
-   Memakai variabel warna dari style.css supaya ikut mode terang/gelap. */
 
 .home-composer {
   margin-bottom: 12px;
@@ -34,7 +32,6 @@
   text-decoration: none;
 }
 
-/* Inbox kecil (pojok kanan bawah) */
 .home-inbox {
   position: fixed;
   right: 20px;
