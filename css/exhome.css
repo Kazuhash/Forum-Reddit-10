@@ -1,0 +1,141 @@
+
+.home-composer {
+  margin-bottom: 12px;
+}
+
+.home-composer-btn {
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.home-composer-btn:hover {
+  border-color: var(--accent);
+}
+
+.home-modal-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.home-modal-note a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.home-inbox {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.home-inbox-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.home-inbox-badge {
+  background-color: var(--danger);
+  color: #ffffff;
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+.home-inbox-panel {
+  display: none;
+  width: 300px;
+  max-width: calc(100vw - 40px);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.home-inbox-panel.open {
+  display: block;
+}
+
+.home-inbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.home-inbox-header a {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.home-inbox-list {
+  list-style: none;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.home-inbox-list li {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.home-inbox-list li.unread {
+  background-color: var(--accent-soft);
+}
+
+.home-inbox-list small {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.home-inbox-more {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.embed-frame { 
+    width: 100%; 
+    height: calc(100vh - 90px); 
+    border: 0; 
+    display: block; 
+    background: transparent; 
+}

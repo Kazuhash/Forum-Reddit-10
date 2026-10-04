@@ -35,15 +35,7 @@ body {
   min-height: 100vh;
 }
 
-/* Navbar */
-.cp-navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--bg-card);
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--border-color);
-}
+
 
 a.cp-logo {
   font-size: 22px;
@@ -67,7 +59,6 @@ a.cp-logo {
   font-weight: 600;
 }
 
-/* Layout */
 .cp-container {
   max-width: 740px;
   margin: 20px auto;
@@ -99,7 +90,6 @@ a.cp-logo {
   padding: 16px;
 }
 
-/* Tabs */
 .cp-tabs {
   display: flex;
   border-bottom: 1px solid var(--border-color);
@@ -127,7 +117,6 @@ a.cp-logo {
   border-bottom-color: var(--accent);
 }
 
-/* Form */
 .cp-form-group {
   position: relative;
   margin-bottom: 16px;
@@ -242,11 +231,8 @@ textarea {
   border: none;
 }
 
-/* Responsif */
 @media (max-width: 600px) {
-  .cp-navbar {
-    padding: 10px 12px;
-  }
+
 
   .cp-container {
     margin: 12px auto;

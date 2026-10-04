@@ -8,16 +8,6 @@
 </head>
 <body>
 
-    <header class="sr-navbar">
-        <a href="../index.html" class="sr-logo">Forumly</a>
-        <div class="sr-search-container">
-            <input type="text" id="sr-search-input" placeholder="Search Forumly...">
-            <button type="button" id="sr-clear-btn">&times;</button>
-        </div>
-        <a href="create-post.html" class="sr-create-btn">+ Create Post</a>
-        <a href="inbox.html" class="sr-nav-link"> Inbox</a>
-    </header>
-
     <main class="sr-container">
 
         <div class="sr-filter-tabs">
@@ -27,6 +17,26 @@
         </div>
 
         <div class="sr-results">
+
+            <div class="sr-card" data-category="posts">
+                <div class="sr-card-header">
+                    <span class="sr-subreddit">Teknologi</span>
+                    <span class="sr-author">• Posted by Budi Setiwan 2 jam lalu</span>
+                </div>
+                <h3 class="sr-title">Tips belajar struktur data dan algoritma untuk persiapan praktikum minggu depan?</h3>
+                <p class="sr-snippet">Lagi persiapan ujian modul pohon (tree) dan graf. Ada saran visualisasi algoritma atau metode latihan yang efektif?</p>
+                <div class="sr-card-footer"><span>⬆ 14 Upvotes</span></div>
+            </div>
+
+            <div class="sr-card" data-category="posts">
+                <div class="sr-card-header">
+                    <span class="sr-subreddit">Anime</span>
+                    <span class="sr-author">• Posted by Rian Pratama 4 jam lalu</span>
+                </div>
+                <h3 class="sr-title">Anime Spring Season 2026 mana yang paling worth it buat diikuti?</h3>
+                <p class="sr-snippet">Musim ini lumayan banyak rilis sekuel dan adaptasi baru. Mau minta rekomendasi anime genre misteri atau slice of life.</p>
+                <div class="sr-card-footer"><span>⬆ 28 Upvotes</span></div>
+            </div>
 
             <div class="sr-card" data-category="posts">
                 <div class="sr-card-header">
@@ -83,6 +93,37 @@
         <p class="sr-no-results" id="sr-no-results">Tidak ada hasil yang cocok.</p>
 
     </main>
+
+    <div class="sr-modal" id="sr-thread-modal">
+        <div class="sr-modal-card">
+            <div class="sr-modal-header">
+                <h3 id="sr-modal-title"></h3>
+                <button type="button" id="sr-modal-close">&times;</button>
+            </div>
+            <div id="sr-comment-list"></div>
+            <div class="sr-comment-form">
+                <input type="text" id="sr-comment-input" placeholder="Tulis komentar...">
+                <button type="button" id="sr-comment-send">Kirim</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sr-modal" id="sr-report-modal">
+        <div class="sr-modal-card">
+            <div class="sr-modal-header">
+                <h3>Laporkan Konten</h3>
+                <button type="button" id="sr-report-close">&times;</button>
+            </div>
+            <p id="sr-report-target">Pilih alasan melaporkan:</p>
+            <select id="sr-report-reason" class="sr-report-select">
+                <option value="spam">Spam / Penipuan</option>
+                <option value="hate">Ujaran Kebencian / SARA</option>
+                <option value="inappropriate">Konten Tidak Layak</option>
+            </select>
+            <button type="button" id="sr-report-submit" class="sr-report-submit">Kirim Laporan</button>
+        </div>
+    </div>
+    <div class="sr-toast" id="sr-toast"></div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../js/search-bar-result.js"></script>
