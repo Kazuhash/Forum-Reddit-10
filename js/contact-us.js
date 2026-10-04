@@ -10,10 +10,8 @@ $(document).ready(function () {
       message: $("#contactMessage").val().trim()
     };
 
-    // Reset form inputs after submitting
     this.reset();
 
-    // Show toast notification using the function in script.js
     if (typeof showToast === "function") {
       showToast("Pesan Anda telah berhasil dikirim!");
     } else {
