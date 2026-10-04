@@ -1,19 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
   const navItems = document.querySelectorAll('.sr-nav-item');
   const panels = document.querySelectorAll('.sr-settings-panel');
-  const searchInput = document.getElementById('sr-search-input');
-  const clearBtn = document.getElementById('sr-clear-btn');
-  const profileForm = document.getElementById('profile-form');
-  const darkModeToggle = document.getElementById('dark-mode-toggle');
 
-  // Sidebar Tab Switching
+  // Tab Switching Logic
   navItems.forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
       const targetTab = button.getAttribute('data-tab');
 
+      // Update active state on tab buttons
       navItems.forEach(nav => nav.classList.remove('active'));
       button.classList.add('active');
 
+      // Show the selected panel and hide others
       panels.forEach(panel => {
         if (panel.id === `panel-${targetTab}`) {
           panel.classList.add('active');
@@ -24,26 +23,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Search Clear Button Logic
-  if (searchInput && clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      searchInput.value = '';
-      searchInput.focus();
+  // Profile Form Handler
+  const profileForm = document.getElementById('profile-form');
+  if (profileForm) {
+    profileForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Profil berhasil disimpan!');
     });
   }
 
-  // Dark Mode Toggle Logic
-  const isDarkMode = localStorage.getItem('darkMode') !== 'false';
-  darkModeToggle.checked = isDarkMode;
+  // Account Form Handler
+  const accountForm = document.getElementById('account-form');
+  if (accountForm) {
+    accountForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Pengaturan akun berhasil diperbarui!');
+    });
+  }
 
-  darkModeToggle.addEventListener('change', (e) => {
-    const enabled = e.target.checked;
-    localStorage.setItem('darkMode', enabled);
-  });
-
-  // Profile Form Handling
-  profileForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    alert('Settings updated successfully!');
-  });
+  // Appearance & Privacy Form Handler
+  const appearanceForm = document.getElementById('appearance-form');
+  if (appearanceForm) {
+    appearanceForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Pengaturan privasi & tampilan disimpan!');
+    });
+  }
 });
