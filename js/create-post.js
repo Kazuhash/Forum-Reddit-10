@@ -77,11 +77,17 @@ $(document).ready(function () {
         localStorage.setItem('userPosts', JSON.stringify(posts));
 
         alert('Post berhasil dibuat di ' + community + '!');
-        window.location.href = 'profile.html';
+        if (window.top !== window) {
+            window.top.location.href = '../index.html';
+        } else {
+            window.location.href = 'profile.html';
+        }
     });
 
     $('.cp-cancel-btn').on('click', function () {
-        if (document.referrer && window.history.length > 1) {
+        if (window.top !== window) {
+            window.top.location.href = '../index.html';
+        } else if (document.referrer && window.history.length > 1) {
             window.history.back();
         } else {
             window.location.href = '../index.html';
