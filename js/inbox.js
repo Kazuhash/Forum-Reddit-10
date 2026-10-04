@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    if (localStorage.getItem('theme') === 'dark') {
+        $('body').attr('data-theme', 'dark');
+    }
+
 function updateBadge() {
     var count = $('.ib-card.unread').length;
     $('#ib-badge').text(count).toggle(count > 0);
@@ -23,9 +27,18 @@ function applyTab() {
     $('#ib-empty').toggleClass('show', visible === 0);
 }
 
+function saveRead() {
+    var ids = [];
+    $('.ib-card').not('.unread').each(function () {
+        ids.push($(this).data('id'));
+    });
+    localStorage.setItem('inboxRead', JSON.stringify(ids));
+}
+
 function refresh() {
     updateBadge();
     applyTab();
+    saveRead();
 }
 
 $('#ib-bell-btn').on('click', function (e) {
@@ -57,6 +70,17 @@ $('.ib-tab').on('click', function () {
     $('.ib-tab').removeClass('active');
     $(this).addClass('active');
     applyTab();
+});
+
+// Pulihkan notifikasi yang sudah dibaca
+var readIds = [];
+try {
+    readIds = JSON.parse(localStorage.getItem('inboxRead')) || [];
+} catch (err) {
+    readIds = [];
+}
+readIds.forEach(function (id) {
+    $('[data-id="' + id + '"]').removeClass('unread');
 });
 
 refresh();
