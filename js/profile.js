@@ -668,3 +668,178 @@ window.addEventListener('click', function (e) {
   e.stopPropagation();
   window.location.href = '../index.html';
 }, true);
+document.addEventListener('DOMContentLoaded', function () {
+  var posts = document.querySelector('.profile-posts');
+  if (!posts) return;
+
+  var openTitle = '';
+
+  var fallbackAvatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">' +
+    '<rect width="200" height="200" fill="#09b5fe"/>' +
+    '<circle cx="100" cy="78" r="38" fill="#ffffff"/>' +
+    '<path d="M25 200c0-42 33-72 75-72s75 30 75 72z" fill="#ffffff"/>' +
+    '</svg>'
+  );
+
+  function readComments() {
+    try {
+      return JSON.parse(localStorage.getItem('postComments')) || {};
+    } catch (err) {
+      return {};
+    }
+  }
+
+  function currentName() {
+    var heading = document.querySelector('.profile-info h1');
+    return localStorage.getItem('username') || (heading ? heading.textContent.trim() : '') || 'Gracia';
+  }
+
+  function currentPhoto() {
+    return localStorage.getItem('avatarGracia') || fallbackAvatar;
+  }
+
+  function isCommentButton(el) {
+    return el && el.tagName === 'BUTTON' && /^Komentar/.test(el.textContent.trim()) && el.closest('.post-card');
+  }
+
+  function titleOf(card) {
+    var h = card.querySelector('h3');
+    return h ? h.textContent.trim() : '';
+  }
+
+  function formatTime(t) {
+    return new Date(t).toLocaleString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+  }
+
+  function refreshCounts() {
+    var data = readComments();
+    posts.querySelectorAll('.post-card').forEach(function (card) {
+      var btn = Array.from(card.querySelectorAll('button')).find(function (b) {
+        return /^Komentar/.test(b.textContent.trim());
+      });
+      if (!btn) return;
+      var label = 'Komentar (' + (data[titleOf(card)] || []).length + ')';
+      if (btn.textContent.trim() !== label) btn.textContent = label;
+    });
+  }
+
+  var overlay = document.createElement('div');
+  overlay.className = 'cm-overlay';
+  overlay.innerHTML =
+    '<div class="cm-modal" role="dialog" aria-modal="true">' +
+    '<div class="cm-top"><h3>Detail Diskusi</h3><button type="button" class="cm-close" aria-label="Tutup">&times;</button></div>' +
+    '<div class="cm-post"><strong class="cm-post-author"></strong><strong class="cm-post-title"></strong><p class="cm-post-body"></p></div>' +
+    '<h4 class="cm-count"></h4>' +
+    '<ul class="cm-list"></ul>' +
+    '<form class="cm-form"><input type="text" class="cm-input" autocomplete="off"><button type="submit" class="cm-send">Kirim</button></form>' +
+    '</div>';
+  document.body.appendChild(overlay);
+
+  var closeBtn = overlay.querySelector('.cm-close');
+  var postAuthor = overlay.querySelector('.cm-post-author');
+  var postTitle = overlay.querySelector('.cm-post-title');
+  var postBody = overlay.querySelector('.cm-post-body');
+  var count = overlay.querySelector('.cm-count');
+  var list = overlay.querySelector('.cm-list');
+  var form = overlay.querySelector('.cm-form');
+  var input = overlay.querySelector('.cm-input');
+
+  function render() {
+    var items = readComments()[openTitle] || [];
+    count.textContent = 'Komentar (' + items.length + ')';
+    list.innerHTML = '';
+
+    items.forEach(function (c) {
+      var li = document.createElement('li');
+      li.className = 'cm-item';
+
+      var img = document.createElement('img');
+      img.className = 'cm-avatar';
+      img.alt = c.user;
+      img.src = c.user === currentName() ? currentPhoto() : fallbackAvatar;
+      img.addEventListener('error', function () { img.src = fallbackAvatar; });
+
+      var body = document.createElement('div');
+      body.className = 'cm-body';
+
+      var head = document.createElement('div');
+      head.className = 'cm-head';
+
+      var name = document.createElement('strong');
+      name.textContent = c.user;
+
+      var time = document.createElement('span');
+      time.textContent = formatTime(c.t);
+
+      var text = document.createElement('p');
+      text.textContent = c.text;
+
+      head.appendChild(name);
+      head.appendChild(time);
+      body.appendChild(head);
+      body.appendChild(text);
+      li.appendChild(img);
+      li.appendChild(body);
+      list.appendChild(li);
+    });
+
+    list.scrollTop = list.scrollHeight;
+    refreshCounts();
+  }
+
+  function openModal(card) {
+    var p = card.querySelector('p');
+    openTitle = titleOf(card);
+    postAuthor.textContent = currentName();
+    postTitle.textContent = openTitle;
+    postBody.textContent = p ? p.textContent.trim() : '';
+    input.placeholder = 'Tulis komentar sebagai ' + currentName() + '...';
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    render();
+    input.focus();
+  }
+
+  function closeModal() {
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    openTitle = '';
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn || !isCommentButton(btn)) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    openModal(btn.closest('.post-card'));
+  }, true);
+
+  closeBtn.addEventListener('click', closeModal);
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeModal();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('show')) closeModal();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = input.value.trim();
+    if (text === '' || openTitle === '') return;
+
+    var data = readComments();
+    if (!data[openTitle]) data[openTitle] = [];
+    data[openTitle].push({ user: currentName(), text: text, t: Date.now() });
+    localStorage.setItem('postComments', JSON.stringify(data));
+
+    input.value = '';
+    render();
+  });
+
+  new MutationObserver(refreshCounts).observe(posts, { childList: true, subtree: true });
+  refreshCounts();
+  setTimeout(refreshCounts, 300);
+});

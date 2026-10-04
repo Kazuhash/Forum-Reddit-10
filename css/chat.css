@@ -877,3 +877,208 @@ body[data-theme="dark"] .chat-action-btn:hover {
 .chat-action-money {
   display: none !important;
 }
+.message[data-reply]::before {
+  content: attr(data-reply);
+  display: block;
+  margin-bottom: 6px;
+  padding: 4px 8px;
+  border-left: 3px solid #09b5fe;
+  background-color: rgba(0, 0, 0, 0.06);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.message.sent[data-reply]::before {
+  border-left-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+.message[data-badges]::after {
+  content: attr(data-badges);
+  display: block;
+  margin-top: 4px;
+  font-size: 0.85rem;
+}
+
+.msg-menu {
+  display: none;
+  position: fixed;
+  z-index: 400;
+  padding: 6px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.msg-menu button {
+  padding: 6px 10px;
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.msg-menu button:hover {
+  background-color: #e1f5fe;
+}
+
+.msg-menu-actions {
+  display: flex;
+  gap: 2px;
+}
+
+.msg-emoji-row {
+  display: none;
+  gap: 2px;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.msg-menu.show-emoji .msg-emoji-row {
+  display: flex;
+}
+
+.msg-emoji-row button {
+  font-size: 1.2rem;
+}
+
+.reply-bar {
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 14px;
+  background-color: #e1f5fe;
+  border-top: 1px solid #e0e0e0;
+  border-left: 3px solid #09b5fe;
+  color: #0a4fb0;
+  font-size: 0.85rem;
+}
+
+.reply-bar span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.reply-bar button {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: #0a4fb0;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+body[data-theme="dark"] .msg-menu {
+  background-color: #1e1e1f;
+  border-color: #3a3a3c;
+  color: #e4e4e4;
+}
+
+body[data-theme="dark"] .msg-menu button {
+  color: #e4e4e4;
+}
+
+body[data-theme="dark"] .msg-menu button:hover {
+  background-color: #12313f;
+}
+
+body[data-theme="dark"] .msg-emoji-row {
+  border-color: #3a3a3c;
+}
+
+body[data-theme="dark"] .reply-bar {
+  background-color: #12313f;
+  border-color: #3a3a3c;
+  color: #9bd8f5;
+}
+
+body[data-theme="dark"] .reply-bar button {
+  color: #9bd8f5;
+}
+.chat-window {
+  min-height: 0;
+}
+
+.chat-messages {
+  min-height: 0;
+}
+
+.chat-input-form {
+  flex-shrink: 0;
+}
+#chatContactList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.contact-menu-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin-left: auto;
+  padding: 0;
+  background-color: #09b5fe;
+  border: none;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 0.7rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.contact-menu-btn[data-marks]::before {
+  content: attr(data-marks);
+}
+
+.contact-menu-btn:hover {
+  background-color: #0894d1;
+}
+
+.contact-menu {
+  display: none;
+  position: fixed;
+  z-index: 450;
+  gap: 4px;
+  padding: 6px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contact-menu button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 1.15rem;
+  cursor: pointer;
+}
+
+.contact-menu button:hover {
+  background-color: #e1f5fe;
+}
+
+body[data-theme="dark"] .contact-menu {
+  background-color: #1e1e1f;
+  border-color: #3a3a3c;
+}
+
+body[data-theme="dark"] .contact-menu button {
+  color: #e4e4e4;
+}
+
+body[data-theme="dark"] .contact-menu button:hover {
+  background-color: #12313f;
+}
