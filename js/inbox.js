@@ -8,6 +8,10 @@ function updateBadge() {
     var count = $('.ib-card.unread').length;
     $('#ib-badge').text(count).toggle(count > 0);
 }
+if (window.top !== window) {
+    var nav = document.querySelector('.ib-navbar');
+    if (nav) { nav.style.display = 'none'; }
+}
 
 function applyTab() {
     var filter = $('.ib-tab.active').data('tab');
@@ -72,7 +76,6 @@ $('.ib-tab').on('click', function () {
     applyTab();
 });
 
-// Pulihkan notifikasi yang sudah dibaca
 var readIds = [];
 try {
     readIds = JSON.parse(localStorage.getItem('inboxRead')) || [];
