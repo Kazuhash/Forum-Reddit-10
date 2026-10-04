@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forumly - Contact Us</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="contact.css">
+</head>
+
+<body>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="app-container">
+
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <a href="../index.html" class="logo">Forumly</a>
+        </div>
+
+        <nav class="nav-group">
+          <span class="nav-title">NAVIGASI UTAMA</span>
+          <a href="../index.html" class="nav-item">Beranda</a>
+          <a href="../explore/explore.html" class="nav-item">Explore Topik</a>
+          <a href="../community/community.html" class="nav-item">Komunitas</a>
+
+          <span class="nav-title">HALAMAN UTAMA</span>
+          <a href="search-bar-result.html" class="nav-item">Post</a>
+          <a href="create-post.html" class="nav-item">Buat Post</a>
+          <a href="popular.html" class="nav-item">Popular</a>
+          <a href="chat.html" class="nav-item">Chat</a>
+          <a href="inbox.html" class="nav-item">Inbox</a>
+          <a href="whats-new.html" class="nav-item">What's New</a>
+          <a href="about.html" class="nav-item">About</a>
+          <a href="settings.html" class="nav-item">Settings</a>
+          <a href="contact.html" class="nav-item active">Contact Us</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button class="btn-sidebar-theme" id="btnThemeToggle">🌙 Mode Gelap</button>
+
+        <a href="login.html" class="user-profile-card">
+          <div class="avatar">G</div>
+          <div class="user-info">
+            <span class="user-name">Guest</span>
+            <span class="user-status">Belum Login</span>
+          </div>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <section class="contact-container">
+        <div class="contact-header">
+          <h2>Hubungi Kami</h2>
+          <p>Punya pertanyaan, kendala teknis, atau saran untuk Forumly? Kirimkan pesan kepada tim kami.</p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Information Column -->
+          <div class="contact-info-list">
+            <div class="info-card">
+              <span class="info-icon">📧</span>
+              <div class="info-content">
+                <h4>Email Dukungan</h4>
+                <p>support@forumly.com</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <span class="info-icon">💬</span>
+              <div class="info-content">
+                <h4>Respon Cepat</h4>
+                <p>Tim support kami merespon dalam waktu 1x24 jam kerja.</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <span class="info-icon">📍</span>
+              <div class="info-content">
+                <h4>Kantor Tim</h4>
+                <p>Jakarta, Indonesia</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Column -->
+          <form id="contactForm" class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactName">Nama</label>
+                <input type="text" id="contactName" required placeholder="Nama Anda">
+              </div>
+
+              <div class="form-group">
+                <label for="contactEmail">Email</label>
+                <input type="email" id="contactEmail" required placeholder="nama@email.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="contactCategory">Kategori Pertanyaan</label>
+              <select id="contactCategory">
+                <option value="general">Pertanyaan Umum</option>
+                <option value="technical">Kendala Teknis / Bug</option>
+                <option value="account">Masalah Akun</option>
+                <option value="feedback">Saran & Masukan</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contactSubject">Subjek</label>
+              <input type="text" id="contactSubject" required placeholder="Ringkasan topik pesan">
+            </div>
+
+            <div class="form-group">
+              <label for="contactMessage">Pesan</label>
+              <textarea id="contactMessage" rows="5" required placeholder="Tuliskan detail pesan Anda di sini..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Kirim Pesan</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../script.js"></script>
+  <script src="contact.js"></script>
+
+</body>
+</html>

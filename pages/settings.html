@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="../style.css">
 
   <style>
-    /* Section & Tab Styling */
     .settings-container {
       background: var(--bg-card, #ffffff);
       border: 1px solid var(--border-color, #e1e8ed);
@@ -42,7 +41,6 @@
       color: #ffffff;
     }
 
-    /* Panel Visibility Toggle (Crucial for Tab Switching) */
     .sr-settings-panel {
       display: none !important;
     }
@@ -51,7 +49,6 @@
       display: block !important;
     }
 
-    /* Form Layouts */
     .sr-form-group {
       margin-bottom: 18px;
       display: flex;
@@ -78,7 +75,6 @@
       border-color: #1da1f2;
     }
 
-    /* Toggle Switches for Privacy Section */
     .sr-toggle-row {
       display: flex;
       justify-content: space-between;
@@ -149,7 +145,6 @@
 
   <div class="app-container">
 
-    <!-- Left Sidebar (Identical to index.html) -->
     <aside class="sidebar">
       <div class="sidebar-top">
         <div class="brand">
@@ -188,19 +183,16 @@
       </div>
     </aside>
 
-    <!-- Main Content Area -->
     <main class="main-content">
       <section class="settings-container">
         <h2 class="feed-title">Pengaturan Akun</h2>
 
-        <!-- Tab Controls -->
         <div class="settings-tabs">
           <button type="button" class="sr-nav-item active" data-tab="profile">Profile</button>
           <button type="button" class="sr-nav-item" data-tab="account">Account</button>
           <button type="button" class="sr-nav-item" data-tab="appearance">Appearance & Privacy</button>
         </div>
 
-        <!-- 1. Profile Settings Panel -->
         <section id="panel-profile" class="sr-settings-panel active">
           <h3 style="margin-bottom: 16px;">Profile Settings</h3>
           <form id="profile-form">
@@ -216,7 +208,6 @@
           </form>
         </section>
 
-        <!-- 2. Account Preferences Panel -->
         <section id="panel-account" class="sr-settings-panel">
           <h3 style="margin-bottom: 16px;">Account Preferences</h3>
           <form id="account-form">
@@ -236,7 +227,6 @@
           </form>
         </section>
 
-        <!-- 3. Appearance & Privacy Panel -->
         <section id="panel-appearance" class="sr-settings-panel">
           <h3 style="margin-bottom: 16px;">Appearance & Privacy</h3>
           <form id="appearance-form">
@@ -285,7 +275,6 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="../script.js"></script>
   
-  <!-- Standalone inline Tab Script (Guaranteed Execution) -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const tabs = document.querySelectorAll('.sr-nav-item');
@@ -296,13 +285,10 @@
           e.preventDefault();
           const targetTab = this.getAttribute('data-tab');
 
-          // Remove active class from all tabs
           tabs.forEach(function (t) { t.classList.remove('active'); });
           
-          // Add active class to clicked tab
           this.classList.add('active');
 
-          // Hide all panels & show the selected one
           panels.forEach(function (panel) {
             if (panel.id === 'panel-' + targetTab) {
               panel.classList.add('active');
@@ -313,7 +299,6 @@
         });
       });
 
-      // Form Submissions
       const pForm = document.getElementById('profile-form');
       if (pForm) {
         pForm.addEventListener('submit', function (e) {
