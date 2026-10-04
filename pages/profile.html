@@ -8,12 +8,10 @@
 </head>
 <body>
   <script>
-    // Mode gelap dari pengaturan beranda
     if (localStorage.getItem('theme') === 'dark') {
       document.body.setAttribute('data-theme', 'dark');
     }
   </script>
-
   <main class="profile-page">
     <a href="../index.html" class="back-btn" title="Kembali ke beranda">&lt;</a>
     <section class="profile-header">
@@ -30,21 +28,17 @@
         <input type="file" id="avatarInput" accept="image/*" hidden>
       </div>
     </section>
-
     <section class="profile-posts">
       <div class="posts-header">
         <h2>Postingan Saya</h2>
         <a href="create-post.html" class="add-post-btn" title="Buat postingan">+</a>
       </div>
-
       <div class="post-card">
         <h3>Judul Post Contoh</h3>
         <p>Ini contoh preview isi post...</p>
       </div>
-      <!-- Post lain di-generate lewat JS/backend nantinya -->
     </section>
   </main>
-
   <div id="cameraModal" class="camera-modal">
     <div class="camera-box">
       <video id="cameraVideo" autoplay playsinline></video>
@@ -54,7 +48,15 @@
       </div>
     </div>
   </div>
-
+    <div id="signoutModal" class="signout-modal">
+    <div class="signout-box">
+      <p>Apakah kamu yakin ingin Sign Out?</p>
+      <div class="signout-actions">
+        <button type="button" id="signoutYes" class="avatar-btn">Ya</button>
+        <button type="button" id="signoutNo" class="avatar-btn signout-no">Tidak</button>
+      </div>
+    </div>
+  </div>
   <script src="../js/profile.js?v=4"></script>
 </body>
 </html>

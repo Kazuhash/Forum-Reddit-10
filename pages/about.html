@@ -48,8 +48,6 @@
         trigger.textContent = '';
         trigger.appendChild(img);
       }
-
-      // Panah kembali ke halaman sebelum About
       var header = document.querySelector('.site-header');
       if (header && !document.querySelector('.about-back-btn')) {
         var back = document.createElement('a');
@@ -68,7 +66,7 @@
     });
   </script>
   <header class="site-header">
-    <a href="../index.html" class="logo">Forum-Reddit-10</a>
+    <a href="../index.html" class="logo">Forumly</a>
     <div class="user-menu">
       <button class="user-menu-trigger" onclick="toggleUserMenu()">Gracia</button>
       <div class="user-menu-dropdown" id="userMenuDropdown">
@@ -83,7 +81,7 @@
   <main class="about-page">
     <h1>Tentang Forum Ini</h1>
     <p>
-      Forum-Reddit-10 adalah platform diskusi komunitas tempat pengguna bisa
+      Forumly adalah platform diskusi komunitas tempat pengguna bisa
       membuat post, bergabung ke komunitas, dan berdiskusi seputar topik yang mereka minati.
     </p>
 
@@ -99,9 +97,8 @@
           Marchella Yonansyah,
           Jericho Stive Angdev,
           Jhosua Eben Haezer,
-          Brendon Wesley.
+          Brandon Wesley.
         </li>
-        <!-- Tambahkan anggota tim lainnya di sini -->
       </ul>
     </section>
   </main>
@@ -109,3 +106,14 @@
   <link rel="stylesheet" href="../css/about.css">
 </body>
 </html>
+<script>
+  (function () {
+    var theme = localStorage.getItem('theme');
+
+    if (theme === 'dark') {
+      document.body.setAttribute('data-theme', 'dark');
+    } else {
+      document.body.removeAttribute('data-theme');
+    }
+  })();
+</script>

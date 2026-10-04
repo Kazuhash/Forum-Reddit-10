@@ -331,18 +331,14 @@ document.addEventListener('DOMContentLoaded', function () {
       window.location.href = 'tidaksuka.html?post=' + encodeURIComponent(title);
     }, true);
   });
-
   console.log('tidak suka siap');
 });
-
 document.addEventListener('DOMContentLoaded', function () {
   const KEY = 'postReactions';
   const me = localStorage.getItem('username') || 'Gracia';
-
   function load() {
     return JSON.parse(localStorage.getItem(KEY) || '{}');
   }
-
   function setList(title, type, on) {
     const data = load();
     data[title] = data[title] || { like: [], dislike: [], report: [] };
@@ -352,16 +348,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!on && i !== -1) list.splice(i, 1);
     localStorage.setItem(KEY, JSON.stringify(data));
   }
-
   document.querySelectorAll('.profile-posts .post-card').forEach(function (card) {
     const h3 = card.querySelector('h3');
     const oldReport = card.querySelector('.btn-report');
     if (!h3 || !oldReport) return;
     const title = h3.textContent;
-
     const reportBtn = oldReport.cloneNode(true);
     oldReport.parentNode.replaceChild(reportBtn, oldReport);
-
     function reportedNow() {
       const d = load()[title];
       return !!(d && d.report && d.report.indexOf(me) !== -1);
@@ -374,7 +367,6 @@ document.addEventListener('DOMContentLoaded', function () {
       reportBtn.textContent = 'Laporkan (' + countNow() + ')';
       reportBtn.classList.toggle('active', reportedNow());
     }
-
     reportBtn.addEventListener('click', function () {
       setList(title, 'report', !reportedNow());
       render();
@@ -394,17 +386,14 @@ document.addEventListener('DOMContentLoaded', function () {
     render();
   });
 });
-
 document.addEventListener('DOMContentLoaded', function () {
   const back = document.querySelector('.back-btn');
   if (!back) return;
-
   const ref = document.referrer;
   const halamanProfil = ['profile.html', 'likes.html', 'tidaksuka.html', 'laporan.html'];
   const dariLuarProfil = ref
     && ref.indexOf(window.location.origin) === 0
     && !halamanProfil.some(function (p) { return ref.indexOf(p) !== -1; });
-
   if (dariLuarProfil) {
     sessionStorage.setItem('profileOrigin', ref);
   }
@@ -416,8 +405,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-
-// ===== TAMBAHAN: tampilkan data user yang login, bukan data tetap =====
 document.addEventListener('DOMContentLoaded', function () {
   function readUserObject() {
     var keys = ['currentUser', 'loggedInUser', 'user', 'userAccount', 'account'];
@@ -431,7 +418,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     return null;
   }
-
   var obj = readUserObject();
   var name = (obj && (obj.username || obj.name || obj.firstname || obj.firstName)) ||
     localStorage.getItem('username') ||
@@ -440,10 +426,420 @@ document.addEventListener('DOMContentLoaded', function () {
   var email = (obj && obj.email) ||
     localStorage.getItem('userEmail') ||
     localStorage.getItem('email');
-
   var heading = document.querySelector('.profile-info h1');
   var bio = document.querySelector('.profile-bio');
-
   if (heading) heading.textContent = name || 'Guest';
-  if (bio) bio.textContent = name ? (email || 'Anggota Forum-Reddit-10') : 'Belum login.';
+  if (bio) bio.textContent = name ? (email || 'Anggota Forumly') : 'Belum login.';
+});
+document.addEventListener('DOMContentLoaded', function () {
+  const back = document.querySelector('.back-btn');
+  if (!back) return;
+  back.setAttribute('href', '../index.html');
+  back.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.location.href = '../index.html';
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  const modal = document.getElementById('signoutModal');
+  const yesBtn = document.getElementById('signoutYes');
+  const noBtn = document.getElementById('signoutNo');
+  if (!modal || !yesBtn || !noBtn) return;
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('#signoutBtn')) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      modal.classList.add('show');
+    }
+  }, true);
+  noBtn.addEventListener('click', function () {
+    modal.classList.remove('show');
+  });
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) modal.classList.remove('show');
+  });
+  yesBtn.addEventListener('click', function () {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userEmail');
+    window.location.replace('login.html');
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var btn = document.getElementById('signoutBtn');
+  if (!btn) {
+    btn = document.createElement('a');
+    btn.id = 'signoutBtn';
+    btn.href = 'login.html';
+    btn.title = 'Sign Out';
+    btn.innerHTML =
+      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" ' +
+      'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>' +
+      '<polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>' +
+      '<span>Sign Out</span>';
+    btn.style.cssText =
+      'position:fixed;top:16px;right:24px;z-index:100;display:flex;align-items:center;gap:8px;' +
+      'padding:9px 16px;background:#09b5fe;color:#fff;border-radius:20px;font-size:0.9rem;' +
+      'font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;';
+    document.body.appendChild(btn);
+  }
+  if (document.getElementById('signoutModal')) return;
+  var modal = document.createElement('div');
+  modal.id = 'signoutModal';
+  modal.style.cssText =
+    'display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);align-items:center;' +
+    'justify-content:center;z-index:300;';
+  modal.innerHTML =
+    '<div style="width:320px;max-width:90%;padding:24px;background:#fff;text-align:center;' +
+    'font-family:Arial,sans-serif;color:#1c1c1c;">' +
+    '<p style="margin:0 0 16px;font-size:1.05rem;font-weight:bold;">Apakah kamu yakin ingin Sign Out?</p>' +
+    '<button type="button" id="soYes" style="min-width:90px;padding:8px 16px;margin-right:8px;' +
+    'background:#09b5fe;color:#fff;border:none;border-radius:20px;cursor:pointer;">Ya</button>' +
+    '<button type="button" id="soNo" style="min-width:90px;padding:8px 16px;background:#777;' +
+    'color:#fff;border:none;border-radius:20px;cursor:pointer;">Tidak</button></div>';
+  document.body.appendChild(modal);
+
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    modal.style.display = 'flex';
+  });
+
+  document.getElementById('soNo').addEventListener('click', function () {
+    modal.style.display = 'none';
+  });
+
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) modal.style.display = 'none';
+  });
+
+  document.getElementById('soYes').addEventListener('click', function () {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userEmail');
+    window.location.replace('login.html');
+  });
+});
+
+(function () {
+  const DATA_KEYS = ['postReactions', 'userPosts', 'avatarGracia', 'userCommunities'];
+  const PREFIX = 'akunBackup:';
+  const AKUN_LAMA = ['graciacs.14052008@gmail.com'];
+  const CONTOH = ['Judul Post Contoh', 'Belajar HTML, CSS, dan JavaScript', 'Tips Ngoding di VS Code'];
+
+  function bacaPengguna() {
+    const kunci = ['currentUser', 'loggedInUser', 'user', 'userAccount', 'account'];
+    for (let i = 0; i < kunci.length; i++) {
+      const raw = localStorage.getItem(kunci[i]);
+      if (!raw) continue;
+      try {
+        const obj = JSON.parse(raw);
+        if (obj && typeof obj === 'object') return obj;
+      } catch (err) {}
+    }
+    return null;
+  }
+
+  function idAktif() {
+    const obj = bacaPengguna();
+    const email = localStorage.getItem('userEmail') ||
+      (obj && obj.email) ||
+      localStorage.getItem('email');
+    return email ? String(email).toLowerCase() : null;
+  }
+
+  function cadangkan(id) {
+    const data = {};
+    DATA_KEYS.forEach(function (k) {
+      const v = localStorage.getItem(k);
+      if (v !== null) data[k] = v;
+    });
+    localStorage.setItem(PREFIX + id, JSON.stringify(data));
+  }
+
+  function pulihkan(id) {
+    const raw = localStorage.getItem(PREFIX + id);
+    if (!raw) return;
+    let data = {};
+    try { data = JSON.parse(raw); } catch (err) { return; }
+    DATA_KEYS.forEach(function (k) {
+      if (localStorage.getItem(k) === null && data[k] !== undefined) {
+        localStorage.setItem(k, data[k]);
+      }
+    });
+  }
+
+  const asliSet = Storage.prototype.setItem;
+  Storage.prototype.setItem = function (k, v) {
+    asliSet.call(this, k, v);
+    if (this === window.localStorage && DATA_KEYS.indexOf(k) !== -1) {
+      const id = idAktif();
+      if (id) cadangkan(id);
+    }
+  };
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('#signoutYes, #soYes')) return;
+    const id = idAktif();
+    if (id) cadangkan(id);
+    DATA_KEYS.forEach(function (k) { localStorage.removeItem(k); });
+  }, true);
+
+  const id = idAktif();
+  if (id) {
+    const terakhir = localStorage.getItem(PREFIX + '__terakhir');
+    if (terakhir && terakhir !== id) {
+      DATA_KEYS.forEach(function (k) { localStorage.removeItem(k); });
+    }
+    pulihkan(id);
+    localStorage.setItem(PREFIX + '__terakhir', id);
+    cadangkan(id);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const aktif = idAktif();
+    if (!aktif || AKUN_LAMA.indexOf(aktif) !== -1) return;
+    const section = document.querySelector('.profile-posts');
+    if (!section) return;
+    Array.from(section.querySelectorAll('.post-card')).slice(0, 3).forEach(function (card) {
+      const h3 = card.querySelector('h3');
+      if (h3 && CONTOH.indexOf(h3.textContent) !== -1) card.remove();
+    });
+    const postStat = document.querySelector('.profile-stats span strong');
+    if (postStat) postStat.textContent = section.querySelectorAll('.post-card').length;
+  });
+})();
+
+(function () {
+  const ref = document.referrer;
+  const keluarga = ['profile.html', 'likes.html', 'tidaksuka.html', 'laporan.html'];
+  const gerbang = ['login.html', 'signin.html'];
+  const dalam = !!ref && ref.indexOf(window.location.origin) === 0;
+  const dariKeluarga = dalam && keluarga.some(function (p) { return ref.indexOf(p) !== -1; });
+  const dariGerbang = dalam && gerbang.some(function (p) { return ref.indexOf(p) !== -1; });
+
+  if (!dalam || dariGerbang) {
+    sessionStorage.removeItem('profileAsal');
+  } else if (!dariKeluarga) {
+    sessionStorage.setItem('profileAsal', ref);
+  }
+
+  document.addEventListener('click', function (e) {
+    const back = e.target.closest('.back-btn');
+    if (!back) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    const asal = sessionStorage.getItem('profileAsal');
+    if (asal) {
+      window.location.href = asal;
+    } else if (window.history.length > 1 && !dariGerbang && !dariKeluarga) {
+      window.history.back();
+    } else {
+      window.location.href = '../index.html';
+    }
+  }, true);
+})();
+
+document.addEventListener('DOMContentLoaded', function () {
+  const nama = localStorage.getItem('username');
+  const email = localStorage.getItem('userEmail');
+  const heading = document.querySelector('.profile-info h1');
+  const bio = document.querySelector('.profile-bio');
+  if (nama && heading) heading.textContent = nama;
+  if (email && bio) bio.textContent = email;
+});
+document.addEventListener('DOMContentLoaded', function () {
+  var backButton = document.querySelector('.back-btn');
+
+  if (!backButton) return;
+
+  backButton.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    window.location.href = '../index.html';
+  }, true);
+});
+window.addEventListener('click', function (e) {
+  var backButton = e.target.closest('.back-btn');
+
+  if (!backButton) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+  window.location.href = '../index.html';
+}, true);
+document.addEventListener('DOMContentLoaded', function () {
+  var posts = document.querySelector('.profile-posts');
+  if (!posts) return;
+
+  var openTitle = '';
+
+  var fallbackAvatar = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">' +
+    '<rect width="200" height="200" fill="#09b5fe"/>' +
+    '<circle cx="100" cy="78" r="38" fill="#ffffff"/>' +
+    '<path d="M25 200c0-42 33-72 75-72s75 30 75 72z" fill="#ffffff"/>' +
+    '</svg>'
+  );
+
+  function readComments() {
+    try {
+      return JSON.parse(localStorage.getItem('postComments')) || {};
+    } catch (err) {
+      return {};
+    }
+  }
+
+  function currentName() {
+    var heading = document.querySelector('.profile-info h1');
+    return localStorage.getItem('username') || (heading ? heading.textContent.trim() : '') || 'Gracia';
+  }
+
+  function currentPhoto() {
+    return localStorage.getItem('avatarGracia') || fallbackAvatar;
+  }
+
+  function isCommentButton(el) {
+    return el && el.tagName === 'BUTTON' && /^Komentar/.test(el.textContent.trim()) && el.closest('.post-card');
+  }
+
+  function titleOf(card) {
+    var h = card.querySelector('h3');
+    return h ? h.textContent.trim() : '';
+  }
+
+  function formatTime(t) {
+    return new Date(t).toLocaleString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+  }
+
+  function refreshCounts() {
+    var data = readComments();
+    posts.querySelectorAll('.post-card').forEach(function (card) {
+      var btn = Array.from(card.querySelectorAll('button')).find(function (b) {
+        return /^Komentar/.test(b.textContent.trim());
+      });
+      if (!btn) return;
+      var label = 'Komentar (' + (data[titleOf(card)] || []).length + ')';
+      if (btn.textContent.trim() !== label) btn.textContent = label;
+    });
+  }
+
+  var overlay = document.createElement('div');
+  overlay.className = 'cm-overlay';
+  overlay.innerHTML =
+    '<div class="cm-modal" role="dialog" aria-modal="true">' +
+    '<div class="cm-top"><h3>Detail Diskusi</h3><button type="button" class="cm-close" aria-label="Tutup">&times;</button></div>' +
+    '<div class="cm-post"><strong class="cm-post-author"></strong><strong class="cm-post-title"></strong><p class="cm-post-body"></p></div>' +
+    '<h4 class="cm-count"></h4>' +
+    '<ul class="cm-list"></ul>' +
+    '<form class="cm-form"><input type="text" class="cm-input" autocomplete="off"><button type="submit" class="cm-send">Kirim</button></form>' +
+    '</div>';
+  document.body.appendChild(overlay);
+
+  var closeBtn = overlay.querySelector('.cm-close');
+  var postAuthor = overlay.querySelector('.cm-post-author');
+  var postTitle = overlay.querySelector('.cm-post-title');
+  var postBody = overlay.querySelector('.cm-post-body');
+  var count = overlay.querySelector('.cm-count');
+  var list = overlay.querySelector('.cm-list');
+  var form = overlay.querySelector('.cm-form');
+  var input = overlay.querySelector('.cm-input');
+
+  function render() {
+    var items = readComments()[openTitle] || [];
+    count.textContent = 'Komentar (' + items.length + ')';
+    list.innerHTML = '';
+
+    items.forEach(function (c) {
+      var li = document.createElement('li');
+      li.className = 'cm-item';
+
+      var img = document.createElement('img');
+      img.className = 'cm-avatar';
+      img.alt = c.user;
+      img.src = c.user === currentName() ? currentPhoto() : fallbackAvatar;
+      img.addEventListener('error', function () { img.src = fallbackAvatar; });
+
+      var body = document.createElement('div');
+      body.className = 'cm-body';
+
+      var head = document.createElement('div');
+      head.className = 'cm-head';
+
+      var name = document.createElement('strong');
+      name.textContent = c.user;
+
+      var time = document.createElement('span');
+      time.textContent = formatTime(c.t);
+
+      var text = document.createElement('p');
+      text.textContent = c.text;
+
+      head.appendChild(name);
+      head.appendChild(time);
+      body.appendChild(head);
+      body.appendChild(text);
+      li.appendChild(img);
+      li.appendChild(body);
+      list.appendChild(li);
+    });
+
+    list.scrollTop = list.scrollHeight;
+    refreshCounts();
+  }
+
+  function openModal(card) {
+    var p = card.querySelector('p');
+    openTitle = titleOf(card);
+    postAuthor.textContent = currentName();
+    postTitle.textContent = openTitle;
+    postBody.textContent = p ? p.textContent.trim() : '';
+    input.placeholder = 'Tulis komentar sebagai ' + currentName() + '...';
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    render();
+    input.focus();
+  }
+
+  function closeModal() {
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    openTitle = '';
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn || !isCommentButton(btn)) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    openModal(btn.closest('.post-card'));
+  }, true);
+
+  closeBtn.addEventListener('click', closeModal);
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeModal();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('show')) closeModal();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = input.value.trim();
+    if (text === '' || openTitle === '') return;
+
+    var data = readComments();
+    if (!data[openTitle]) data[openTitle] = [];
+    data[openTitle].push({ user: currentName(), text: text, t: Date.now() });
+    localStorage.setItem('postComments', JSON.stringify(data));
+
+    input.value = '';
+    render();
+  });
+
+  new MutationObserver(refreshCounts).observe(posts, { childList: true, subtree: true });
+  refreshCounts();
+  setTimeout(refreshCounts, 300);
 });
