@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Forumly - Beranda Diskusi</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/exhome.css">
 </head>
-  <script>
+ <script>
     document.addEventListener('DOMContentLoaded', function () {
       if (localStorage.getItem('isLoggedIn') !== 'true') return;
       var name = localStorage.getItem('username');
@@ -136,7 +137,7 @@
           <a href="community/community.html" class="nav-item">Komunitas</a>
 
           <span class="nav-title">HALAMAN UTAMA</span>
-          <a href="pages/search-bar-result.html" class="nav-item">Post</a>
+          <a href="pages/search-bar-result.html?view=post" class="nav-item">Post</a>
           <a href="pages/create-post.html" class="nav-item">Buat Post</a>
           <a href="pages/popular.html" class="nav-item">Popular</a>
           <a href="pages/chat.html" class="nav-item">Chat</a>
@@ -190,7 +191,7 @@
                     data-author="Budi Setiwan"
                     data-title="Tips belajar struktur data dan algoritma untuk persiapan praktikum minggu depan?"
                     data-content="Lagi persiapan ujian modul pohon (tree) dan graf. Ada saran visualisasi algoritma atau metode latihan yang efektif buat mahasiswa Informatik?">
-              Komentar (<span class="comment-count-label">0</span>)
+               Komentar (<span class="comment-count-label">0</span>)
             </button>
             <button class="btn-action btn-report-post" data-target="Post Budi Setiwan"> Laporkan</button>
           </div>
@@ -212,7 +213,7 @@
                     data-author="Rian Pratama"
                     data-title="Anime Spring Season 2026 mana yang paling worth it buat diikuti?"
                     data-content="Musim ini lumayan banyak rilis sekuel dan adaptasi baru. Mau minta rekomendasi anime genre misteri atau slice of life yang alurnya rapi.">
-              Komentar (<span class="comment-count-label">2</span>)
+               Komentar (<span class="comment-count-label">2</span>)
             </button>
             <button class="btn-action btn-report-post" data-target="Post Rian Pratama"> Laporkan</button>
           </div>
@@ -302,6 +303,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/exhome.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

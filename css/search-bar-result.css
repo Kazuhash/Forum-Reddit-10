@@ -35,14 +35,6 @@ body {
   min-height: 100vh;
 }
 
-.sr-navbar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background-color: var(--bg-card);
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--border-color);
-}
 
 a.sr-logo {
   font-size: 22px;
@@ -422,4 +414,41 @@ a.sr-logo {
   .sr-toolbar select {
     flex: 1;
   }
+}
+
+.sr-report-select { 
+    width: 100%; 
+    padding: 10px; 
+    margin: 12px 0; 
+    border-radius: 8px;
+    border: 1px solid var(--border-color); 
+    background: var(--input-bg); 
+    color: inherit; 
+    font: inherit; 
+}
+.sr-report-submit { 
+    width: 100%; 
+    padding: 10px; 
+    border: 0; 
+    border-radius: 8px; 
+    background: var(--accent); 
+    color: #fff; 
+    font-weight: 600; 
+    cursor: pointer; 
+}
+
+.sr-toast { 
+    position: fixed; 
+    bottom: 24px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: #222; color: #fff; 
+    padding: 10px 18px; 
+    border-radius: 8px; 
+    font-size: 14px; 
+    display: none; 
+    z-index: 9999; 
+}
+.sr-toast.show { 
+    display: block; 
 }

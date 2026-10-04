@@ -5,9 +5,9 @@ $(document).ready(function () {
     }
 
     var me = localStorage.getItem('username') || 'Gracia';
-    var KEY_REACT = 'postReactions';   
-    var KEY_COMMENT = 'postComments';  
-    var KEY_JOIN = 'userCommunities';  
+    var KEY_REACT = 'postReactions';
+    var KEY_COMMENT = 'postComments';
+    var KEY_JOIN = 'userCommunities';
     var activeCard = null;
 
     function load(key, fallback) {
@@ -49,15 +49,16 @@ $(document).ready(function () {
         $('.sr-results').prepend(card);
     });
 
-    $('.sr-card[data-category="posts"]').each(function () {
+    $('.sr-card[data-category="posts"], .sr-card[data-category="comments"]').each(function () {
         var card = $(this);
+        var isComment = card.data('category') === 'comments';
         var base = parseInt(card.find('.sr-card-footer span').first().text().replace(/\D/g, ''), 10) || 0;
 
         card.data('base', base);
         card.find('.sr-card-footer').empty().append(
             '<button type="button" class="btn-action btn-like"></button>',
             '<button type="button" class="btn-action btn-dislike"></button>',
-            '<button type="button" class="btn-action btn-comment"></button>',
+            isComment ? '' : '<button type="button" class="btn-action btn-comment"></button>',
             '<button type="button" class="btn-action btn-report"></button>'
         );
         render(card);
@@ -74,9 +75,7 @@ $(document).ready(function () {
             .text('Tidak Suka (' + d.dislike.length + ')')
             .toggleClass('active', d.dislike.indexOf(me) > -1);
         card.find('.btn-comment').text('Komentar (' + comments(title).length + ')');
-        card.find('.btn-report')
-            .text('Laporkan (' + d.report.length + ')')
-            .toggleClass('active', d.report.indexOf(me) > -1);
+        card.find('.btn-report').text('Laporkan');
     }
 
     function toggleReaction(title, type, opposite) {
@@ -100,14 +99,50 @@ $(document).ready(function () {
         save(KEY_REACT, all);
     }
 
-    $('.sr-results').on('click', '.btn-like, .btn-dislike, .btn-report', function () {
+    $('.sr-results').on('click', '.btn-like, .btn-dislike', function () {
         var btn = $(this);
         var card = btn.closest('.sr-card');
-        var type = btn.hasClass('btn-like') ? 'like' : (btn.hasClass('btn-dislike') ? 'dislike' : 'report');
-        var opposite = type === 'like' ? 'dislike' : (type === 'dislike' ? 'like' : null);
+        var type = btn.hasClass('btn-like') ? 'like' : 'dislike';
+        var opposite = type === 'like' ? 'dislike' : 'like';
 
         toggleReaction(titleOf(card), type, opposite);
         render(card);
+    });
+
+    var reportCard = null;
+
+    function toast(msg) {
+        $('#sr-toast').text(msg).addClass('show');
+        setTimeout(function () { $('#sr-toast').removeClass('show'); }, 2500);
+    }
+
+    $('.sr-results').on('click', '.btn-report', function () {
+        reportCard = $(this).closest('.sr-card');
+        $('#sr-report-target').text('Laporkan: ' + titleOf(reportCard));
+        $('#sr-report-modal').addClass('show');
+    });
+
+    $('#sr-report-close').on('click', function () {
+        $('#sr-report-modal').removeClass('show');
+    });
+
+    $('#sr-report-modal').on('click', function (e) {
+        if (e.target === this) {
+            $(this).removeClass('show');
+        }
+    });
+
+    $('#sr-report-submit').on('click', function () {
+        var title = titleOf(reportCard);
+        var all = load(KEY_REACT, {});
+        var d = all[title] = all[title] || { like: [], dislike: [], report: [] };
+        d.report = d.report || [];
+        if (d.report.indexOf(me) === -1) {
+            d.report.push(me);
+        }
+        save(KEY_REACT, all);
+        $('#sr-report-modal').removeClass('show');
+        toast('Laporan berhasil dikirim.');
     });
 
     function renderComments() {
@@ -193,17 +228,22 @@ $(document).ready(function () {
         renderJoin();
     });
 
+    var query = (new URLSearchParams(window.location.search).get('q') || '').toLowerCase().trim();
+
     function applyFilters() {
-        var keyword = $('#sr-search-input').val().toLowerCase();
         var selectedTab = $('.sr-tab.active').data('tab');
         var visibleCount = 0;
 
         $('.sr-card').each(function () {
-            var matchText = $(this).text().toLowerCase().indexOf(keyword) > -1;
-            var matchTab = $(this).data('category') === selectedTab;
+            var card = $(this);
+            var haystack = (card.find('.sr-title').text() + ' ' +
+                card.find('.sr-snippet').text() + ' ' +
+                card.find('.sr-card-header').text()).toLowerCase();
+            var matchText = !query || haystack.indexOf(query) > -1;
+            var matchTab = card.data('category') === selectedTab;
             var show = matchText && matchTab;
 
-            $(this).toggle(show);
+            card.toggle(show);
             if (show) {
                 visibleCount++;
             }
@@ -212,23 +252,11 @@ $(document).ready(function () {
         $('#sr-no-results').toggleClass('show', visibleCount === 0);
     }
 
-    $('#sr-search-input').on('input', applyFilters);
-
-    $('#sr-clear-btn').on('click', function () {
-        $('#sr-search-input').val('').focus();
-        applyFilters();
-    });
-
     $('.sr-tab').on('click', function () {
         $('.sr-tab').removeClass('active');
         $(this).addClass('active');
         applyFilters();
     });
-
-    var query = new URLSearchParams(window.location.search).get('q');
-    if (query) {
-        $('#sr-search-input').val(query);
-    }
 
     renderJoin();
     applyFilters();
