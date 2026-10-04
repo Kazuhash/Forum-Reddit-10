@@ -1,4 +1,5 @@
 if (window.top !== window) { document.documentElement.classList.add('in-panel'); }
+
 $(document).ready(function () {
     function applyTheme() {
         const savedTheme = localStorage.getItem("theme");
