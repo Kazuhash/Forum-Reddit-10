@@ -1,110 +1,328 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings - Reddit Clone</title>
-  <link rel="stylesheet" href="../css/settings.css">
+  <title>Forumly - Pengaturan</title>
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    .settings-container {
+      background: var(--bg-card, #ffffff);
+      border: 1px solid var(--border-color, #e1e8ed);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 15px;
+    }
+
+    .settings-tabs {
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-color, #e1e8ed);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+    }
+
+    .sr-nav-item {
+      background: none;
+      border: none;
+      padding: 10px 18px;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #657786;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .sr-nav-item.active, 
+    .sr-nav-item:hover {
+      background-color: #1da1f2;
+      color: #ffffff;
+    }
+
+    .sr-settings-panel {
+      display: none !important;
+    }
+
+    .sr-settings-panel.active {
+      display: block !important;
+    }
+
+    .sr-form-group {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sr-form-group label {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .sr-form-group input,
+    .sr-form-group textarea {
+      padding: 10px 14px;
+      border: 1px solid #ccd6dd;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .sr-form-group input:focus,
+    .sr-form-group textarea:focus {
+      border-color: #1da1f2;
+    }
+
+    .sr-toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f3f5;
+    }
+
+    .sr-toggle-title {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .sr-toggle-desc {
+      display: block;
+      font-size: 12px;
+      color: #657786;
+    }
+
+    .sr-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .sr-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .sr-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: .3s;
+      border-radius: 24px;
+    }
+
+    .sr-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .sr-slider {
+      background-color: #1da1f2;
+    }
+
+    input:checked + .sr-slider:before {
+      transform: translateX(20px);
+    }
+  </style>
 </head>
+
 <body>
 
-  <!-- Top Navbar matching search-bar-results -->
-  <header class="sr-navbar">
-    <a href="/" class="sr-logo">reddit</a>
+  <div class="toast-container" id="toastContainer"></div>
 
-    <div class="sr-search-container">
-      <input type="text" id="sr-search-input" placeholder="Search Reddit">
-      <button id="sr-clear-btn" aria-label="Clear search">&times;</button>
-    </div>
+  <div class="app-container">
 
-    <div class="sr-navbar-actions">
-      <!-- Settings Icon Button -->
-      <a href="settings.html" class="sr-icon-btn active" title="Settings">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"></circle>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-        </svg>
-      </a>
-      <a href="/create" class="sr-create-btn">+ Create</a>
-    </div>
-  </header>
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <a href="../index.html" class="logo">Forumly</a>
+        </div>
 
-  <!-- Main Settings Container -->
-  <div class="sr-settings-layout">
-    <!-- Sidebar Navigation -->
-    <aside class="sr-settings-sidebar">
-      <nav class="sr-settings-nav">
-        <button class="sr-nav-item active" data-tab="profile">Profile Settings</button>
-        <button class="sr-nav-item" data-tab="account">Account Preferences</button>
-        <button class="sr-nav-item" data-tab="appearance">Appearance & Privacy</button>
-      </nav>
+        <nav class="nav-group">
+          <span class="nav-title">NAVIGASI UTAMA</span>
+          <a href="../index.html" class="nav-item">Beranda</a>
+          <a href="../explore/explore.html" class="nav-item">Explore Topik</a>
+          <a href="../community/community.html" class="nav-item">Komunitas</a>
+
+          <span class="nav-title">HALAMAN UTAMA</span>
+          <a href="search-bar-result.html" class="nav-item">Post</a>
+          <a href="create-post.html" class="nav-item">Buat Post</a>
+          <a href="popular.html" class="nav-item">Popular</a>
+          <a href="chat.html" class="nav-item">Chat</a>
+          <a href="inbox.html" class="nav-item">Inbox</a>
+          <a href="whats-new.html" class="nav-item">What's New</a>
+          <a href="about.html" class="nav-item">About</a>
+          <a href="settings.html" class="nav-item active">Settings</a>
+          <a href="contact.html" class="nav-item">Contact Us</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button class="btn-sidebar-theme" id="btnThemeToggle">🌙 Mode Gelap</button>
+
+        <a href="login.html" class="user-profile-card">
+          <div class="avatar">G</div>
+          <div class="user-info">
+            <span class="user-name">Guest</span>
+            <span class="user-status">Belum Login</span>
+          </div>
+        </a>
+      </div>
     </aside>
 
-    <!-- Main Content Panels -->
-    <main class="sr-settings-content">
-      <!-- Profile Settings Panel -->
-      <section id="panel-profile" class="sr-settings-panel active">
-        <h2 class="sr-panel-title">Profile Settings</h2>
-        <form id="profile-form">
-          <div class="sr-form-group">
-            <label for="display-name">Display Name</label>
-            <input type="text" id="display-name" name="displayName" placeholder="Enter display name">
-          </div>
-          <div class="sr-form-group">
-            <label for="about-me">About (Bio)</label>
-            <textarea id="about-me" name="aboutMe" rows="3" placeholder="Tell us about yourself"></textarea>
-          </div>
-          <button type="submit" class="sr-join-btn">Save Changes</button>
-        </form>
-      </section>
+    <main class="main-content">
+      <section class="settings-container">
+        <h2 class="feed-title">Pengaturan Akun</h2>
 
-      <!-- Account Preferences Panel -->
-      <section id="panel-account" class="sr-settings-panel">
-        <h2 class="sr-panel-title">Account Preferences</h2>
-        <form id="account-form">
-          <div class="sr-form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="name@example.com">
-          </div>
-          <div class="sr-form-group">
-            <label for="change-password">New Password</label>
-            <input type="password" id="change-password" name="password" placeholder="New password">
-          </div>
-          <button type="submit" class="sr-join-btn">Update Account</button>
-        </form>
-      </section>
-
-      <!-- Appearance & Privacy Panel -->
-      <section id="panel-appearance" class="sr-settings-panel">
-        <h2 class="sr-panel-title">Appearance & Privacy</h2>
-        
-        <!-- Toggle Row: Dark Mode -->
-        <div class="sr-toggle-row">
-          <div class="sr-toggle-label">
-            <span class="sr-toggle-title">Dark Mode</span>
-            <span class="sr-toggle-desc">Enable dark theme across the application</span>
-          </div>
-          <label class="sr-switch">
-            <input type="checkbox" id="dark-mode-toggle" checked>
-            <span class="sr-slider"></span>
-          </label>
+        <div class="settings-tabs">
+          <button type="button" class="sr-nav-item active" data-tab="profile">Profile</button>
+          <button type="button" class="sr-nav-item" data-tab="account">Account</button>
+          <button type="button" class="sr-nav-item" data-tab="appearance">Appearance & Privacy</button>
         </div>
 
-        <!-- Toggle Row: Email Notifications -->
-        <div class="sr-toggle-row">
-          <div class="sr-toggle-label">
-            <span class="sr-toggle-title">Email Notifications</span>
-            <span class="sr-toggle-desc">Receive updates and summary emails</span>
-          </div>
-          <label class="sr-switch">
-            <input type="checkbox" id="email-notifications" checked>
-            <span class="sr-slider"></span>
-          </label>
-        </div>
+        <section id="panel-profile" class="sr-settings-panel active">
+          <h3 style="margin-bottom: 16px;">Profile Settings</h3>
+          <form id="profile-form">
+            <div class="sr-form-group">
+              <label for="display-name">Display Name</label>
+              <input type="text" id="display-name" name="displayName" placeholder="Masukkan nama tampilan">
+            </div>
+            <div class="sr-form-group">
+              <label for="about-me">Bio / Description</label>
+              <textarea id="about-me" name="aboutMe" rows="3" placeholder="Ceritakan tentang diri Anda"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Simpan Profil</button>
+          </form>
+        </section>
+
+        <section id="panel-account" class="sr-settings-panel">
+          <h3 style="margin-bottom: 16px;">Account Preferences</h3>
+          <form id="account-form">
+            <div class="sr-form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="nama@email.com">
+            </div>
+            <div class="sr-form-group">
+              <label for="current-password">Password Saat Ini</label>
+              <input type="password" id="current-password" name="currentPassword" placeholder="••••••••">
+            </div>
+            <div class="sr-form-group">
+              <label for="new-password">Password Baru</label>
+              <input type="password" id="new-password" name="newPassword" placeholder="Masukkan password baru">
+            </div>
+            <button type="submit" class="btn btn-primary">Update Akun</button>
+          </form>
+        </section>
+
+        <section id="panel-appearance" class="sr-settings-panel">
+          <h3 style="margin-bottom: 16px;">Appearance & Privacy</h3>
+          <form id="appearance-form">
+            <div class="sr-toggle-row">
+              <div class="sr-toggle-label">
+                <span class="sr-toggle-title">Notifikasi Email</span>
+                <span class="sr-toggle-desc">Terima ringkasan diskusi dan pembaruan akun via email.</span>
+              </div>
+              <label class="sr-switch">
+                <input type="checkbox" id="email-notifications" checked>
+                <span class="sr-slider"></span>
+              </label>
+            </div>
+
+            <div class="sr-toggle-row">
+              <div class="sr-toggle-label">
+                <span class="sr-toggle-title">Profil Publik</span>
+                <span class="sr-toggle-desc">Izinkan pengguna lain melihat aktivitas profil Anda.</span>
+              </div>
+              <label class="sr-switch">
+                <input type="checkbox" id="public-profile" checked>
+                <span class="sr-slider"></span>
+              </label>
+            </div>
+
+            <div class="sr-toggle-row">
+              <div class="sr-toggle-label">
+                <span class="sr-toggle-title">Tampilkan Status Online</span>
+                <span class="sr-toggle-desc">Memperlihatkan tanda aktif saat Anda membuka Forumly.</span>
+              </div>
+              <label class="sr-switch">
+                <input type="checkbox" id="online-status">
+                <span class="sr-slider"></span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Simpan Privasi</button>
+          </form>
+        </section>
+
       </section>
     </main>
+
   </div>
 
-  <script src="../js/settings.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../script.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const tabs = document.querySelectorAll('.sr-nav-item');
+      const panels = document.querySelectorAll('.sr-settings-panel');
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetTab = this.getAttribute('data-tab');
+
+          tabs.forEach(function (t) { t.classList.remove('active'); });
+          
+          this.classList.add('active');
+
+          panels.forEach(function (panel) {
+            if (panel.id === 'panel-' + targetTab) {
+              panel.classList.add('active');
+            } else {
+              panel.classList.remove('active');
+            }
+          });
+        });
+      });
+
+      const pForm = document.getElementById('profile-form');
+      if (pForm) {
+        pForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          alert('Profil berhasil diperbarui!');
+        });
+      }
+
+      const aForm = document.getElementById('account-form');
+      if (aForm) {
+        aForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          alert('Pengaturan akun berhasil diperbarui!');
+        });
+      }
+
+      const apForm = document.getElementById('appearance-form');
+      if (apForm) {
+        apForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          alert('Pengaturan tampilan & privasi disimpan!');
+        });
+      }
+    });
+  </script>
 </body>
 </html>
