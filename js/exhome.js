@@ -1,5 +1,4 @@
-// Tambahan homepage: post buatan user, modal Buat Post, dan inbox kecil.
-// Harus dimuat SEBELUM script.js supaya tombol di post baru ikut ter-bind.
+
 $(document).ready(function () {
 
     var me = localStorage.getItem('username') || 'Gracia';
@@ -35,7 +34,6 @@ $(document).ready(function () {
         }, 2500);
     }
 
-    // 1. Post buatan user tampil di feed (markup sama dengan post homepage)
     function buildCard(p, id) {
         var author = p.author || me;
         var content = p.content || '';
@@ -76,7 +74,6 @@ $(document).ready(function () {
         feedTitle.after(buildCard(p, 'u' + (p.time || i)));
     });
 
-    // 2. Kotak "tulis postingan" + modal Buat Post (tanpa pindah halaman)
     feedTitle.after(
         $('<div class="home-composer">').append(
             $('<button type="button" class="home-composer-btn" id="btnOpenPostModal">')
@@ -155,7 +152,6 @@ $(document).ready(function () {
         });
         localStorage.setItem('userPosts', JSON.stringify(posts));
 
-        // Muat ulang halaman yang sama supaya post baru ikut ter-bind oleh script.js
         sessionStorage.setItem('homeToast', 'Post berhasil dibuat di ' + community + '.');
         window.location.reload();
     });
@@ -165,7 +161,6 @@ $(document).ready(function () {
         sessionStorage.removeItem('homeToast');
     }
 
-    // 3. Inbox kecil di pojok kanan bawah (status baca sama dengan halaman inbox)
     var inboxItems = [
         { id: 1, text: 'u/kang_kung replied to your post', time: '5m ago', unread: true },
         { id: 2, text: 'u/AutoModerator welcome to r/webdev!', time: '1h ago', unread: true },
@@ -250,7 +245,6 @@ $(document).ready(function () {
     renderInbox();
 
 });
-// Buka Buat Post / Inbox / Search / Explore / Komunitas di samping sidebar (tanpa pindah halaman)
 $(function () {
   var $feed = $('.feed-section');
   var $frame = $('<iframe class="embed-frame" title="Panel">').hide().on('load', function () {
@@ -288,7 +282,6 @@ $(function () {
     $('.nav-item[href="index.html"]').addClass('active');
   }
 
-  // capture phase: tetap jalan walau elemen (mis. widget inbox) memakai stopPropagation
   document.addEventListener('click', function (e) {
     var a = e.target.closest ? e.target.closest('a[href]') : null;
     if (!a) return;
