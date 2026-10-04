@@ -1271,3 +1271,85 @@ document.addEventListener('DOMContentLoaded', function () {
   process();
   setTimeout(process, 300);
 });
+document.addEventListener('DOMContentLoaded', function () {
+  var list = document.getElementById('chatContactList');
+  var box = document.getElementById('chatMessages');
+  if (!list) return;
+
+  var iconAll = /[\u2605\u2606\u2B50\u2764\u2665\uFE0F\u{1F5D1}\u{1F497}\u{1F496}]/gu;
+  var lastLi = null;
+
+  function read(key, fallback) {
+    try {
+      var value = JSON.parse(localStorage.getItem(key));
+      return value === null || value === undefined ? fallback : value;
+    } catch (err) {
+      return fallback;
+    }
+  }
+
+  function cleanName(text) {
+    return text.replace(iconAll, '').replace(/\s+/g, ' ').trim();
+  }
+
+  function deletedNames() {
+    return read('chatDeleted', []);
+  }
+
+  function saveDeleted(names) {
+    localStorage.setItem('chatDeleted', JSON.stringify(names));
+  }
+
+  var wanted = new URLSearchParams(window.location.search).get('user');
+  var target = read('chatTarget', null);
+  if (wanted && target && String(target.id) === wanted && target.username) {
+    var back = cleanName(target.username);
+    saveDeleted(deletedNames().filter(function (n) { return n !== back; }));
+  }
+
+  function enforce() {
+    var gone = deletedNames();
+    if (gone.length === 0) return;
+
+    var removedActive = false;
+    list.querySelectorAll('li').forEach(function (li) {
+      if (gone.indexOf(cleanName(li.textContent)) === -1) return;
+      if (li.classList.contains('active')) removedActive = true;
+      li.remove();
+    });
+
+    localStorage.setItem('chatContacts', JSON.stringify(
+      read('chatContacts', []).filter(function (n) { return gone.indexOf(cleanName(n)) === -1; })
+    ));
+
+    if (!removedActive) return;
+    var first = list.querySelector('li');
+    if (first) first.click();
+    else if (box) box.innerHTML = '';
+  }
+
+  document.addEventListener('click', function (e) {
+    var trigger = e.target.closest('.contact-menu-btn');
+    if (trigger && list.contains(trigger)) lastLi = trigger.closest('li');
+
+    var del = e.target.closest('.contact-menu [data-act="delete"]');
+    if (!del || !lastLi) return;
+
+    var li = lastLi;
+    var name = cleanName(li.textContent);
+
+    setTimeout(function () {
+      if (document.body.contains(li)) return;
+      var gone = deletedNames();
+      if (gone.indexOf(name) === -1) {
+        gone.push(name);
+        saveDeleted(gone);
+      }
+    }, 60);
+  }, true);
+
+  new MutationObserver(enforce).observe(list, { childList: true });
+
+  enforce();
+  setTimeout(enforce, 300);
+});
