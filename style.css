@@ -732,5 +732,18 @@ html.in-panel .app-container {
   padding-left: 20px; 
 }
 
-.btn-action.active-save { background: var(--accent-soft);
-  color: var(--accent); }
+.modal-card input,
+.modal-card textarea,
+.modal-content input,
+.modal-content textarea {
+  background-color: var(--input-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.modal-card input::placeholder,
+.modal-card textarea::placeholder,
+.modal-content input::placeholder,
+.modal-content textarea::placeholder {
+  color: var(--text-muted);
+}
