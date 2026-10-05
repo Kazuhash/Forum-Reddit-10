@@ -199,8 +199,7 @@ $(document).ready(function () {
     var inboxItems = [
         { id: 1, text: 'u/kang_kung replied to your post', time: '5m ago', unread: true },
         { id: 2, text: 'u/AutoModerator welcome to r/webdev!', time: '1h ago', unread: true },
-        { id: 3, text: 'u/kang_kung sent you a direct message', time: '1 day ago', unread: false }
-    ];
+        { id: 3, text: 'u/kang_kung sent you a direct message', time: '1 day ago', unread: true }    ];
 
     $('body').append(
         '<div class="home-inbox">' +
