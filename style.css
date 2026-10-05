@@ -731,3 +731,6 @@ html.in-panel .app-container {
   grid-template-columns: minmax(0, 1fr) auto; 
   padding-left: 20px; 
 }
+
+.btn-action.active-save { background: var(--accent-soft);
+  color: var(--accent); }
