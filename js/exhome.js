@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
     var me = localStorage.getItem('username') || 'Gracia';
@@ -34,6 +33,42 @@ $(document).ready(function () {
         }, 2500);
     }
 
+    function mediaGet(id) {
+        return new Promise(function (resolve, reject) {
+            var open = indexedDB.open('forumlyMedia', 1);
+            open.onupgradeneeded = function () { open.result.createObjectStore('files'); };
+            open.onerror = function () { reject(open.error); };
+            open.onsuccess = function () {
+                var q = open.result.transaction('files').objectStore('files').get(id);
+                q.onsuccess = function () { resolve(q.result); };
+                q.onerror = function () { reject(q.error); };
+            };
+        });
+    }
+
+    function fillBody(box, p) {
+        var content = p.content || '';
+        box.empty();
+        if (p.mediaId) {
+            mediaGet(p.mediaId).then(function (blob) {
+                if (!blob) {
+                    box.text(content);
+                    return;
+                }
+                var url = URL.createObjectURL(blob);
+                var el = p.mediaType === 'video'
+                    ? $('<video controls preload="metadata">')
+                    : $('<img>').attr('alt', p.mediaName || p.title);
+                box.append(el.attr('src', url));
+            }).catch(function () { box.text(content); });
+        } else if (p.type === 'link' && /^https?:\/\/\S+$/i.test(content)) {
+            box.append($('<a target="_blank" rel="noopener noreferrer">').attr('href', content).text(content));
+        } else {
+            box.text(content);
+        }
+        return box;
+    }
+
     function buildCard(p, id) {
         var author = p.author || me;
         var content = p.content || '';
@@ -47,7 +82,7 @@ $(document).ready(function () {
                 )
             ),
             $('<h3 class="post-title">').text(p.title),
-            $('<p class="post-excerpt">').text(content),
+            fillBody($('<p class="post-excerpt">'), p),
             $('<div class="post-actions">').append(
                 $('<button type="button" class="btn-action btn-like" data-count="0">')
                     .append('♥ Suka (', '<span class="count-label">0</span>', ')'),
@@ -245,6 +280,7 @@ $(document).ready(function () {
     renderInbox();
 
 });
+
 $(function () {
   var $feed = $('.feed-section');
   var $frame = $('<iframe class="embed-frame" title="Panel">').hide().on('load', function () {

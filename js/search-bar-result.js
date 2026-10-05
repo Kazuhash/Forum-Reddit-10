@@ -35,6 +35,42 @@ $(document).ready(function () {
         return load(KEY_COMMENT, {})[title] || [];
     }
 
+    function mediaGet(id) {
+        return new Promise(function (resolve, reject) {
+            var open = indexedDB.open('forumlyMedia', 1);
+            open.onupgradeneeded = function () { open.result.createObjectStore('files'); };
+            open.onerror = function () { reject(open.error); };
+            open.onsuccess = function () {
+                var q = open.result.transaction('files').objectStore('files').get(id);
+                q.onsuccess = function () { resolve(q.result); };
+                q.onerror = function () { reject(q.error); };
+            };
+        });
+    }
+
+    function fillBody(box, p) {
+        var content = p.content || '';
+        box.empty();
+        if (p.mediaId) {
+            mediaGet(p.mediaId).then(function (blob) {
+                if (!blob) {
+                    box.text(content);
+                    return;
+                }
+                var url = URL.createObjectURL(blob);
+                var el = p.mediaType === 'video'
+                    ? $('<video controls preload="metadata">')
+                    : $('<img>').attr('alt', p.mediaName || p.title);
+                box.append(el.attr('src', url));
+            }).catch(function () { box.text(content); });
+        } else if (p.type === 'link' && /^https?:\/\/\S+$/i.test(content)) {
+            box.append($('<a target="_blank" rel="noopener noreferrer">').attr('href', content).text(content));
+        } else {
+            box.text(content);
+        }
+        return box;
+    }
+
     load('userPosts', []).slice().reverse().forEach(function (p) {
         var card = $('<div class="sr-card" data-category="posts">');
         card.append(
@@ -43,7 +79,7 @@ $(document).ready(function () {
                 $('<span class="sr-author">').text(' • Posted by ' + (p.author || me))
             ),
             $('<h3 class="sr-title">').text(p.title),
-            $('<p class="sr-snippet">').text(p.content || ''),
+            fillBody($('<p class="sr-snippet">'), p),
             $('<div class="sr-card-footer">')
         );
         $('.sr-results').prepend(card);
