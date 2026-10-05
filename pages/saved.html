@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forumly - Post Tersimpan</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/saved.css">
+</head>
+
+<body>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="app-container">
+
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand">
+          <a href="../index.html" class="logo">Forumly</a>
+        </div>
+
+        <nav class="nav-group">
+          <span class="nav-title">NAVIGASI UTAMA</span>
+          <a href="../index.html" class="nav-item">Beranda</a>
+          <a href="../explore/explore.html" class="nav-item">Explore Topik</a>
+          <a href="../community/community.html" class="nav-item">Komunitas</a>
+
+          <span class="nav-title">HALAMAN UTAMA</span>
+          <a href="search-bar-result.html?view=post" class="nav-item">Post</a>
+          <a href="saved.html" class="nav-item active">Tersimpan</a>
+          <a href="create-post.html" class="nav-item">Buat Post</a>
+          <a href="popular.html" class="nav-item">Popular</a>
+          <a href="chat.html" class="nav-item">Chat</a>
+          <a href="inbox.html" class="nav-item">Inbox</a>
+          <a href="whats-new.html" class="nav-item">What's New</a>
+          <a href="about.html" class="nav-item">About</a>
+          <a href="settings.html" class="nav-item">Settings</a>
+          <a href="contact-us.html" class="nav-item">Contact Us</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button class="btn-sidebar-theme" id="btnThemeToggle">🌙 Mode Gelap</button>
+
+        <a href="login.html" class="user-profile-card">
+          <div class="avatar">G</div>
+          <div class="user-info">
+            <span class="user-name">Guest</span>
+            <span class="user-status">Belum Login</span>
+          </div>
+        </a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="saved-header">
+        <h2 class="feed-title">Post Tersimpan</h2>
+        <p class="saved-sub">Diskusi yang kamu simpan untuk dibaca lagi nanti.</p>
+      </header>
+
+      <section class="saved-list" id="savedList"></section>
+    </main>
+
+    <aside class="right-sidebar">
+      <div class="widget-card">
+        <h4 class="widget-title">Ringkasan</h4>
+        <div class="saved-count"><span data-saved-count>0</span></div>
+        <small class="widget-sub">post tersimpan</small>
+        <button type="button" class="btn btn-clear-saved" id="btnClearSaved">Hapus Semua</button>
+      </div>
+
+      <div class="widget-card">
+        <h4 class="widget-title">Cara Menyimpan</h4>
+        <p class="widget-text">Buka Beranda atau Explore, lalu tekan tombol <strong>🔖 Simpan</strong> di bawah post. Tekan lagi untuk membatalkan.</p>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../script.js"></script>
+  <script src="../js/saved.js"></script>
+
+</body>
+</html>
